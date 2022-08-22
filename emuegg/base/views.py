@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from .models import User, Channel, Message, Topic
 from .forms import UserForm, CustomeUserCreationForm, RoomForm 
+import folium
 
 
 def loginView(req):
@@ -100,7 +101,12 @@ def channel(req, id):
     return render(req, 'base/channel.html', data)
 
 def map(req):
-    return render(req, 'base/map.html')
+    m = folium.Map(location=[-27.4973, 153.0134], zoom_start=4)
+    folium.Marker([-27.4974, 153.0134], popup='<strong>Brisbane</strong>', tooltip="Click for more information").add_to(m)
+    m = m._repr_html_()
+    data = {'m' : m}
+    return render(req, 'base/map.html', data)
+    
 
 @login_required(login_url='login')
 def createChannel(req):
