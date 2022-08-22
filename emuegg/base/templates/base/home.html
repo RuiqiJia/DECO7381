@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmuEgg</title>
+  </head>
+  <body>
+    {% block content %}
+
+    <style>
+      .home {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+      }
+    </style>
+    <div class="home">
+      <div class="sidebar">
+        <div class="sidebar-header">
+          <h3>Sidebar</h3>
+          <hr />
+        </div>
+        <div>
+          <a href="{% url 'home' %}">All</a>
+        </div>
+        {% for topic in topics %}
+        <div>
+          <a href="{% url 'home' %}?query={{topic.name}}">{{topic.name}}</a>
+        </div>
+        {% endfor %}
+      </div>
+      <div>
+        <h3>{{channel_count}} channels available</h3>
+        <a href="{% url 'create_channel' %}">Create Channel</a>
+        <br />
+        {% for channel in channels %}
+
+        <a href="{% url 'profile' channel.host.id %}"
+          >@{{channel.host.username}}</a
+        >
+        <a href="{% url 'channel' channel.id %}">
+          <h3>{{ channel.name }}</h3>
+          {% if request.user == channel.host %}
+          <a href="{% url 'update_channel' channel.id %}">Edit</a>
+          <a href="{% url 'delete_channel' channel.id %}">Delete</a>
+          {% endif %}
+        </a>
+        <br />
+        <small>{{channel.topic}}</small>
+        <hr />
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>

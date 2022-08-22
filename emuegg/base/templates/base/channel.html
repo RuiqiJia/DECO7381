@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discussion Channels</title>
+  </head>
+  <body>
+    {% extends 'main.html' %}
+    {% block content %}
+    <div class="channel">
+      <div>
+        <h1>This is discussion {{channel.name}}</h1>
+      <p>{{channel.description}}</p>
+      <div class="post">
+        <h2>Post</h2>
+        {% for post in posts %}
+          <div class="message">
+            {% if request.user == post.user %}}
+            <a href="{% url 'deleteMessage' post.id %}">Delete</a>
+            {% endif %}
+            <a href="{% url 'profile' user.id %}">@{{post.user.username}}</a>
+            <p>{{post.created | timesince}} ago</p>
+            
+            {{post.message}}
+            <hr>
+          </div>
+        {% endfor %}
+        </ul>
+        {% if request.user.is_authenticated %}
+        <div>
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="message" placeholder="Typing your messages here" />
+            <input type="submit" value="Post" />
+          </form>
+        </div>
+        {% endif %}
+      </div>
+      </div>
+      <div class="participants">
+        <h3 class="participants__top">Participants <span>({{participants.count}} People)</span></h3>
+        <div class="participants__list scroll">
+          {% for user in participants %}
+            <p>
+              
+              <a href="{% url 'profile' user.id %}">@{{user.username}}</a>
+            </p>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="recent">
+        <h3>Recent Activities</h3>
+        <hr />
+        {% for post in posts %}
+        <a href="{% url 'profile' post.user.id %}"
+          >@{{post.user.username}}</a
+        >
+        <small>{{post.created | timesince}} ago</small>
+        <br />
+        <small>in {{post.channel}}</small>
+        <p>{{post.message}}</p>
+        {% endfor %}
+      </div>
+    
+    </div>    
+    {% endblock %}
+  </body>
+</html>
