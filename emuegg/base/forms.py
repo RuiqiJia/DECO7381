@@ -18,4 +18,10 @@ class RoomForm(ModelForm):
     class Meta:
         model = Channel
         fields = '__all__'
-        exclude = ['host', 'paticipants']
+        
+
+class CountryForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['country']
+    

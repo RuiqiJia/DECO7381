@@ -1,7 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Material+Icons"
+  rel="stylesheet"
+/>
 <a href="/">
   <h1>logo</h1>
 </a>
+<!-- Header -->
 
+</div>
 <form method="GET" action="{% url 'home' %}">
   <input type="text" name="query" placeholder="Start searching..." />
 </form>

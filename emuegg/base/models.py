@@ -40,3 +40,7 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+
+class Location(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    country = models.CharField(max_length=50)

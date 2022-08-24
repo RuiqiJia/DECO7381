@@ -18,7 +18,7 @@
         {% for post in posts %}
           <div class="message">
             {% if request.user == post.user %}}
-            <a href="{% url 'deleteMessage' post.id %}">Delete</a>
+            <a href="{% url 'delete_message' post.id %}">Delete</a>
             {% endif %}
             <a href="{% url 'profile' user.id %}">@{{post.user.username}}</a>
             <p>{{post.created | timesince}} ago</p>

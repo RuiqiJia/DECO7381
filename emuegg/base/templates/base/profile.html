@@ -1,6 +1,6 @@
 {% extends 'main.html' %} {% block content %}
 <div>
-  <img src="{{user.avatar.url}}" alt="avatar" />
+  <img src="{{request.user.avatar.url}}" alt="avatar" />
 </div>
 <div>
   <h1>{{user.username}}</h1>

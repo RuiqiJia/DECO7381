@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-# from django.http import HttpResponse
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('login/', views.loginView, name='login'),
@@ -15,4 +15,19 @@ urlpatterns = [
     path('update_channel/<str:id>/', views.updateChannel, name="update_channel"),
     path('delete_channel/<str:id>/', views.deleteChannel, name="delete_channel"),
     path('delete_message/<str:id>/', views.deleteMessage, name="delete_message"),
+
+    path('password_change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='finish_changing_password.html'), 
+        name='finish_changing_password'),
+
+    path('password_change/', auth_views.PasswordChangeView.as_view(template_name='reset_password.html'), 
+        name='reset_password'),
+
+    path('password_reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='reset_finished.html'),
+     name='reset_finished'),
+
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'),
+     name='password_reset_complete'),
 ]

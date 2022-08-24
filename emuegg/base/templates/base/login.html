@@ -19,6 +19,8 @@
   </form>
   <p>Haven't signed up yet?</p>
   <a href="{% url 'signup' %}">Sign up</a>
+  <p>Forgot your password?</p>
+  <a href="{% url 'password_reset' %}">Reset password</a>
 </div>
 {% else %}
 <div>
@@ -26,7 +28,7 @@
     {% csrf_token %} {{form.as_p}}
     <input type="submit" value="Signup" />
   </form>
-  <p>Already signed up yet?</p>
+  <p>Already have an account?</p>
   <a href="{% url 'login' %}">Login</a>
 </div>
 

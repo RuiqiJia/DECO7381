@@ -6,9 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from .models import User, Channel, Message, Topic
-from .forms import UserForm, CustomeUserCreationForm, RoomForm 
+from .forms import UserForm, CustomeUserCreationForm, RoomForm, CountryForm 
 import folium
-
+import geocoder
 
 def loginView(req):
     page = 'login'
@@ -101,10 +101,21 @@ def channel(req, id):
     return render(req, 'base/channel.html', data)
 
 def map(req):
+    form = CountryForm()
+    users = User.objects.all()
+    
+    location = geocoder.osm(users.country_set.all())
+    lat = location.latlng[0]
+    lng = location.latlng[1]
+    if req.method == 'POST':
+        form = CountryForm(req.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('map')
     m = folium.Map(location=[-27.4973, 153.0134], zoom_start=4)
-    folium.Marker([-27.4974, 153.0134], popup='<strong>Brisbane</strong>', tooltip="Click for more information").add_to(m)
+    folium.Marker([lat, lng], popup='<strong>Brisbane</strong>', tooltip="Click for more information").add_to(m)
     m = m._repr_html_()
-    data = {'m' : m}
+    data = {'m' : m, 'form' : form}
     return render(req, 'base/map.html', data)
     
 
