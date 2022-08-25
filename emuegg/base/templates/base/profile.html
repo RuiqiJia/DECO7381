@@ -4,10 +4,15 @@
 </div>
 <div>
   <h1>{{user.username}}</h1>
+
   <p>{{user.email}}</p>
   {% if request.user == user %}
   <a class="btn btn-primary" href="{% url 'updateProfile' %}">Edit Profile</a>
 
+  {% else %}
+  <a class="btn btn-primary" href="{% url 'send_request' user.id %}"
+    >Add friend</a
+  >
   {% endif %}
 </div>
 
@@ -19,7 +24,7 @@
       {% if request_sent == 0 %}
       <div class="">
         <div class="">
-          <span class="">Accept Friend Request</span>
+          <span class="">Accept</span>
           <span
             id="id_cancel_{{id}}"
             class="decline-friend-request material-icons p-1"
@@ -43,26 +48,23 @@
         {% if friend_request == 1 %}
         <div class="">
           <button class="btn btn-danger" id="cancel_request_btn">
-            Cancel Friend Request
-          </button>
-        </div>
-        {% endif %}
-        <!-- No requests have been sent -->
-        {% if friend_request == 0 %}
-        <div class="">
-          <button class="btn btn-primary" id="send_request_btn">
-            Send Friend Request
+            Cancel Request
           </button>
         </div>
         {% endif %} {% endif %} {% if is_friend %}
         <div class="">
-          <button class="btn btn-secondary" type="button">Friends</button>
+          <a
+            href="{% url 'requests_page' user.id %}"
+            class="btn btn-secondary"
+            type="button"
+            >Friends</a
+          >
         </div>
         {% endif %}
 
         <!-- Friend list link -->
         <div class="">
-          <a href="#">
+          <a href="{% url 'requests_page' user.id %}">
             <div class="">
               <span class="material-icons friends-icon">contact_page</span
               ><span class="">Friends ({{friends|length}})</span>
@@ -100,42 +102,41 @@
 </div>
 
 <script type="text/javascript">
-  function sendRequest(id, updateFunction) {
-    context = {
-      csrfmiddlewaretoken: "{{ csrf_token }}",
-      receiver_id: id,
-    };
-    $.ajax({
-      url: "{% url 'send_request' %}",
-      type: "POST",
-      dataType: "json",
-      timeout: 5000,
-      data: context,
-      success: function (data) {
-        if (data.response == "You have sent a friend request to this user") {
-        } else if (data["response"] != null) {
-          alert(data["response"]);
-        }
-      },
-      error: function (xhr, status, error) {
-        console.log(xhr.responseText);
-        console.log(status);
-        console.log(error);
-        alert("Something went wrong");
-      },
-      complete: function () {
-        updateFunction(data);
-      },
-    });
-  }
+  // function sendRequest(id, reloader) {
+  //   context = {
+  //     csrfmiddlewaretoken: "{{ csrf_token }}",
+  //     receiver_id: id,
+  //   };
+  //   $.ajax({
+  //     url: "",
+  //     type: "POST",
+  //     dataType: "json",
+  //     timeout: 5000,
+  //     data: context,
+  //     success: function (data) {
+  //       if (data["response"] == "Friend request has been sent successfully") {
+  //         console.log("123");
+  //       } else if (data["response"] != null) {
+  //         alert(data["response"]);
+  //       }
+  //     },
+  //     error: function (data) {
+  //       alert("Something went wrong");
+  //     },
+  //     complete: function () {
+  //       updateFunction(data);
+  //     },
+  //   });
+  // }
 
-  var sendBtn = document.getElementById("send_request_btn");
-  if (sendBtn != null) {
-    sendBtn.addEventListener("click", function () {
-      sendRequest("{{id}}", location.reload());
-      console.log("here");
-    });
-  }
+  // var sendBtn = document.getElementById("send_request_btn");
+  // if (sendBtn != null) {
+  //   sendBtn.addEventListener("click", function () {
+  //     console.log("here1");
+  //     sendRequest("{{id}}", location.reload());
+  //     console.log("here");
+  //   });
+  // }
 </script>
 
 {% endblock %}

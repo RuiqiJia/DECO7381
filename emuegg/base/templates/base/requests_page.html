@@ -1,0 +1,69 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+
+<div class="container">
+  <div class="card">
+    {% if friend_requests %}
+    <div>
+      {% for request in friend_requests %}
+      <div class="card">
+        <a href="{% url 'account:view' user_id=request.sender.id %}">
+          <div>
+            <img src="{{request.sender.profile_image.url}}" alt="avatar" />
+          </div>
+        </a>
+        <a href="{% url 'account:view' user_id=request.sender.id %}">
+          <div>
+            <h3>{{request.sender.username}}</h3>
+          </div>
+        </a>
+        <div>
+          <span
+            id="id_cancel_{{request.sender.id}}"
+            class="decline-friend-request material-icons p-1"
+            onclick='triggerDeclineFriendRequest("{{request.id}}")'
+            >cancel</span
+          >
+          <span
+            id="id_confirm_{{request.sender.id}}"
+            class="confirm-friend-request material-icons p-1"
+            onclick='acceptTrigger("{{request.id}}")'
+            >check</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="">
+      {% endfor %} {% else %}
+      <!-- no friends -->
+      <div class="">
+        <p>No results</p>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<script type="text/javascript">
+  function acceptRequest(request_id, updateFunction) {
+    var url = "{% url 'requests_page' request_id %}";
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json",
+      timeout: 3000,
+      data: {
+        request_id: request_id,
+        action: "accept",
+      },
+      success: function (data) {
+        if (data.response == "Friend request has been accepted successfully") {
+        }
+      },
+    });
+  }
+
+  function acceptTrigger(request_id) {
+    acceptRequest(request_id, location.reload());
+  }
+</script>

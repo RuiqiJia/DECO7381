@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
-from .models import User, Channel, Message, Topic, Location, Friends, FriendRequest
+from .models import User, Channel, Message, Topic, Friends, FriendRequest
 from .forms import UserForm, CustomeUserCreationForm, RoomForm, CountryForm 
 import folium
 import geocoder
@@ -214,24 +214,66 @@ def is_friendRequest(sender, receiver):
     except FriendRequest.DoesNotExist:
         return False
 
-def send_request(req):
+@login_required(login_url='login')
+def send_request(req, id):
     """
     Send friend request to another user
     """
-    user = req.user
     data = {}
-    if req.method == 'POST' and user.is_authenticated:
-        if req.POST.get('user_id'):
-            receiver = User.objects.get(id=req.POST.get('user_id'))
-            friend_requests = FriendRequest.objects.filter(sender=user, receiver=receiver)
-            for request in friend_requests:
-                if request.is_accepted:
-                    return HttpResponse('You have sent a friend request to this user')
-            friend_request = FriendRequest(sender=user, receiver=receiver)
-            friend_request.save()
-            data['res'] = "Friend request has been sent successfully"
-        else:
-            data['res'] = "Please select a user"
+    user = req.user
+    receiver = User.objects.get(id=id)
+    friend_request, created = FriendRequest.objects.get_or_create(sender=user, receiver=receiver)
+    if created:
+        data['response'] = "Friend request has been sent successfully"
+        return JsonResponse(data)
+
     else:
-        data['res'] = "You are not authenticated"
-    return JsonResponse(data)
+        return HttpResponse('Friend request already sent')
+    # 
+    # if req.method == 'POST' and user.is_authenticated:
+    #     receiver_id = req.POST.get("receiver_id")
+    #     if receiver_id:
+    #         receiver = User.objects.get(id=receiver_id)
+    #         friend_requests = FriendRequest.objects.filter(sender=user, receiver=receiver)
+    #         for request in friend_requests:
+    #             if request.is_accepted:
+    #                 return HttpResponse('You have sent a friend request to this user')
+    #         friend_request = FriendRequest(sender=user, receiver=receiver)
+    #         friend_request.save()
+    #         data['response'] = "Friend request has been sent successfully"
+    #     else:
+    #         data['response'] = "Please select a receiver"
+    # else:
+    #     data['response'] = "You are not authenticated"
+    # return JsonResponse(data)
+
+def requests_page(req, id):
+    """
+    List all friend requests
+    """
+    data = {}
+    auth_user = req.user
+    user = User.objects.get(id=id)
+    if auth_user.is_authenticated:
+        if auth_user == user:
+            friend_requests = FriendRequest.objects.filter(receiver=user, is_accepted=True)
+            data['friend_requests'] = friend_requests
+    else:
+        return redirect('login')
+    return render(req, 'base/requests_page.html', data)
+
+def accept_request(req, id):
+    data = {}
+    auth_user = req.user
+    user = User.objects.get(id=id)
+    if auth_user.is_authenticated:
+        if auth_user == user and req.method == 'GET':
+            requests_id = FriendRequest.objects.get(id=id)
+            if requests_id:
+                friend_request = FriendRequest.objects.get(id=requests_id)
+                if friend_request.receiver == auth_user:
+                    friend_request.accept()
+                    data['res'] = "Friend request has been accepted successfully"
+    
+    return JsonResponse({'res' : 'Friend request has been accepted successfully'})
+            
