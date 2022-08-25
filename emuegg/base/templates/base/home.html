@@ -41,7 +41,9 @@
       </div>
       <div>
         <h3>{{channel_count}} channels available</h3>
-        <a href="{% url 'create_channel' %}">Create Channel</a>
+        <a class="btn btn-secondary" href="{% url 'create_channel' %}"
+          >Create Channel</a
+        >
         <br />
         {% for channel in channels %}
 
@@ -51,8 +53,14 @@
         <a href="{% url 'channel' channel.id %}">
           <h3>{{ channel.name }}</h3>
           {% if request.user == channel.host %}
-          <a href="{% url 'update_channel' channel.id %}">Edit</a>
-          <a href="{% url 'delete_channel' channel.id %}">Delete</a>
+          <a
+            class="btn btn-primary"
+            href="{% url 'update_channel' channel.id %}"
+            >Edit</a
+          >
+          <a class="btn btn-danger" href="{% url 'delete_channel' channel.id %}"
+            >Delete</a
+          >
           {% endif %}
         </a>
         <br />

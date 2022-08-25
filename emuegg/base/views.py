@@ -1,6 +1,6 @@
 from calendar import c
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
@@ -9,6 +9,7 @@ from .models import User, Channel, Message, Topic, Location, Friends, FriendRequ
 from .forms import UserForm, CustomeUserCreationForm, RoomForm, CountryForm 
 import folium
 import geocoder
+import json
 from .status import Status
 
 def loginView(req):
@@ -105,7 +106,7 @@ def profile(req, id):
     else:
         
         friend_requests = FriendRequest.objects.filter(receiver=auth_user, is_accepted=True)
-        
+    data['user'] = user  
     data['is_self'] = is_self
     data['is_friend'] = is_friend
     data['friend_request'] = friend_request
@@ -212,3 +213,25 @@ def is_friendRequest(sender, receiver):
         return FriendRequest.objects.get(sender=sender, receiver=receiver)
     except FriendRequest.DoesNotExist:
         return False
+
+def send_request(req):
+    """
+    Send friend request to another user
+    """
+    user = req.user
+    data = {}
+    if req.method == 'POST' and user.is_authenticated:
+        if req.POST.get('user_id'):
+            receiver = User.objects.get(id=req.POST.get('user_id'))
+            friend_requests = FriendRequest.objects.filter(sender=user, receiver=receiver)
+            for request in friend_requests:
+                if request.is_accepted:
+                    return HttpResponse('You have sent a friend request to this user')
+            friend_request = FriendRequest(sender=user, receiver=receiver)
+            friend_request.save()
+            data['res'] = "Friend request has been sent successfully"
+        else:
+            data['res'] = "Please select a user"
+    else:
+        data['res'] = "You are not authenticated"
+    return JsonResponse(data)
