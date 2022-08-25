@@ -5,10 +5,11 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
-from .models import User, Channel, Message, Topic
+from .models import User, Channel, Message, Topic, Location, Friends, FriendRequest
 from .forms import UserForm, CustomeUserCreationForm, RoomForm, CountryForm 
 import folium
 import geocoder
+from .status import Status
 
 def loginView(req):
     page = 'login'
@@ -70,6 +71,46 @@ def profile(req, id):
     channels = user.channel_set.all()
     messages = user.message_set.all()
     data = {'user' : user, 'channels' : channels, 'messages' : messages}
+    try:
+        friends = Friends.objects.get(user=user)
+    except Friends.DoesNotExist:
+        friends = Friends(user=user)
+        friends.save()
+    all_friends = friends.friend.all()
+    data = {}
+    is_self = True
+    is_friend = False
+    friend_request = Status.NO_REQUEST.value
+    friend_requests = None
+
+    auth_user =  req.user
+    if auth_user.is_authenticated and auth_user != user:
+        is_self = False
+        if all_friends.filter(id=auth_user.id):
+            is_friend = True
+        else:
+            is_friend = False
+            #frind request send to auth_user
+            if is_friendRequest(sender=user, receiver=auth_user):
+                friend_request = Status.REQUEST_SENT.value
+                data['pending_request'] = is_friendRequest(sender=user, receiver=auth_user).id
+            # friend request sent from auth_user
+            elif is_friendRequest(sender=user, receiver=auth_user) != False:
+                friend_request = Status.REQUEST_RECEIVED.value
+            else:
+                # no request
+                friend_request = Status.NO_REQUEST.value
+    elif not auth_user.is_authenticated:
+        is_self = False
+    else:
+        
+        friend_requests = FriendRequest.objects.filter(receiver=auth_user, is_accepted=True)
+        
+    data['is_self'] = is_self
+    data['is_friend'] = is_friend
+    data['friend_request'] = friend_request
+    data['friend_requests'] = friend_requests
+    data[all_friends] = all_friends
     return render(req, 'base/profile.html', data)
 
 @login_required(login_url='login')
@@ -104,9 +145,9 @@ def map(req):
     form = CountryForm()
     users = User.objects.all()
     
-    location = geocoder.osm(users.country_set.all())
-    lat = location.latlng[0]
-    lng = location.latlng[1]
+    location = geocoder.osm('Brisbane')
+    lat = location.lat
+    lng = location.lng
     if req.method == 'POST':
         form = CountryForm(req.POST)
         if form.is_valid():
@@ -162,3 +203,12 @@ def deleteMessage(req, id):
         return redirect('home')
     return render(req, 'base/delete.html', {'obj':message})
 
+# friend
+def is_friendRequest(sender, receiver):
+    """
+    Check if two users have friends request or not
+    """
+    try:
+        return FriendRequest.objects.get(sender=sender, receiver=receiver)
+    except FriendRequest.DoesNotExist:
+        return False
