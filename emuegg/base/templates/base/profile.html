@@ -1,4 +1,4 @@
-{% extends 'main.html' %} {% block content %}
+{% extends 'main.html' %} {% load static %} {% block content %}
 <div>
   <img src="{{request.user.avatar.url}}" alt="avatar" />
 </div>
@@ -9,5 +9,93 @@
   <a href="{% url 'updateProfile' %}">Edit Profile</a>
 
   {% endif %}
+</div>
+
+<div class="">
+  <div class="">
+    {% if request.user.is_authenticated %}
+    <div class="">
+      <!-- send to auth user -->
+      {% if request_sent == 0 %}
+      <div class="">
+        <div class="">
+          <span class="">Accept Friend Request</span>
+          <span
+            id="id_cancel_{{id}}"
+            class="decline-friend-request material-icons p-1"
+            onclick='triggerDeclineFriendRequest("{{pending_friend_request_id}}")'
+            >cancel</span
+          >
+          <span
+            id="id_confirm_{{id}}"
+            class="confirm-friend-request material-icons p-1"
+            onclick='triggerAcceptFriendRequest("{{pending_request}}")'
+            >check</span
+          >
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="">
+        <!-- Cancel Friend Request / Send Friend Request / Remove Friend -->
+        {% if is_friend == False and is_self == False %}
+        <!--  sent to others -->
+        {% if friend_request == 1 %}
+        <div class="">
+          <button class="btn btn-danger" id="id_cancel_friend_request_btn">
+            Cancel Friend Request
+          </button>
+        </div>
+        {% endif %}
+        <!-- No requests have been sent -->
+        {% if friend_request == 0 %}
+        <div class="">
+          <button class="btn btn-primary" id="id_send_friend_request_btn">
+            Send Friend Request
+          </button>
+        </div>
+        {% endif %} {% endif %} {% if is_friend %}
+        <div class="">
+          <button class="btn btn-secondary" type="button">Friends</button>
+        </div>
+        {% endif %}
+
+        <!-- Friend list link -->
+        <div class="">
+          <a href="#">
+            <div class="">
+              <span class="material-icons mr-2 friends-icon">contact_page</span
+              ><span class="">Friends ({{friends|length}})</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      {% if friend_requests %}
+      <div class="">
+        <!-- Friend requests -->
+        <div class="">
+          <a href="{% url 'friend:friend-requests' user_id=id %}">
+            <div class="">
+              <span class="material-icons mr-2 person-add-icon">person_add</span
+              ><span class="friend-text"
+                >Friend Requests ({{friend_requests|length}})</span
+              >
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endif %} {% if is_friend %}
+      <div
+        class="btn btn-primary"
+        onclick="createOrReturnPrivateChat('{{id}}')"
+      >
+        <span class="material-icons m-auto"> message </span>
+        <span class="message-btn-text m-auto pl-2">Message</span>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}
