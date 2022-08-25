@@ -15,7 +15,7 @@
   <div class="">
     {% if request.user.is_authenticated %}
     <div class="">
-      <!-- THEM to YOU -->
+      <!-- send to auth user -->
       {% if request_sent == 0 %}
       <div class="">
         <div class="">
@@ -39,7 +39,7 @@
       <div class="">
         <!-- Cancel Friend Request / Send Friend Request / Remove Friend -->
         {% if is_friend == False and is_self == False %}
-        <!-- You sent them a request -->
+        <!--  sent to others -->
         {% if friend_request == 1 %}
         <div class="">
           <button class="btn btn-danger" id="id_cancel_friend_request_btn">
