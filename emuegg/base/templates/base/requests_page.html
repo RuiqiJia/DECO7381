@@ -6,12 +6,12 @@
     <div>
       {% for request in friend_requests %}
       <div class="card">
-        <a href="{% url 'account:view' user_id=request.sender.id %}">
+        <a href="{% url 'profile' request.sender.id %}">
           <div>
             <img src="{{request.sender.profile_image.url}}" alt="avatar" />
           </div>
         </a>
-        <a href="{% url 'account:view' user_id=request.sender.id %}">
+        <a href="{% url 'profile' request.sender.id %}">
           <div>
             <h3>{{request.sender.username}}</h3>
           </div>
@@ -23,11 +23,10 @@
             onclick='triggerDeclineFriendRequest("{{request.id}}")'
             >cancel</span
           >
-          <span
-            id="id_confirm_{{request.sender.id}}"
-            class="confirm-friend-request material-icons p-1"
-            onclick='acceptTrigger("{{request.id}}")'
-            >check</span
+          <a
+            class="confirm-friend-request material-icons"
+            href="{% url 'accept_request' request.id %}"
+            >check</a
           >
         </div>
       </div>

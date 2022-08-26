@@ -256,24 +256,35 @@ def requests_page(req, id):
     user = User.objects.get(id=id)
     if auth_user.is_authenticated:
         if auth_user == user:
-            friend_requests = FriendRequest.objects.filter(receiver=user, is_accepted=True)
+            friend_requests = FriendRequest.objects.filter(receiver=user)
             data['friend_requests'] = friend_requests
     else:
         return redirect('login')
     return render(req, 'base/requests_page.html', data)
 
 def accept_request(req, id):
-    data = {}
-    auth_user = req.user
-    user = User.objects.get(id=id)
-    if auth_user.is_authenticated:
-        if auth_user == user and req.method == 'GET':
-            requests_id = FriendRequest.objects.get(id=id)
-            if requests_id:
-                friend_request = FriendRequest.objects.get(id=requests_id)
-                if friend_request.receiver == auth_user:
-                    friend_request.accept()
-                    data['res'] = "Friend request has been accepted successfully"
+    friend_request = FriendRequest.objects.get(id=id)
+    if friend_request.receiver == req.user:
+        #update friend model
+        # Friends.user = req.user
+        # Friends.user.save()
+        # Friends.friend = friend_request.sender
+        # Friends.friend.save()
+        # friend_request.receiver.friends.add(friend_request.sender)
+        # friend_request.sender.friends.add(friend_request.receiver)
+        friend_request.delete()
+        return HttpResponse('Friend request has been accepted')
+    # data = {}
+    # auth_user = req.user
+    # user = User.objects.get(id=id)
+    # if auth_user.is_authenticated:
+    #     if auth_user == user and req.method == 'GET':
+    #         requests_id = FriendRequest.objects.get(id=id)
+    #         if requests_id:
+    #             friend_request = FriendRequest.objects.get(id=requests_id)
+    #             if friend_request.receiver == auth_user:
+    #                 friend_request.accept()
+    #                 data['res'] = "Friend request has been accepted successfully"
     
-    return JsonResponse({'res' : 'Friend request has been accepted successfully'})
+    # return JsonResponse({'res' : 'Friend request has been accepted successfully'})
             

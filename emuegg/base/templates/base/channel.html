@@ -17,13 +17,14 @@
         <h2>Post</h2>
         {% for post in posts %}
           <div class="message">
-            {% if request.user == post.user %}}
-            <a href="{% url 'delete_message' post.id %}">Delete</a>
-            {% endif %}
+
             <a href="{% url 'profile' user.id %}">@{{post.user.username}}</a>
             <p>{{post.created | timesince}} ago</p>
             
             {{post.message}}
+            {% if request.user == post.user %}
+            <a href="{% url 'delete_message' post.id %}">Delete</a>
+            {% endif %}
             <hr>
           </div>
         {% endfor %}
