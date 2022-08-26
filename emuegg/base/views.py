@@ -146,7 +146,7 @@ def map(req):
     form = CountryForm()
     users = User.objects.all()
     
-    location = geocoder.osm('Brisbane')
+    location = geocoder.osm('Australia')
     lat = location.lat
     lng = location.lng
     if req.method == 'POST':
