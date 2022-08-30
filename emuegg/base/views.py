@@ -1,4 +1,6 @@
 from calendar import c
+
+import branca
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
@@ -38,7 +40,7 @@ def logoutView(req):
     return redirect('home')
 
 def signup(req): 
-    form = CustomeUserCreationForm()
+    # form = CustomeUserCreationForm()
     if req.method == 'POST':
         form = CustomeUserCreationForm(req.POST)
         if form.is_valid():
@@ -48,7 +50,9 @@ def signup(req):
             return redirect('home')
         else:
             messages.error(req, 'An error occurred. Please try again.')
-    return render(req, 'base/login.html', {'form' : form})
+    # return render(req, 'base/login.html', {'form' : form})
+    return render(req, 'base/login.html')
+
     
 def home(req):
     query = req.GET.get('query') if req.GET.get('query') else ''
@@ -143,22 +147,51 @@ def channel(req, id):
     return render(req, 'base/channel.html', data)
 
 def map(req):
-    form = CountryForm()
-    users = User.objects.all()
-    
-    location = geocoder.osm('Australia')
+    # form = CountryForm()
+    # users = User.objects.all()
+    #
+    # location = geocoder.osm('Australia')
+    # lat = location.lat
+    # lng = location.lng
+    # if req.method == 'POST':
+    #     form = CountryForm(req.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('map')
+    # m = folium.Map(location=[-27.4973, 153.0134], zoom_start=4)
+    # folium.Marker([lat, lng], popup='<strong>Brisbane</strong>', tooltip="Click for more information").add_to(m)
+    #
+    # # 调整地图全屏的关键
+    # fig = branca.element.Figure(height="100%")
+    # fig.add_child(m)
+    #
+    # m = m._repr_html_()
+    # data = {'m' : m, 'form' : form}
+    # return render(req, 'base/map.html', data)
+
+    if req.method == "GET":
+        m = folium.Map(location=[-24.7761086, 134.755], zoom_start=4)
+        fig = branca.element.Figure(height="100%")
+        fig.add_child(m)
+        m = m._repr_html_()
+        return render(req, 'base/map.html', {'m': m})
+
+    loc = req.POST.get("location")
+    print(loc)
+    location = geocoder.osm(loc)
     lat = location.lat
     lng = location.lng
-    if req.method == 'POST':
-        form = CountryForm(req.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('map')
-    m = folium.Map(location=[-27.4973, 153.0134], zoom_start=4)
-    folium.Marker([lat, lng], popup='<strong>Brisbane</strong>', tooltip="Click for more information").add_to(m)
+    print(lat, lng)
+
+    m = folium.Map(location=[lat, lng], zoom_start=4)
+    folium.Marker([lat, lng], popup='<strong>' + loc + '</strong>', tooltip="Click for more information").add_to(m)
+
+    fig = branca.element.Figure(height="100%")
+    fig.add_child(m)
     m = m._repr_html_()
-    data = {'m' : m, 'form' : form}
-    return render(req, 'base/map.html', data)
+
+    return render(req, "base/map.html", {'m': m})
+
     
 
 @login_required(login_url='login')

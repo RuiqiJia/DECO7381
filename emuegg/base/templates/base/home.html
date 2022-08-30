@@ -1,76 +1,446 @@
-{% extends 'main.html' %} {% load static %}
+{#{% extends 'main.html' %} {% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#  <head>#}
+{#    <meta charset="UTF-8" />#}
+{#    <meta http-equiv="X-UA-Compatible" content="IE=edge" />#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0" />#}
+{#    <link#}
+{#      rel="stylesheet"#}
+{#      href="{% static 'bootstrap/css/bootstrap.min.css' %}"#}
+{#    />#}
+{#    <link#}
+{#      rel="stylesheet"#}
+{#      href="https://fonts.googleapis.com/css2?family=Material+Icons"#}
+{#    />#}
+{#    <title>EmuEgg</title>#}
+{#  </head>#}
+{#  <body>#}
+{#    {% block content %}#}
+{##}
+{#    <style>#}
+{#      .home {#}
+{#        display: grid;#}
+{#        grid-template-columns: 1fr 3fr;#}
+{#      }#}
+{#    </style>#}
+{#    <div class="home">#}
+{#      <div class="sidebar">#}
+{#        <div class="sidebar-header">#}
+{#          <h3>Sidebar</h3>#}
+{#          <hr />#}
+{#        </div>#}
+{#        <div>#}
+{#          <a href="{% url 'home' %}">All</a>#}
+{#        </div>#}
+{#        {% for topic in topics %}#}
+{#        <div>#}
+{#          <a href="{% url 'home' %}?query={{topic.name}}">{{topic.name}}</a>#}
+{#        </div>#}
+{#        {% endfor %}#}
+{#      </div>#}
+{#      <div>#}
+{#        <h3>{{channel_count}} channels available</h3>#}
+{#        <a class="btn btn-secondary" href="{% url 'create_channel' %}"#}
+{#          >Create Channel</a#}
+{#        >#}
+{#        <br />#}
+{#        {% for channel in channels %}#}
+{##}
+{#        <a href="{% url 'profile' channel.host.id %}"#}
+{#          >@{{channel.host.username}}</a#}
+{#        >#}
+{#        <a href="{% url 'channel' channel.id %}">#}
+{#          <h3>{{ channel.name }}</h3>#}
+{#          {% if request.user == channel.host %}#}
+{#          <a#}
+{#            class="btn btn-primary"#}
+{#            href="{% url 'update_channel' channel.id %}"#}
+{#            >Edit</a#}
+{#          >#}
+{#          <a class="btn btn-danger" href="{% url 'delete_channel' channel.id %}"#}
+{#            >Delete</a#}
+{#          >#}
+{#          {% endif %}#}
+{#        </a>#}
+{#        <br />#}
+{#        <small>{{channel.topic}}</small>#}
+{#        <hr />#}
+{#        {% endfor %}#}
+{#      </div>#}
+{#    </div>#}
+{#    {% endblock %}#}
+{#    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>#}
+{#    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>#}
+{#  </body>#}
+{#</html>#}
+
+
+{#{% extends 'main.html' %} {% load static %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8"/>#}
+{#    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>#}
+{#    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}"/>#}
+{#    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">#}
+{#    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons"/>#}
+{#    <title>EmuEgg</title>#}
+{#</head>#}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="{% static 'bootstrap/css/bootstrap.min.css' %}"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Icons"
-    />
-    <title>EmuEgg</title>
-  </head>
-  <body>
-    {% block content %}
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Cross culture discussion</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+</head>
+<body>
+
+{% block content %}
 
     <style>
-      .home {
-        display: grid;
-        grid-template-columns: 1fr 3fr;
-      }
-    </style>
-    <div class="home">
-      <div class="sidebar">
-        <div class="sidebar-header">
-          <h3>Sidebar</h3>
-          <hr />
-        </div>
-        <div>
-          <a href="{% url 'home' %}">All</a>
-        </div>
-        {% for topic in topics %}
-        <div>
-          <a href="{% url 'home' %}?query={{topic.name}}">{{topic.name}}</a>
-        </div>
-        {% endfor %}
-      </div>
-      <div>
-        <h3>{{channel_count}} channels available</h3>
-        <a class="btn btn-secondary" href="{% url 'create_channel' %}"
-          >Create Channel</a
-        >
-        <br />
-        {% for channel in channels %}
+        .channel-header {
+            margin-top: 55px;
+        }
 
-        <a href="{% url 'profile' channel.host.id %}"
-          >@{{channel.host.username}}</a
-        >
-        <a href="{% url 'channel' channel.id %}">
-          <h3>{{ channel.name }}</h3>
-          {% if request.user == channel.host %}
-          <a
-            class="btn btn-primary"
-            href="{% url 'update_channel' channel.id %}"
-            >Edit</a
-          >
-          <a class="btn btn-danger" href="{% url 'delete_channel' channel.id %}"
-            >Delete</a
-          >
-          {% endif %}
-        </a>
-        <br />
-        <small>{{channel.topic}}</small>
-        <hr />
-        {% endfor %}
-      </div>
+        .channel-header img {
+            width: 30px;
+        }
+
+        .channel-header-text {
+            font-size: 1.5em;
+            padding-bottom: 15px;
+            padding-right: 0;
+            text-align: right;
+        }
+
+        .home {
+            grid-template-columns: 1fr 3fr;
+        }
+
+        .search-bar {
+            padding: 0 10px;
+            margin: 0;
+            position: relative;
+            left: -25px;
+            width: 350px;
+        }
+
+
+        .input-group .form-control:first-child {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            height: 38px;
+            border-right: 0;
+        }
+
+        .input-group-addon:last-child {
+            border-left: 0;
+            background-color: white;
+        }
+
+        .hamburger-menu {
+            border: 0;
+            background-color: transparent;
+            position: relative;
+            bottom: 3px;
+            left: 10px;
+        }
+
+
+        .hamburger-menu span {
+            font-size: 2.2em;
+        }
+
+        .sidebar {
+            display: flex;
+            justify-content: center;
+            padding: 10px 0 10px 0;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .sidebar div {
+            padding: 0 20px;
+        }
+
+        .sidebar div a {
+            color: #337ab7;
+        }
+
+        .discussion-channel {
+            padding-top: 1px;
+        {#            margin-top: 10px;#} background-color: rgb(230, 230, 230);
+
+        }
+
+        .discussion-channel-outer-wrapper {
+            height: 165px;
+            margin-top: 10px;
+            background-color: rgb(250, 250, 250);
+
+        }
+
+        .discussion-channel-inner-wrapper {
+            padding: 5px 20px;
+            overflow: hidden;
+        }
+
+        .discussion-channel-inner-wrapper div:first-child {
+            height: 100px;
+            width: 70%;
+            float: left;
+        }
+
+        .discussion-channel-inner-wrapper div:first-child span {
+            font-size: 1.7em;
+            font-weight: bold;
+        }
+
+
+        .discussion-channel-inner-wrapper div:first-child a {
+            display: block;
+            padding-bottom: 20px;
+            text-decoration: none;
+            color: rgb(150, 150, 150);
+        }
+
+        .discussion-channel-inner-wrapper div:last-child {
+            width: 30%;
+            float: right;
+            text-align: center;
+            padding-top: 10%;
+            padding-bottom: 5%;
+        }
+
+        .discussion-channel-footer {
+            overflow: hidden;
+            padding: 10px 5px 0 20px;
+            color: rgb(190, 190, 190);
+        }
+
+
+        .discussion-operation {
+            float: left;
+            font-size: large;
+            color: black;
+        }
+
+        .discussion-channel-footer div:last-child {
+            float: right;
+        }
+
+        .discussion-delete {
+            color: #b40d0d;
+        }
+
+        .discussion-edit {
+            color: #047a04;
+        }
+
+        .count-text {
+            color: rgb(150, 150, 150);
+            text-align: center;
+        }
+
+        .create-channel-button {
+            color: #337ab7;
+            font-size: 1.2em;
+        }
+
+    </style>
+    <div class="row channel-header">
+        <div class="col-xs-3">
+        </div>
+
+        {% if request.user.is_authenticated %}
+            <div class="col-xs-6 channel-header-text">
+                <span>Welcome,</span>
+                <span style="font-weight: bold; font-style: italic; color: #337ab7">{{ request.user.username }}</span>
+            </div>
+            <div class="col-xs-3">
+                <a href="{% url 'logout' %}">
+                    <img src="{% static 'images/logout.png' %}">
+                </a>
+            </div>
+
+        {% else %}
+            <div class="col-xs-6 channel-header-text">
+                <span>Welcome, Visitor</span>
+            </div>
+            <div class="col-xs-3">
+                <a href="{% url 'login' %}">
+                    <img src="{% static 'images/login.png' %}">
+                </a>
+            </div>
+        {% endif %}
+
+
     </div>
-    {% endblock %}
-    <script src="{% static 'bootstrap/js/jquery.min.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  </body>
+    <!-- Header -->
+
+    {#    <form method="GET" action="{% url 'home' %}">#}
+    {#        <input type="text" name="query" placeholder="Start searching..."/>#}
+    {#    </form>#}
+    {#    {% if request.user.is_authenticated %}#}
+    {#        <p>Hello {{ request.user.username }}</p>#}
+    {#        <a href="{% url 'logout' %}">Logout</a>#}
+    {#    {% else %}#}
+    {#        <a href="{% url 'login' %}">Login</a>#}
+    {#    {% endif %}#}
+
+    <div class="row">
+        <div class="col-xs-1">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle hamburger-menu" type="button" id="dropdownMenu1"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {#                                        <img src="{% static 'images/hamburger-menu.png' %}" alt="hamburgermenu">#}
+                    <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-position" aria-labelledby="dropdownMenu1">
+                    <li>
+                        <a href="#">
+                            <img src="{% static 'images/1.png' %}" alt="function1">Private Chat
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{% static 'images/2.png' %}" alt="function1">Friends
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{% static 'images/3.png' %}" alt="function1">Cultural Map
+                        </a>
+                    </li>
+                    <!-- <li role="separator" class="divider"></li> -->
+                    <li>
+                        <a href="#">
+                            <img src="{% static 'images/4.png' %}" alt="function1">Location
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'home' %}">
+                            <img src="{% static 'images/5.png' %}" alt="function1">Discussion
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <img src="{% static 'images/6.png' %}" alt="function1">Game & Quiz
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/profile/2">
+                            <img src="{% static 'images/6.png' %}" alt="function1">User Profile
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-1"></div>
+        <div class="col-xs-10">
+            <form method="post" action="" class="navbar-form navbar-right search-bar" id="click">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input class="form-control text-input" name="Topic" type="text"
+                           placeholder="Search For Your Preferred Topic"/>
+                    <span class=" btn btn-default input-group-addon">
+                <a href="#" onclick="document.getElementById('click').submit();return false;">
+                    <img src="{% static 'images/search.png' %}" alt="search-bar">
+                </a>
+            </span>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <div class="home">
+        <div class="sidebar">
+            {#        <div class="sidebar-header">#}
+            {#          <h3>Sidebar</h3>#}
+            {#          <hr />#}
+            {#        </div>#}
+
+            <div>
+                <a href="{% url 'home' %}">All</a>
+            </div>
+            {% for topic in topics %}
+                <div>
+                    <a href="{% url 'home' %}?query={{ topic.name }}">{{ topic.name }}</a>
+                </div>
+            {% endfor %}
+            <div class="create-channel-button">
+                <a href="{% url 'create_channel' %}">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                </a>
+            </div>
+        </div>
+
+        <div class="discussion-channel">
+            {% for channel in channels %}
+                <div class="discussion-channel-outer-wrapper">
+                    <div class="discussion-channel-inner-wrapper">
+                        <div>
+                            <a href="{% url 'profile' channel.host.id %}"
+                            >@{{ channel.host.username }}</a>
+                            {#                                                        <a href="{% url 'channel' channel.id %}">#}
+                            {#                                                            <h3>{{ channel.name }}</h3>#}
+                            <span>{{ channel.name }}</span>
+                        </div>
+                        <div>
+                            <a href="{% url 'channel' channel.id %}"> <img src="{% static 'images/discussion.png' %}"
+                                                                           alt="discussion-image"></a>
+                            <span style="display: block">Join</span>
+                        </div>
+                    </div>
+                    <div class="discussion-channel-footer">
+                        {% if request.user == channel.host %}
+                            {#                                <a#}
+                            {#                                        class="btn btn-primary"#}
+                            {#                                        href="{% url 'update_channel' channel.id %}"#}
+                            {#                                >Edit</a#}
+                            {#                                >#}
+                            {#                                <a class="btn btn-danger" href="{% url 'delete_channel' channel.id %}"#}
+                            {#                                >Delete</a#}
+                            {#                                >#}
+                            <div class="discussion-operation">
+                                <span class="glyphicon glyphicon-trash discussion-delete" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-edit discussion-edit" aria-hidden="true"></span>
+                            </div>
+                        {% endif %}
+                        <div>
+                            <span><strong># </strong>{{ channel.topic }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="count-text">
+                <span>{{ channel_count }} Channels Available</span>
+{#                <a class="btn btn-secondary" href="{% url 'create_channel' %}"#}
+{#                >Create Channel</a>#}
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    {#    </div>#}
+
+{% endblock %}
+
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
 </html>

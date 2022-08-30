@@ -1,142 +1,358 @@
-{% extends 'main.html' %} {% load static %} {% block content %}
-<div>
-  <img src="{{request.user.avatar.url}}" alt="avatar" />
-</div>
-<div>
-  <h1>{{user.username}}</h1>
+{#{% extends 'main.html' %}#}
+{#{% load static %} {% block content %}#}
+{#<div>#}
+{#  <img src="{{request.user.avatar.url}}" alt="avatar" />#}
+{#</div>#}
+{#<div>#}
+{#  <h1>{{user.username}}</h1>#}
+{##}
+{#  <p>{{user.email}}</p>#}
+{#  {% if request.user == user %}#}
+{#  <a class="btn btn-primary" href="{% url 'updateProfile' %}">Edit Profile</a>#}
+{##}
+{#  {% else %}#}
+{#  <a class="btn btn-primary" href="{% url 'send_request' user.id %}"#}
+{#    >Add friend</a#}
+{#  >#}
+{#  {% endif %}#}
+{#</div>#}
+{##}
+{#<div class="">#}
+{#  <div class="">#}
+{#    {% if request.user.is_authenticated %}#}
+{#    <div class="">#}
+{#      <!-- send to auth user -->#}
+{#      {% if request_sent == 0 %}#}
+{#      <div class="">#}
+{#        <div class="">#}
+{#          <span class="">Accept</span>#}
+{#          <span#}
+{#            id="id_cancel_{{id}}"#}
+{#            class="decline-friend-request material-icons p-1"#}
+{#            onclick='triggerDeclineFriendRequest("{{pending_friend_request_id}}")'#}
+{#            >cancel</span#}
+{#          >#}
+{#          <span#}
+{#            id="id_confirm_{{id}}"#}
+{#            class="confirm-friend-request material-icons p-1"#}
+{#            onclick='triggerAcceptFriendRequest("{{pending_request}}")'#}
+{#            >check</span#}
+{#          >#}
+{#        </div>#}
+{#      </div>#}
+{#      {% endif %}#}
+{##}
+{#      <div class="">#}
+{#        <!-- Cancel Friend Request / Send Friend Request / Remove Friend -->#}
+{#        {% if is_friend == False and is_self == False %}#}
+{#        <!--  sent to others -->#}
+{#        {% if friend_request == 1 %}#}
+{#        <div class="">#}
+{#          <button class="btn btn-danger" id="cancel_request_btn">#}
+{#            Cancel Request#}
+{#          </button>#}
+{#        </div>#}
+{#        {% endif %} {% endif %} {% if is_friend %}#}
+{#        <div class="">#}
+{#          <a#}
+{#            href="{% url 'requests_page' user.id %}"#}
+{#            class="btn btn-secondary"#}
+{#            type="button"#}
+{#            >Friends</a#}
+{#          >#}
+{#        </div>#}
+{#        {% endif %}#}
+{##}
+{#        <!-- Friend list link -->#}
+{#        <div class="">#}
+{#          <a href="{% url 'requests_page' user.id %}">#}
+{#            <div class="">#}
+{#              <span class="material-icons friends-icon">contact_page</span#}
+{#              ><span class="">Friends ({{friends|length}})</span>#}
+{#            </div>#}
+{#          </a>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#      {% if friend_requests %}#}
+{#      <div class="">#}
+{#        <!-- Friend requests -->#}
+{#        <div class="">#}
+{#          <a href="{% url 'requests_page' user.id %}">#}
+{#            <div class="">#}
+{#              <span class="material-icons person-add-icon">person_add</span#}
+{#              ><span class="friend-text"#}
+{#                >Friend Requests ({{friend_requests|length}})</span#}
+{#              >#}
+{#            </div>#}
+{#          </a>#}
+{#        </div>#}
+{#      </div>#}
+{#      {% endif %} {% if is_friend %}#}
+{#      <div#}
+{#        class="btn btn-primary"#}
+{#        onclick="createOrReturnPrivateChat('{{id}}')"#}
+{#      >#}
+{#        <span class="material-icons m-auto"> message </span>#}
+{#        <span class="message-btn">Message</span>#}
+{#      </div>#}
+{#      {% endif %}#}
+{#    </div>#}
+{#    {% endif %}#}
+{#  </div>#}
+{#</div>#}
+{##}
+{#<script type="text/javascript">#}
+{#// function sendRequest(id, reloader) {#}
+{#//   context = {#}
+{#//     csrfmiddlewaretoken: "{{ csrf_token }}",#}
+{#//     receiver_id: id,#}
+{#//   };#}
+{#//   $.ajax({#}
+{#//     url: "",#}
+{#//     type: "POST",#}
+{#//     dataType: "json",#}
+{#//     timeout: 5000,#}
+{#//     data: context,#}
+{#//     success: function (data) {#}
+{#//       if (data["response"] == "Friend request has been sent successfully") {#}
+{#//         console.log("123");#}
+{#//       } else if (data["response"] != null) {#}
+{#//         alert(data["response"]);#}
+{#//       }#}
+{#//     },#}
+{#//     error: function (data) {#}
+{#//       alert("Something went wrong");#}
+{#//     },#}
+{#//     complete: function () {#}
+{#//       updateFunction(data);#}
+{#//     },#}
+{#//   });#}
+{#// }#}
+{##}
+{#// var sendBtn = document.getElementById("send_request_btn");#}
+{#// if (sendBtn != null) {#}
+{#//   sendBtn.addEventListener("click", function () {#}
+{#//     console.log("here1");#}
+{#//     sendRequest("{{ id }}", location.reload());#}
+{#//     console.log("here");#}
+{#//   });#}
+{#// }#}
+{#</script>#}
 
-  <p>{{user.email}}</p>
-  {% if request.user == user %}
-  <a class="btn btn-primary" href="{% url 'updateProfile' %}">Edit Profile</a>
+{#{% endblock %}#}
 
-  {% else %}
-  <a class="btn btn-primary" href="{% url 'send_request' user.id %}"
-    >Add friend</a
-  >
-  {% endif %}
-</div>
 
-<div class="">
-  <div class="">
-    {% if request.user.is_authenticated %}
-    <div class="">
-      <!-- send to auth user -->
-      {% if request_sent == 0 %}
-      <div class="">
-        <div class="">
-          <span class="">Accept</span>
-          <span
-            id="id_cancel_{{id}}"
-            class="decline-friend-request material-icons p-1"
-            onclick='triggerDeclineFriendRequest("{{pending_friend_request_id}}")'
-            >cancel</span
-          >
-          <span
-            id="id_confirm_{{id}}"
-            class="confirm-friend-request material-icons p-1"
-            onclick='triggerAcceptFriendRequest("{{pending_request}}")'
-            >check</span
-          >
-        </div>
-      </div>
-      {% endif %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
 
-      <div class="">
-        <!-- Cancel Friend Request / Send Friend Request / Remove Friend -->
-        {% if is_friend == False and is_self == False %}
-        <!--  sent to others -->
-        {% if friend_request == 1 %}
-        <div class="">
-          <button class="btn btn-danger" id="cancel_request_btn">
-            Cancel Request
-          </button>
-        </div>
-        {% endif %} {% endif %} {% if is_friend %}
-        <div class="">
-          <a
-            href="{% url 'requests_page' user.id %}"
-            class="btn btn-secondary"
-            type="button"
-            >Friends</a
-          >
-        </div>
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .profile-wrapper {
+            padding-top: 120px;
+        }
+
+        .profile-header {
+            text-align: center;
+        }
+
+        .profile-font {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .profile_description {
+            margin: 3% 15%;
+            text-align: justify;
+            color: #858585;
+        }
+
+        .profile-label {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            font-size: 1em;
+        }
+
+        .profile-label div {
+            margin: 5px 15px;
+        }
+
+        .profile-footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .profile-footer a {
+            width: 100px;
+            margin: 0 10px;
+        }
+
+        .profile-friend {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .get-back {
+            position: absolute;
+            top: 60px;
+            left: 40px;
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+<a href="{% url 'home' %}"> <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span>
+</a>
+
+<div class="container profile-wrapper">
+    <div class="profile-header">
+        {% if request.user == user %}
+            <img src="{% static 'images/profile2.jpg' %}" alt="Logo image" class="img-circle">
+        {% else %}
+            <img src="{% static 'images/normal-user.jpg' %}" alt="Logo image" class="img-circle">
         {% endif %}
-
-        <!-- Friend list link -->
-        <div class="">
-          <a href="{% url 'requests_page' user.id %}">
-            <div class="">
-              <span class="material-icons friends-icon">contact_page</span
-              ><span class="">Friends ({{friends|length}})</span>
-            </div>
-          </a>
+        <div class="h1 profile-font">{{ user.username }}</div>
+    </div>
+    <div class="profile-label">
+        <div>
+            <span class="label label-success">IT Student</span>
         </div>
-      </div>
+        <div>
+            <span class="label label-info">Gamer</span>
+        </div>
+        <div>
+            <span class="label label-danger">DC Fans</span>
+        </div>
+    </div>
+    <div class="profile_description">
+        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae vero amet iste nulla labore adipisci expedita earum repudiandae quasi quisquam numquam quo deserunt deleniti obcaecati ipsa, ullam magnam maxime eligendi.</span>
+    </div>
 
-      {% if friend_requests %}
-      <div class="">
-        <!-- Friend requests -->
-        <div class="">
-          <a href="{% url 'requests_page' user.id %}">
+
+    <div>
+
+        <div>
+            {% if request.user == user %}
+                <div class="profile-footer">
+                    <a class="btn btn-primary" href="{% url 'updateProfile' %}">Edit Profile</a>
+                    <a class="btn btn-primary" href="{% url 'logout' %}">Sign out</a>
+                </div>
+            {% else %}
+                <div class="profile-footer">
+                    <a class="btn btn-primary" href="{% url 'send_request' user.id %}">
+                        Add friend
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="profile-friend">
             <div class="">
+                {% if request.user.is_authenticated %}
+                    <div class="">
+                        <!-- send to auth user -->
+                        {% if request_sent == 0 %}
+                            <div class="">
+                                <div class="">
+                                    <span class="">Accept</span>
+                                    <span
+                                            id="id_cancel_{{ id }}"
+                                            class="decline-friend-request material-icons p-1"
+                                            onclick='triggerDeclineFriendRequest("{{ pending_friend_request_id }}")'
+                                    >cancel</span
+                                    >
+                                    <span
+                                            id="id_confirm_{{ id }}"
+                                            class="confirm-friend-request material-icons p-1"
+                                            onclick='triggerAcceptFriendRequest("{{ pending_request }}")'
+                                    >check</span
+                                    >
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="">
+                            <!-- Cancel Friend Request / Send Friend Request / Remove Friend -->
+                            {% if is_friend == False and is_self == False %}
+                                <!--  sent to others -->
+                                {% if friend_request == 1 %}
+                                    <div class="">
+                                        <button class="btn btn-danger" id="cancel_request_btn">
+                                            Cancel Request
+                                        </button>
+                                    </div>
+                                {% endif %} {% endif %} {% if is_friend %}
+                            <div class="">
+                                <a
+                                        href="{% url 'requests_page' user.id %}"
+                                        class="btn btn-secondary"
+                                        type="button"
+                                >Friends</a
+                                >
+                            </div>
+                        {% endif %}
+
+                            <!-- Friend list link -->
+                            <div class="">
+                                <a href="{% url 'requests_page' user.id %}">
+                                    <div class="btn btn-primary">
+                                        {#                                        <span class="material-icons friends-icon">contact_page</span>#}
+                                        <span class="">Friends ({{ friends|length }})</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        {% if friend_requests %}
+                            <div class="">
+                                <!-- Friend requests -->
+                                <div class="">
+                                    <a href="{% url 'requests_page' user.id %}">
+                                        <div class="">
               <span class="material-icons person-add-icon">person_add</span
               ><span class="friend-text"
-                >Friend Requests ({{friend_requests|length}})</span
-              >
+                                        >Friend Requests ({{ friend_requests|length }})</span
+                                        >
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %} {% if is_friend %}
+                        <div
+                                class="btn btn-primary"
+                                onclick="createOrReturnPrivateChat('{{ id }}')"
+                        >
+                            <span class="material-icons m-auto"> message </span>
+                            <span class="message-btn">Message</span>
+                        </div>
+                    {% endif %}
+                    </div>
+                {% endif %}
             </div>
-          </a>
         </div>
-      </div>
-      {% endif %} {% if is_friend %}
-      <div
-        class="btn btn-primary"
-        onclick="createOrReturnPrivateChat('{{id}}')"
-      >
-        <span class="material-icons m-auto"> message </span>
-        <span class="message-btn">Message</span>
-      </div>
-      {% endif %}
+
+
     </div>
-    {% endif %}
-  </div>
+
+
 </div>
 
-<script type="text/javascript">
-  // function sendRequest(id, reloader) {
-  //   context = {
-  //     csrfmiddlewaretoken: "{{ csrf_token }}",
-  //     receiver_id: id,
-  //   };
-  //   $.ajax({
-  //     url: "",
-  //     type: "POST",
-  //     dataType: "json",
-  //     timeout: 5000,
-  //     data: context,
-  //     success: function (data) {
-  //       if (data["response"] == "Friend request has been sent successfully") {
-  //         console.log("123");
-  //       } else if (data["response"] != null) {
-  //         alert(data["response"]);
-  //       }
-  //     },
-  //     error: function (data) {
-  //       alert("Something went wrong");
-  //     },
-  //     complete: function () {
-  //       updateFunction(data);
-  //     },
-  //   });
-  // }
 
-  // var sendBtn = document.getElementById("send_request_btn");
-  // if (sendBtn != null) {
-  //   sendBtn.addEventListener("click", function () {
-  //     console.log("here1");
-  //     sendRequest("{{id}}", location.reload());
-  //     console.log("here");
-  //   });
-  // }
-</script>
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-{% endblock %}
+</body>
+</html>
