@@ -314,7 +314,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/map/">
                             <img src="{% static 'images/3.png' %}" alt="function1">Cultural Map
                         </a>
                     </li>
@@ -336,7 +336,7 @@
                     </li>
                     <li>
                         <a href="/profile/2">
-                            <img src="{% static 'images/6.png' %}" alt="function1">User Profile
+                            <img src="{% static 'images/7.png' %}" alt="function1">User Profile
                         </a>
                     </li>
 
@@ -412,8 +412,16 @@
                             {#                                >Delete</a#}
                             {#                                >#}
                             <div class="discussion-operation">
-                                <span class="glyphicon glyphicon-trash discussion-delete" aria-hidden="true"></span>
-                                <span class="glyphicon glyphicon-edit discussion-edit" aria-hidden="true"></span>
+
+
+                                <a href="{% url 'delete_channel' channel.id %}">
+                                    <span class="glyphicon glyphicon-trash discussion-delete" aria-hidden="true"></span>
+                                </a>
+
+
+                                <a href="{% url 'update_channel' channel.id %}">
+                                    <span class="glyphicon glyphicon-edit discussion-edit" aria-hidden="true"></span>
+                                </a>
                             </div>
                         {% endif %}
                         <div>

@@ -1,72 +1,190 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Discussion Channels</title>
-  </head>
-  <body>
-{#    {% extends 'main.html' %}#}
-{#    {% block content %}#}
-    <div class="channel">
-      <div>
-        <h1>This is discussion {{channel.name}}</h1>
-      <p>{{channel.description}}</p>
-      <div class="post">
-        <h2>Post</h2>
-        {% for post in posts %}
-          <div class="message">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        .channel-top {
+            padding: 40px 10px 0 10px;
+            border-bottom: 1px solid #dddddd;
+            background-color: white;
+        }
 
-            <a href="{% url 'profile' user.id %}">@{{post.user.username}}</a>
-            <p>{{post.created | timesince}} ago</p>
-            
-            {{post.message}}
-            {% if request.user == post.user %}
-            <a href="{% url 'delete_message' post.id %}">Delete</a>
-            {% endif %}
-            <hr>
-          </div>
-        {% endfor %}
-        </ul>
-        {% if request.user.is_authenticated %}
+        .channel-top div {
+            text-align: center;
+            padding-bottom: 5px;
+        }
+
+        .get-back {
+            position: absolute;
+            top: 37px;
+            left: 20px;
+            font-size: 2em;
+        }
+
+
+        .channel-header-wrapper,
+        .post {
+            padding: 10px 10px;
+        }
+
+        .channel-header-wrapper {
+            background-color: white;
+            margin-bottom: 10px;
+        }
+
+        .channel-header img,
+        .post img {
+            width: 50px;
+        }
+
+        .channel-header-name,
+        .channel-header-description,
+        .message-header {
+            margin: 15px 0;
+            padding: 0 15px;
+        }
+
+        .post {
+            background-color: white;
+        }
+
+        .comment-header {
+            border-bottom: 1px solid #dddddd;
+
+        }
+
+        .comment-header span {
+            border-bottom: 3px solid #337ab7;
+        }
+
+        .message-wrapper {
+            overflow:hidden;
+            padding-bottom: 10px;
+        }
+
+        .message-body {
+            float: left;
+            margin: 0;
+            position: relative;
+            top: 0;
+            left: 70px;
+        }
+
+        .message-operation {
+            float: right;
+            font-size: 1.3em;
+
+        }
+
+        .comment-time,
+        .channel-time {
+            text-align: right;
+            margin-top: 10px;
+            color: rgb(150, 150, 150);
+        }
+
+        .comment-time {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .typein-bar {
+            {% comment %} border: 1px solid black; {% endcomment %}
+            text-align: center;
+
+        }
+
+        .typein-text {
+            width: 300px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="channel-top">
+        <a href="{% url 'home' %}">
+            <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span>
+        </a>
         <div>
-          <form action="" method="post">
-            {% csrf_token %}
-            <input type="text" name="message" placeholder="Typing your messages here" />
-            <input type="submit" value="Post" />
-          </form>
+            <span class="h3">Channel Room</span>
         </div>
-        {% endif %}
-      </div>
-      </div>
-      <div class="participants">
-        <h3 class="participants__top">Participants <span>({{participants.count}} People)</span></h3>
-        <div class="participants__list scroll">
-          {% for user in participants %}
-            <p>
-              
-              <a href="{% url 'profile' user.id %}">@{{user.username}}</a>
-            </p>
-          </a>
-          {% endfor %}
-        </div>
-      </div>
-      <div class="recent">
-        <h3>Recent Activities</h3>
-        <hr />
-        {% for post in posts %}
-        <a href="{% url 'profile' post.user.id %}"
-          >@{{post.user.username}}</a
-        >
-        <small>{{post.created | timesince}} ago</small>
-        <br />
-        <small>in {{post.channel}}</small>
-        <p>{{post.message}}</p>
-        {% endfor %}
-      </div>
+    </div>
     
-    </div>    
-{#    {% endblock %}#}
-  </body>
+        
+<div class="channel">
+    <div style="background-color: #dddddd;">
+        <div class="channel-header-wrapper">
+            <div class="channel-header">
+                <img src="{% static 'images/normal-user.jpg' %}" alt="Logo image" class="img-circle">
+                <span class="h4" style="color: #337ab7;">{{ channel.host.username }}</span>
+            </div>
+            <div class="channel-header-name">
+                <span class="h2">{{ channel.name }}</span>
+            </div>
+            <div class="channel-header-description">{{ channel.description }}</div>
+            <div class="channel-time">
+                <span>{{ channel.created }}</span>            
+            </div>    
+
+
+        </div>
+
+        <div class="post">
+            <div class="h4 comment-header">
+                <span>Comments ({{participants.count }})</span>
+            </div>    
+            {% for post in posts %}
+                <div class="message">
+                    
+                    <div class="message-header">
+                        <img src="{% static 'images/profile2.jpg' %}" alt="Logo image" class="img-circle">
+                        <a class="h5" style="color: #337ab7;" href="{% url 'profile' user.id %}">@{{ post.user.username }}</a>
+                    </div>
+
+
+                    <div class="message-wrapper">
+                        <div class="h3 message-body">
+                            {{ post.message }}   
+                        </div>
+                        <div  class="message-operation">
+                            {% if request.user == post.user %}
+                            <a href="{% url 'delete_message' post.id %}">
+                                <span class="glyphicon glyphicon-trash discussion-delete" aria-hidden="true"></span>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="comment-time">
+                        <span>{{ post.created | timesince }} ago</span>
+                    </div>    
+
+                </div>
+            {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="typein-bar">
+
+        {% if request.user.is_authenticated %}
+                <form action="" method="post">
+                    {% csrf_token %}
+                        <input class="typein-text" type="text" name="message" placeholder="Typing your messages here"/>
+                        <input type="submit" value="Post"/>
+                </form>
+        {% endif %}
+    </div>
+
+</div>
+
+
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
 </html>
