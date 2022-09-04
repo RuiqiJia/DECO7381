@@ -13,6 +13,8 @@ import folium
 import geocoder
 import json
 from .status import Status
+import wikipedia
+import re
 
 def loginView(req):
     page = 'login'
@@ -184,7 +186,38 @@ def map(req):
     print(lat, lng)
 
     m = folium.Map(location=[lat, lng], zoom_start=4)
-    folium.Marker([lat, lng], popup='<strong>' + loc + '</strong>', tooltip="Click for more information").add_to(m)
+
+    # added by JWM, display the wikipedia content of the location
+    wiki_loc = wikipedia.page(loc)
+    wiki_content = str(wiki_loc.content)[0:200]
+
+    open_brankets = ['[', '(', '{']
+    close_brankets = {']': '[', ')': '(', '}': '{'}
+    stack = []
+    #
+    # start = -100
+    # end = -1
+    wiki_content_new = ""
+    wiki_content = re.sub("[\(\[].*?[\)\]]", "", wiki_content)
+
+    for i in range(len(wiki_content)):
+        if wiki_content[i] in (open_brankets or close_brankets.keys()):
+            pass
+        else:
+            wiki_content_new += wiki_content[i]
+    # for i in range(len(wiki_content)):
+    #
+    #     # if wiki_content[i] in open_brankets and start == -1:
+    #     #     start = i
+    #     #     stack.append(wiki_content[i])
+    #     # # elif wiki_content[i] in close_brankets.keys() and len(stack) > 1:
+    #     # #     stack.pop()
+    #     # elif wiki_content[i] in close_brankets.keys() and end == -1:
+    #     #     # stack.pop()
+    #     #     end = i
+    # wiki_content = wiki_content[0:start] + wiki_content[end+1:]
+
+    folium.Marker([lat, lng], popup='<strong>' + loc + '<br>' + '<br>' + wiki_content_new + '</strong>', tooltip="Click for more information").add_to(m)
 
     fig = branca.element.Figure(height="100%")
     fig.add_child(m)
@@ -320,4 +353,3 @@ def accept_request(req, id):
     #                 data['res'] = "Friend request has been accepted successfully"
     
     # return JsonResponse({'res' : 'Friend request has been accepted successfully'})
-            
