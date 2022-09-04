@@ -201,7 +201,7 @@ def map(req):
     wiki_content = re.sub("[\(\[].*?[\)\]]", "", wiki_content)
 
     for i in range(len(wiki_content)):
-        if wiki_content[i] in (open_brankets or close_brankets.keys()):
+        if (wiki_content[i] in open_brankets) or (wiki_content[i] in close_brankets.keys()):
             pass
         else:
             wiki_content_new += wiki_content[i]
