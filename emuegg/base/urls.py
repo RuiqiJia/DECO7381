@@ -4,9 +4,9 @@ from django.contrib.auth import views as auth_views
 # used for building notification purpose
 from django.contrib import admin
 from django.urls import path, include
-from AppCore import views
-import notifications.urls
-from django.conf.urls import url
+# from AppCore import views
+# import notifications.urls
+# from django.conf.urls import url
 
 
 urlpatterns = [
@@ -41,6 +41,7 @@ urlpatterns = [
     path('send_request/<str:id>/', views.send_request, name="send_request"),
     path('requests_page/<str:id>/', views.requests_page, name="requests_page"),
     path('accept_request/<str:id>/', views.accept_request, name="accept_request"),
+    path('private_chat', views.private_chat, name="private_chat"),
 
     # message notification purpose
     # Juewen Ma

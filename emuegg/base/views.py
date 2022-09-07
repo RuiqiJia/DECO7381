@@ -386,3 +386,6 @@ def message(request):
     except Exception as e:
         print(e)
         return HttpResponse("Please login from admin site for sending messages")
+
+def private_chat(req):
+    return render(req, 'base/private_chat.html')

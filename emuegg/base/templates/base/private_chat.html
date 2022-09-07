@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Private Chat</h1>
+    <form id="chat">
+      <input type="text" name="message" />
+    </form>
+    <div id="message"></div>
+
+    <script type="text/javascript">
+      let url = `ws://${window.location.host}/ws/socket-server/`;
+      const socket = new WebSocket(url);
+      socket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        console.log("Data", data);
+        if (data.type === "chat_message") {
+          const messageWrapper = document.getElementById("message");
+          messageWrapper.insertAdjacentHTML(
+            "beforeend",
+            `<div><p>${data.message}</p></div>`
+          );
+        }
+      };
+      // const message = data["message"];
+      let chatForm = document.getElementById("chat");
+      document.querySelector("#chat").addEventListener("submit", (e) => {
+        e.preventDefault();
+        let message = e.target.message.value;
+        socket.send(
+          JSON.stringify({
+            message: message,
+          })
+        );
+        chatForm.reset();
+      });
+    </script>
+  </body>
+</html>
