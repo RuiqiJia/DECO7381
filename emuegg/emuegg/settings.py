@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base.apps.BaseConfig',
+    'channels',
 ]
 
 AUTH_USER_MODEL = 'base.User'
@@ -73,7 +74,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'emuegg.wsgi.application'
-
+ASGI_APPLICATION = 'emuegg.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': ['127.0.0.1', '6379'],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
