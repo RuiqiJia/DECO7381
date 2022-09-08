@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
-from .models import User, Channel, Message, Topic, Friends, FriendRequest
+from .models import User, Channel, Message, Topic, Friends, FriendRequest, PrivateChat, PrivateMessage
 from .forms import UserForm, CustomeUserCreationForm, RoomForm, CountryForm 
 import folium
 import geocoder
@@ -388,4 +388,27 @@ def message(request):
         return HttpResponse("Please login from admin site for sending messages")
 
 def private_chat(req):
+    room1 = PrivateChat.objects.filter(user1=req.user)
+    room2 = PrivateChat.objects.filter(user2=req.user)
+    rooms = room1 | room2
+    data = {}
+    friends_list = []
+    for room in rooms:
+        if room.user1 == req.user:
+            friends_list.append({'message': "", 'user': room.user2})
+        else:
+            friends_list.append({'message': "", 'user': room.user1})
+    data['friends_list'] = friends_list
+
     return render(req, 'base/private_chat.html')
+
+def create_chat(user1, user2):
+	try:
+		chat = PrivateChat.objects.get(user1=user1, user2=user2)
+	except PrivateChat.DoesNotExist:
+		try:
+			chat = PrivateChat.objects.get(user1=user2, user2=user1)
+		except PrivateChat.DoesNotExist:
+			chat = PrivateChat(user1=user1, user2=user2)
+			chat.save()
+	return chat

@@ -4,41 +4,186 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>chat room</title>
   </head>
   <body>
-    <h1>Private Chat</h1>
+    {% if user.is_authenticated %}
+    <h1>Hi {{ user.username }}</h1>
+    <input type="hidden" id="loginUser" value="{{ user.id }}" />
+    {% endif %}
+
     <form id="chat">
-      <input type="text" name="message" />
+      <input id="input_message" type="text" name="message" />
     </form>
     <div id="message"></div>
+    <div class="container">
+      <div>
+        <div>
+          <div>
+            <div>
+              <a>
+                <img src="" />
+                <h3 id="id_other_username"></h3>
+              </a>
+            </div>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    <span>Loading...</span>
+                  </div>
+                </div>
+                <div></div>
+
+                <div>
+                  <textarea></textarea>
+                  <button class="btn btn-primary">send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div>
+              <h3>Friends</h3>
+            </div>
+            <div>
+              <div>
+                {% for x in m_and_f %}
+                <div
+                  onclick="onSelectFriend('{{x.friend.id}}')"
+                  id="id_friend_container_{{x.friend.id}}"
+                >
+                  <img id="id_friend_img_{{x.friend.id}}" src="" />
+                  <div>
+                    <span>{{x.friend.username}}</span>
+                    <span class="friend-message-span"
+                      >{{x.message|truncatechars:20}}</span
+                    >
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Client Error MODAL -->
+    <!-- <button
+      type="button"
+      id="id_trigger_client_error_modal"
+      class="d-none btn btn-primary"
+      data-toggle="modal"
+      data-target="#id_client_error_modal"
+    ></button>
+    <div
+      class="modal fade"
+      id="id_client_error_modal"
+      tabindex="-1"
+      role="dialog"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Socket Client Error</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="id_client_error_modal_body">Something went wrong.</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+              id="id_client_error_modal_close_btn"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- Client Error MODAL -->
 
     <script type="text/javascript">
-      let url = `ws://${window.location.host}/ws/socket-server/`;
-      const socket = new WebSocket(url);
+      const user_id = $("#loginUser").val();
+      var socket = null;
+      let url = `ws://${window.location.host}/private_chat/${room_id}/`;
+      socket = new WebSocket(url);
+      const chatForm = document.getElementById("chat");
+      const inputMessage = document.getElementById("input_message");
+      var roomId = null;
+
+      socket.onopen = function (e) {
+        chatForm.on("submit", function (e) {
+          e.preventDefault();
+          let message = input_message.val();
+          let receiver = get_receiver_id();
+          let thread_id = get_active_thread_id();
+
+          let data = {
+            message: message,
+            sender: user_id,
+            receiver: receiver,
+            thread_id: thread_id,
+          };
+          data = JSON.stringify(data);
+          socket.send(data);
+          chatForm.reset();
+        });
+      };
+
       socket.onmessage = function (e) {
         const data = JSON.parse(e.data);
-        console.log("Data", data);
-        if (data.type === "chat_message") {
-          const messageWrapper = document.getElementById("message");
-          messageWrapper.insertAdjacentHTML(
-            "beforeend",
-            `<div><p>${data.message}</p></div>`
-          );
-        }
+        const message = data["message"];
+        const sender_id = data["sender"];
+        get_new_message(message, sender_id);
       };
       // const message = data["message"];
-      let chatForm = document.getElementById("chat");
-      document.querySelector("#chat").addEventListener("submit", (e) => {
-        e.preventDefault();
-        let message = e.target.message.value;
-        socket.send(
-          JSON.stringify({
-            message: message,
-          })
+
+      // document.querySelector("#chat").addEventListener("submit", (e) => {
+      //   e.preventDefault();
+      //   let message = e.target.message.value;
+      //   socket.send(
+      //     JSON.stringify({
+      //       message: message,
+      //     })
+      //   );
+      //   chatForm.reset();
+      // });
+
+      function get_new_message(message, sender_id) {
+        if (sender_id == user_id) {
+          return `<div class="message message--right">
+                    <div class="message__text">${message}</div>
+                </div>`;
+        } else {
+          return `<div class="message message--left">
+                    <div class="message__text">${message}</div>
+                </div>`;
+        }
+      }
+
+      function get_receiver_id() {
+        let receiver_id = $(".messages-wrapper.is_active").attr(
+          "other-user-id"
         );
-        chatForm.reset();
-      });
+        receiver_id = $.trim(receiver_id);
+        return receiver_id;
+      }
     </script>
   </body>
 </html>
