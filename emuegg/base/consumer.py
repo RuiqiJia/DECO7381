@@ -28,36 +28,22 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         return nullcontext
 
     async def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = text_data_json['message']
-        sender_id = text_data_json.get('sender')
-        receiver_id = text_data_json.get('receiver')
-        sender = User.objects.get(id=sender_id)
-        receiver = User.objects.get(id=receiver_id)
-
-        receiver_room_group_name = f'chat_{receiver_id}'
-        self_user = self.scope['user']
-        res = {
-            'message': message,
-            'sender': self_user.id,
-
-        }
-
-        async_to_sync(self.channel_layer.group_send)(
-            receiver_room_group_name,
-            {
-                'type': 'chat_message',
-                'message': json.dumps(res),
-            }
-        )
-        async_to_sync(self.channel_layer.group_send)(
-            self.room_group_name,
-            {
-                'type': 'chat_message',
-                'message': json.dumps(res),
-            }
-        )
-        
+        command = text_data.get("command", None)
+        if command == "join":
+            print("joining room: " + str(text_data['room']))
+            await self.join_room(text_data["room"])
+        elif command == "leave":
+            await self.leave_room(text_data["room"])
+        elif command == "send":
+            await self.send_room(text_data["room"], text_data["message"])
+        elif command == "get_room_chat_messages":
+            
+            # room = await get_room_or_error(content['room_id'], self.scope["user"])
+            # payload = await get_room_chat_messages(room, content['page_number'])
+            if payload != None:
+                payload = json.loads(payload)
+                await self.send_messages_payload(payload['messages'], payload['new_page_number'])
+            await self.display_progress_bar(False)
 
     def chat_message(self, event):
         message = event['message']

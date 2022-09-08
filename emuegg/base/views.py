@@ -412,3 +412,16 @@ def create_chat(user1, user2):
 			chat = PrivateChat(user1=user1, user2=user2)
 			chat.save()
 	return chat
+
+def start_chat(req):
+    user1 =req.user
+    data = {}
+    
+    user2_id = req.POST.get('user2_id')
+    user2 = User.objects.get(id=user2_id)
+    chat = create_chat(user1, user2)
+    data['response'] = "Chat created successfully"
+    data['chat_id'] = chat.id
+
+    return JsonResponse(data)
+       

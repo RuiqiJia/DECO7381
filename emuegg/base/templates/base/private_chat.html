@@ -8,7 +8,7 @@
     <title>chat room</title>
   </head>
   <body>
-    {% if user.is_authenticated %}
+    {% load static %} {% block content %} {% if user.is_authenticated %}
     <h1>Hi {{ user.username }}</h1>
     <input type="hidden" id="loginUser" value="{{ user.id }}" />
     {% endif %}
@@ -29,11 +29,7 @@
             </div>
             <div>
               <div>
-                <div>
-                  <div>
-                    <span>Loading...</span>
-                  </div>
-                </div>
+                <div></div>
                 <div></div>
 
                 <div>
@@ -52,16 +48,16 @@
             </div>
             <div>
               <div>
-                {% for x in m_and_f %}
+                {% for msgFriend in friends_list %}
                 <div
-                  onclick="onSelectFriend('{{x.friend.id}}')"
-                  id="id_friend_container_{{x.friend.id}}"
+                  onclick="onSelect('{{msgFriend.friend.id}}')"
+                  id="id_friend_container_{{msgFriend.friend.id}}"
                 >
-                  <img id="id_friend_img_{{x.friend.id}}" src="" />
+                  <img id="id_friend_img_{{msgFriend.friend.id}}" src="" />
                   <div>
-                    <span>{{x.friend.username}}</span>
+                    <span>{{msgFriend.friend.username}}</span>
                     <span class="friend-message-span"
-                      >{{x.message|truncatechars:20}}</span
+                      >{{msgFriend.message|truncatechars:20}}</span
                     >
                   </div>
                 </div>
@@ -121,37 +117,102 @@
     <script type="text/javascript">
       const user_id = $("#loginUser").val();
       var socket = null;
-      let url = `ws://${window.location.host}/private_chat/${room_id}/`;
-      socket = new WebSocket(url);
+      onStart();
+      function onStart(){
+
+        {% if friends_list %}
+            onSelect("{{friends_list.0.friend.id}}")
+        {% endif %}
+
+
+      }
+      function onSelect(userId){
+        console.log("onSelect: " + userId)
+        startChat(userId)
+      }
+
       const chatForm = document.getElementById("chat");
       const inputMessage = document.getElementById("input_message");
       var roomId = null;
+      function newSocket(room_id) {
+        roomId = room_id;
+        socket.close();
+        socket = null;
+        let url = `ws://${window.location.host}/private_chat/${room_id}/`;
+        socket = new WebSocket(url);
 
-      socket.onopen = function (e) {
-        chatForm.on("submit", function (e) {
-          e.preventDefault();
-          let message = input_message.val();
-          let receiver = get_receiver_id();
-          let thread_id = get_active_thread_id();
+        socket.onmessage = function (message) {
+          var data = JSON.parse(message.data);
 
-          let data = {
-            message: message,
-            sender: user_id,
-            receiver: receiver,
-            thread_id: thread_id,
-          };
-          data = JSON.stringify(data);
-          socket.send(data);
-          chatForm.reset();
+          if (data.error) {
+            console.error(data.error + ": " + data.message);
+          }
+          if (data.join) {
+            console.log("Joining room " + data.join);
+          }
+          if (data.leave) {
+            console.log("Leaving room " + data.leave);
+          }
+        };
+
+        socket.addEventListener("open", function (e) {
+          if ("{{request.user.is_authenticated}}") {
+            chatSocket.send(
+              JSON.stringify({
+                command: "join",
+                room: roomId,
+              })
+            );
+          }
         });
-      };
+      }
 
-      socket.onmessage = function (e) {
-        const data = JSON.parse(e.data);
-        const message = data["message"];
-        const sender_id = data["sender"];
-        get_new_message(message, sender_id);
-      };
+      function startChat(id) {
+        data = {
+          csrfmiddlewaretoken: "{{ csrf_token }}",
+          user2_id: id,
+        };
+        $.ajax({
+          type: "POST",
+          url: "{% url 'start_chat' %}",
+          data: data,
+          success: function (data) {
+            console.log(data);
+            if (data.response == "Chat created successfully") {
+              newSocket(data.chat_id);
+            }
+          },
+          error: function (data) {
+            console.log(data);
+          },
+        });
+      }
+
+      // socket.onopen = function (e) {
+      //   chatForm.on("submit", function (e) {
+      //     e.preventDefault();
+      //     let message = input_message.val();
+      //     let receiver = get_receiver_id();
+      //     let thread_id = get_active_thread_id();
+
+      //     let data = {
+      //       message: message,
+      //       sender: user_id,
+      //       receiver: receiver,
+      //       thread_id: thread_id,
+      //     };
+      //     data = JSON.stringify(data);
+      //     socket.send(data);
+      //     chatForm.reset();
+      //   });
+      // };
+
+      // socket.onmessage = function (e) {
+      //   const data = JSON.parse(e.data);
+      //   const message = data["message"];
+      //   const sender_id = data["sender"];
+      //   get_new_message(message, sender_id);
+      // };
       // const message = data["message"];
 
       // document.querySelector("#chat").addEventListener("submit", (e) => {
@@ -165,25 +226,26 @@
       //   chatForm.reset();
       // });
 
-      function get_new_message(message, sender_id) {
-        if (sender_id == user_id) {
-          return `<div class="message message--right">
-                    <div class="message__text">${message}</div>
-                </div>`;
-        } else {
-          return `<div class="message message--left">
-                    <div class="message__text">${message}</div>
-                </div>`;
-        }
-      }
+      // function get_new_message(message, sender_id) {
+      //   if (sender_id == user_id) {
+      //     return `<div class="message message--right">
+      //               <div class="message__text">${message}</div>
+      //           </div>`;
+      //   } else {
+      //     return `<div class="message message--left">
+      //               <div class="message__text">${message}</div>
+      //           </div>`;
+      //   }
+      // }
 
-      function get_receiver_id() {
-        let receiver_id = $(".messages-wrapper.is_active").attr(
-          "other-user-id"
-        );
-        receiver_id = $.trim(receiver_id);
-        return receiver_id;
-      }
+      // function get_receiver_id() {
+      //   let receiver_id = $(".messages-wrapper.is_active").attr(
+      //     "other-user-id"
+      //   );
+      //   receiver_id = $.trim(receiver_id);
+      //   return receiver_id;
+      // }
     </script>
+    {% endblock content %}
   </body>
 </html>
