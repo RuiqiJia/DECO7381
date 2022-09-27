@@ -187,6 +187,10 @@ def map(req):
         return render(req, 'base/map.html', {'m': m})
 
     loc = req.POST.get("location")
+    loc = str(loc).strip()
+    #error handling for china
+    if loc in ("China", "china", "CHINA"):
+        loc = "中国"
     location = geocoder.osm(loc)
     lat = location.lat
     lng = location.lng
