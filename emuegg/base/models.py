@@ -79,7 +79,7 @@ class FriendRequest(models.Model):
     def __str__(self):
         return self.sender.username
     
-    def accept_request(self):
+    def accept_requests(self):
         receive_request = Friends.objects.get(user=self.receiver)
         if receive_request:
             receive_request.add_friend(self.sender)

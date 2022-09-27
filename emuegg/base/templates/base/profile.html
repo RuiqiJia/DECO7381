@@ -221,7 +221,7 @@
         {% if request.user == user %}
             <img src="{% static 'images/profile2.jpg' %}" alt="Logo image" class="img-circle">
         {% else %}
-            <img src="{% static 'images/normal-user.jpg' %}" alt="Logo image" class="img-circle">{% url 'send_request' user.id %}
+            <img src="{% static 'images/normal-user.jpg' %}" alt="Logo image" class="img-circle">
         {% endif %}
         <div class="h1 profile-font">{{ user.username }}</div>
     </div>
@@ -284,9 +284,7 @@
                         {% endif %}
 
                         <div class="">
-                            <!-- Cancel Friend Request / Send Friend Request / Remove Friend -->
                             {% if is_friend == False and is_self == False %}
-                                <!--  sent to others -->
                                 {% if friend_request == 1 %}
                                     <div class="">
                                         <button class="btn btn-danger" id="cancel_request_btn">
@@ -303,8 +301,6 @@
                                 >
                             </div>
                         {% endif %}
-
-                            <!-- Friend list link -->
                             <div class="">
                                 <a href="{% url 'requests_page' user.id %}">
                                     <div class="btn btn-primary">
@@ -317,12 +313,11 @@
 
                         {% if friend_requests %}
                             <div class="">
-                                <!-- Friend requests -->
+
                                 <div class="">
                                     <a href="{% url 'requests_page' user.id %}">
                                         <div class="">
-              <span class="material-icons person-add-icon">person_add</span
-              ><span class="friend-text"
+              <span class="friend-text"
                                         >Friend Requests ({{ friend_requests|length }})</span
                                         >
                                         </div>

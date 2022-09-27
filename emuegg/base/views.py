@@ -105,7 +105,7 @@ def profile(req, id):
         else:
             is_friend = False
             #frind request send to auth_user
-            if is_friendRequest(sender=user, receiver=auth_user):
+            if is_friendRequest(sender=user, receiver=auth_user) != False:
                 friend_request = Status.REQUEST_SENT.value
                 data['pending_request'] = is_friendRequest(sender=user, receiver=auth_user).id
             # friend request sent from auth_user
@@ -339,31 +339,33 @@ def requests_page(req, id):
         return redirect('login')
     return render(req, 'base/requests_page.html', data)
 
-def accept_request(req, id):
-    friend_request = FriendRequest.objects.get(id=id)
-    if friend_request.receiver == req.user:
-        #update friend model
-        # Friends.user = req.user
-        # Friends.user.save()
-        # Friends.friend = friend_request.sender
-        # Friends.friend.save()
-        # friend_request.receiver.friends.add(friend_request.sender)
-        # friend_request.sender.friends.add(friend_request.receiver)
-        friend_request.delete()
-        return HttpResponse('Friend request has been accepted')
-    # data = {}
-    # auth_user = req.user
-    # user = User.objects.get(id=id)
-    # if auth_user.is_authenticated:
-    #     if auth_user == user and req.method == 'GET':
-    #         requests_id = FriendRequest.objects.get(id=id)
-    #         if requests_id:
-    #             friend_request = FriendRequest.objects.get(id=requests_id)
-    #             if friend_request.receiver == auth_user:
-    #                 friend_request.accept()
-    #                 data['res'] = "Friend request has been accepted successfully"
+def accept_request(req, *args, **kwargs):
+
+    # friend_request = FriendRequest.objects.get(id=id)
+    # if friend_request.receiver == req.user:
+    #     #update friend model
+    #     # Friends.user = req.user
+    #     # Friends.user.save()
+    #     # Friends.friend = friend_request.sender
+    #     # Friends.friend.save()
+    #     # friend_request.receiver.friends.add(friend_request.sender)
+    #     # friend_request.sender.friends.add(friend_request.receiver)
+    #     friend_request.accept_request()
+    #     friend_request.delete()
+    #     return HttpResponse('Friend request has been accepted')
+    data = {}
+    auth_user = req.user
     
-    # return JsonResponse({'res' : 'Friend request has been accepted successfully'})
+    if auth_user.is_authenticated and req.method == 'GET':
+        requests_id = kwargs.get('requests_id')
+        if requests_id:
+            friend_request = FriendRequest.objects.get(id=requests_id)
+            if friend_request.receiver == auth_user:
+                friend_request.accept_requests()
+                friend_request.delete()
+                data['res'] = "Friend request has been accepted successfully"
+    
+    return JsonResponse({'res' : 'Friend request has been accepted successfully'})
 
 # Juewen Ma
 # visualise the message received from other users(half-way through)
