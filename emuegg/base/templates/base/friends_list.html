@@ -1,0 +1,18 @@
+{% extends 'main.html' %} {% load static %} {% block content %}
+
+<div class="container">
+  <div>
+    {% for friend in friends %}
+
+    <a href="{% url 'profile' friend.id %}">
+      <div>
+        <img class="" src="{% static 'images/profile2.jpg' %}" alt="avatar" />
+      </div>
+    </a>
+    <strong>{{friend.username}}</strong>
+    <a href="/private_chat" onclick="">Send a Message</a>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

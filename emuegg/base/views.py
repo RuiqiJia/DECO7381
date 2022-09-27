@@ -124,7 +124,7 @@ def profile(req, id):
     data['is_friend'] = is_friend
     data['friend_request'] = friend_request
     data['friend_requests'] = friend_requests
-    data[all_friends] = all_friends
+    data['all_friends'] = all_friends
     return render(req, 'base/profile.html', data)
 
 @login_required(login_url='login')
@@ -367,6 +367,23 @@ def accept_request(req, *args, **kwargs):
     
     return JsonResponse({'res' : 'Friend request has been accepted successfully'})
 
+def friend_list(req, *args, **kwargs):
+    data = {}
+    auth_user = req.user
+    if auth_user.is_authenticated:
+        user_id = kwargs.get('user_id')
+        if user_id:
+            user = User.objects.get(id=user_id)
+            list = []
+            friend_list = Friends.objects.get(user=user)
+            
+            for friend in friend_list.friend.all():
+                list.append(friend)
+        if auth_user != user:
+            if not auth_user in list.friends.all():
+                return HttpResponse('You are not allowed to view this page')
+    data['friends'] = list
+    return render(req, 'base/friends_list.html', data)
 # Juewen Ma
 # visualise the message received from other users(half-way through)
 def index(request):

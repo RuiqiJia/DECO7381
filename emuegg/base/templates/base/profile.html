@@ -247,7 +247,7 @@
             {% if request.user == user %}
                 <div class="profile-footer">
                     <a class="btn btn-primary" href="{% url 'updateProfile' %}">Edit Profile</a>
-                    <a class="btn btn-primary" href="{% url 'logout' %}">Sign out</a>
+                    <a class="btn btn-danger" href="{% url 'logout' %}">Sign out</a>
                 </div>
             {% else %}
                 <div class="profile-footer">
@@ -301,26 +301,23 @@
                                 >
                             </div>
                         {% endif %}
+            
                             <div class="">
-                                <a href="{% url 'requests_page' user.id %}">
+                                <a href="{% url 'friend_list' user.id %}">
                                     <div class="btn btn-primary">
-                                        {#                                        <span class="material-icons friends-icon">contact_page</span>#}
-                                        <span class="">Friends ({{ friends|length }})</span>
+                                        <span class="">Friends ({{ all_friends|length }})</span>
                                     </div>
                                 </a>
                             </div>
+          
                         </div>
 
                         {% if friend_requests %}
                             <div class="">
 
                                 <div class="">
-                                    <a href="{% url 'requests_page' user.id %}">
-                                        <div class="">
-              <span class="friend-text"
-                                        >Friend Requests ({{ friend_requests|length }})</span
-                                        >
-                                        </div>
+                                    <a href="{% url 'requests_page' user.id %}">    
+                                        <span class="friend-text">Friend Requests ({{ friend_requests|length }})</span>
                                     </a>
                                 </div>
                             </div>
