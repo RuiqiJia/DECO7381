@@ -141,6 +141,7 @@ def updateProfile(req):
 
 def channel(req, id):
     channel = Channel.objects.get(id=id)
+ 
     posts = channel.message_set.all().order_by('-created')
     participants = channel.participants.all()
     if req.method == 'POST':
@@ -222,11 +223,12 @@ def map(req):
     #     #     end = i
     # wiki_content = wiki_content[0:start] + wiki_content[end+1:]
 
-    folium.Marker([lat, lng], popup='<strong>' + loc + '<br>' + '<br>' + wiki_content_new + '</strong>', tooltip="Click for more information").add_to(m)
+    folium.Marker([lat, lng], popup='<strong>' + '<a href="">' + loc + '</a>' + '<br>' + wiki_content_new + '</strong>', tooltip="Click for more information").add_to(m)
 
     fig = branca.element.Figure(height="100%")
     fig.add_child(m)
     m = m._repr_html_()
+    # loc_name = Channel.objects.get(name=loc)
 
     return render(req, "base/map.html", {'m': m})
 
