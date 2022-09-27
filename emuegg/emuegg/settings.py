@@ -99,10 +99,10 @@ DATABASES = {
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'emuegg',
-    #     'USER': 'root',
-    #     'PASSWORD': 'wx68928bill',
-    #     'HOST': 'localhost',
-    #     'PORT': 3306,
+    #     'USER': 's4681361',
+    #     'PASSWORD': '',
+    #     'HOST': 'deco3801-emuegg.uqcloud.net',
+    #     'PORT': 22,
     # }
 }
 

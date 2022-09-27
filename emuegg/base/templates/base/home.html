@@ -345,10 +345,10 @@
         </div>
         <div class="col-xs-1"></div>
         <div class="col-xs-10">
-            <form method="post" action="" class="navbar-form navbar-right search-bar" id="click">
+            <form method="GET" action="{% url 'home' %}" class="navbar-form navbar-right search-bar" id="click">
                 {% csrf_token %}
                 <div class="input-group">
-                    <input class="form-control text-input" name="Topic" type="text"
+                    <input class="form-control text-input" name="query" type="text"
                            placeholder="Search For Your Preferred Topic"/>
                     <span class=" btn btn-default input-group-addon">
                 <a href="#" onclick="document.getElementById('click').submit();return false;">

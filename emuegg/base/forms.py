@@ -6,13 +6,13 @@ from .models import User, Channel
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['picture', 'username', 'email', 'country', 'degree', 'hobbies']
+        fields = ['Picture', 'username', 'email', 'Country', 'Major', 'Courses']
 
 
 class CustomeUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'country', 'password1', 'password2']
+        fields = ['username', 'email', 'Country', 'password1', 'password2']
 
 class RoomForm(ModelForm):
     class Meta:
@@ -23,5 +23,5 @@ class RoomForm(ModelForm):
 class CountryForm(ModelForm):
     class Meta:
         model = User
-        fields = ['country']
+        fields = ['Country']
     

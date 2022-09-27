@@ -7,10 +7,10 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, null=True)
-    picture = models.ImageField(null=True, default='')
-    country = models.CharField(max_length=50, null=True)
-    degree = models.CharField(max_length=50, null=True)
-    hobbies = models.CharField(max_length=50, null=True)
+    Picture = models.ImageField(null=True, default='')
+    Country = models.CharField(max_length=50, null=True)
+    Major = models.CharField(max_length=50, null=True)
+    Courses = models.CharField(max_length=50, null=True)
     USERNAME_FIELD: str = 'email'
     REQUIRED_FIELDS: list = ['username', 'country']
 

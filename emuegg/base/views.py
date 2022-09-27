@@ -186,11 +186,9 @@ def map(req):
         return render(req, 'base/map.html', {'m': m})
 
     loc = req.POST.get("location")
-    print(loc)
     location = geocoder.osm(loc)
     lat = location.lat
     lng = location.lng
-    print(lat, lng)
 
     m = folium.Map(location=[lat, lng], zoom_start=4)
 
