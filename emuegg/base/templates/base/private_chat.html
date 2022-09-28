@@ -21,23 +21,8 @@
       <div>
         <div>
           <div>
-            <div>
-              <a>
-                <img src="" />
-                <h3 id="id_other_username"></h3>
-              </a>
-            </div>
-            <div>
-              <div>
-                <div></div>
-                <div></div>
-
-                <div>
-                  <textarea></textarea>
-                  <button class="btn btn-primary">send</button>
-                </div>
-              </div>
-            </div>
+            <textarea></textarea>
+            <button class="btn btn-primary">send</button>
           </div>
         </div>
 
@@ -47,7 +32,7 @@
               <h3>Friends</h3>
             </div>
             <div>
-              <div>
+              
                 {% for msgFriend in friends_list %}
                 <div
                   onclick="onSelect('{{msgFriend.friend.id}}')"

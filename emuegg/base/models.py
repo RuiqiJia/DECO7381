@@ -3,7 +3,7 @@ from math import degrees
 from django.db import models
 
 from django.contrib.auth.models import AbstractUser
-# from .views import create_chat
+# from .utility import create_chat
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, null=True)
@@ -56,9 +56,12 @@ class Friends(models.Model):
         return self.user.username
 
     def add_friend(self, friend):
-        if friend not in self.friend.all():
+        if not friend in self.friend.all():
             self.friend.add(friend)
+            self.save()
         # chat = create_chat(self.user, friend)
+        # chat.save()
+
     
     def remove_friend(self, friend):
         if friend in self.friend.all():

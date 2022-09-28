@@ -1,4 +1,5 @@
 from calendar import c
+from distutils.util import change_root
 
 import branca
 from django.shortcuts import render, redirect
@@ -13,6 +14,7 @@ import folium
 import geocoder
 import json
 from .status import Status
+from itertools import chain
 # visualize wikipedia contents of corresponding city
 import wikipedia
 import re
@@ -117,7 +119,6 @@ def profile(req, id):
     elif not auth_user.is_authenticated:
         is_self = False
     else:
-        
         friend_requests = FriendRequest.objects.filter(receiver=auth_user, is_accepted=True)
     data['user'] = user  
     data['is_self'] = is_self
@@ -380,8 +381,8 @@ def friend_list(req, *args, **kwargs):
             for friend in friend_list.friend.all():
                 list.append(friend)
         if auth_user != user:
-            if not auth_user in list.friends.all():
-                return HttpResponse('You are not allowed to view this page')
+            
+            return HttpResponse('You are not allowed to view this page')
     data['friends'] = list
     return render(req, 'base/friends_list.html', data)
 # Juewen Ma
@@ -413,18 +414,22 @@ def message(request):
 def private_chat(req):
     room1 = PrivateChat.objects.filter(user1=req.user)
     room2 = PrivateChat.objects.filter(user2=req.user)
-    rooms = room1 | room2
+    rooms = list(chain(room1, room2))
+    print(room1)
     data = {}
     friends_list = []
     for room in rooms:
         if room.user1 == req.user:
-            friends_list.append({'message': "", 'user': room.user2})
+            friend = room.user2
+            print(friend)
+            # friends_list.append({'message': "", 'user': room.user2})
         else:
-            friends_list.append({'message': "", 'user': room.user1})
+            friend = room.user1
+        friends_list.append({'message': "", 'friend': friend})
     data['friends_list'] = friends_list
-
-    return render(req, 'base/private_chat.html')
-
+    print(data)
+    return render(req, 'base/private_chat.html', data)
+     
 def create_chat(user1, user2):
 	try:
 		chat = PrivateChat.objects.get(user1=user1, user2=user2)

@@ -292,14 +292,12 @@
                                         </button>
                                     </div>
                                 {% endif %} {% endif %} {% if is_friend %}
+                                {% if request.user == user %}
                             <div class="">
-                                <a
-                                        href="{% url 'requests_page' user.id %}"
-                                        class="btn btn-secondary"
-                                        type="button"
-                                >Friends</a
-                                >
+                                <a href="{% url 'requests_page' user.id %}" class="btn btn-primary" type="button">Friend Requests</a>
                             </div>
+                                {% endif %}
+                            
                         {% endif %}
             
                             <div class="">
@@ -326,7 +324,6 @@
                                 class="btn btn-primary"
                                 onclick="createOrReturnPrivateChat('{{ id }}')"
                         >
-                            <span class="material-icons m-auto"> message </span>
                             <span class="message-btn">Message</span>
                         </div>
                     {% endif %}
