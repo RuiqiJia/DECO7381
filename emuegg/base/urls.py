@@ -41,8 +41,8 @@ urlpatterns = [
     path('send_request/<str:id>/', views.send_request, name="send_request"),
     path('requests_page/<str:id>/', views.requests_page, name="requests_page"),
     path('accept_request/<requests_id>/', views.accept_request, name="accept_request"),
-    path('private_chat', views.private_chat, name="private_chat"),
-    path('start_chat', views.start_chat, name="start_chat"),
+    path('private_chat/', views.private_chat, name="private_chat"),
+    path('start_chat/', views.start_chat, name="start_chat"),
     path('friend_list/<user_id>/', views.friend_list, name="friend_list"),
 
     # message notification purpose

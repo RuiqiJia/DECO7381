@@ -21,6 +21,10 @@
       <div>
         <div>
           <div>
+            <a id="user_info_profile" href="">
+              <h3 id="chatfriend_username">name</h3>
+            </a>
+            
             <textarea></textarea>
             <button class="btn btn-primary">send</button>
           </div>
@@ -121,50 +125,85 @@
       var roomId = null;
       function newSocket(room_id) {
         roomId = room_id;
-        socket.close();
-        socket = null;
-        let url = `ws://${window.location.host}/private_chat/${room_id}/`;
+        if(socket != null){
+          socket.close()
+          socket = null
+        }
+        // var ws_scheme = window.location.protocol === "https:" ? "wss" : "ws";
+        // var ws_path = ws_scheme + '://' + window.location.host + "/private_chat/" + roomId + "/";
+        var url = `wss://${window.location.host}/private_chat/${roomId}/`;
+        console.log(roomId)
         socket = new WebSocket(url);
 
         socket.onmessage = function (message) {
+          console.log("onmessage: " + message.data)
           var data = JSON.parse(message.data);
-
+          console.log(data)
           if (data.error) {
-            console.error(data.error + ": " + data.message);
+            
           }
           if (data.join) {
             console.log("Joining room " + data.join);
+            console.log(data.join);
+            getUserInfo()
           }
           if (data.leave) {
             console.log("Leaving room " + data.leave);
           }
+          if (data.user_info) {
+            triggerUserInfo(data.user_info)
+          }
         };
 
         socket.addEventListener("open", function (e) {
+          console.log("Socket opened");
           if ("{{request.user.is_authenticated}}") {
             chatSocket.send(
               JSON.stringify({
-                command: "join",
-                room: roomId,
+                "command": "join",
+                "room": roomId,
               })
             );
           }
         });
+        if (socket.readyState == WebSocket.OPEN) {
+	    	  console.log("Socket OPEN")
+	      } else if (socket.readyState == WebSocket.CONNECTING){
+	        console.log("Socket connecting..")
+	    }
       }
 
+      function getUserInfo(){
+        socket.send(JSON.stringify({
+          "command": "user_info",
+          "room_id": roomId,
+        }));
+      }
+
+      function triggerUserInfo(user_info) {
+        document.getElementById("chatfriend_username").innerHTML = user_info.username
+        print("这里是" + user_info.username)
+        document.getElementById("user_info_profile").href = "{% url 'profile' '123123123' %}".replace('123123123', user_info.id)
+
+      }
+
+
       function startChat(id) {
-        data = {
-          csrfmiddlewaretoken: "{{ csrf_token }}",
-          user2_id: id,
+        
+        data1 = {
+          "csrfmiddlewaretoken": "{{ csrf_token }}",
+          "user2_id": id,
         };
+       
         $.ajax({
           type: "POST",
+          dataType: "json",
           url: "{% url 'start_chat' %}",
-          data: data,
+          data: data1,
           success: function (data) {
-            console.log(data);
-            if (data.response == "Chat created successfully") {
-              newSocket(data.chat_id);
+            if (data['response'] == "Chat created successfully") {
+              console.log("here")
+              newSocket(data['chat_id']);
             }
           },
           error: function (data) {

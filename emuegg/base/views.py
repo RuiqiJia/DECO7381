@@ -18,6 +18,7 @@ from itertools import chain
 # visualize wikipedia contents of corresponding city
 import wikipedia
 import re
+from django.conf import settings
 
 # required library to build message notification
 from django.shortcuts import render, redirect
@@ -390,7 +391,7 @@ def friend_list(req, *args, **kwargs):
 def index(request):
     try:
         users = User.objects.all()
-        print(request.user)
+        # print(request.user)
         user = User.objects.get(username=request.user)
         return render(request, 'index.html', {'users': users, 'user': user})
     except Exception as e:
@@ -410,8 +411,13 @@ def message(request):
     except Exception as e:
         print(e)
         return HttpResponse("Please login from admin site for sending messages")
-
+DEBUG = False
 def private_chat(req):
+    friend_lists = Friends.objects.all()
+    for f in friend_lists:
+        for friend in f.friend.all():
+            chat = create_chat(f.user, friend)
+            chat.save()
     room1 = PrivateChat.objects.filter(user1=req.user)
     room2 = PrivateChat.objects.filter(user2=req.user)
     rooms = list(chain(room1, room2))
@@ -427,6 +433,8 @@ def private_chat(req):
             friend = room.user1
         friends_list.append({'message': "", 'friend': friend})
     data['friends_list'] = friends_list
+    data['debug'] = DEBUG
+    data['debug_mode'] = settings.DEBUG
     print(data)
     return render(req, 'base/private_chat.html', data)
      
@@ -441,15 +449,17 @@ def create_chat(user1, user2):
 			chat.save()
 	return chat
 
-def start_chat(req):
+def start_chat(req, *args, **kwargs):
     user1 =req.user
     data = {}
-    
-    user2_id = req.POST.get('user2_id')
-    user2 = User.objects.get(id=user2_id)
-    chat = create_chat(user1, user2)
-    data['response'] = "Chat created successfully"
-    data['chat_id'] = chat.id
+    if req.method == 'POST':
+        user2_id = req.POST.get('user2_id')
+        user2 = User.objects.get(id=user2_id)
+        chat = create_chat(user1, user2)
+        
+        data['response'] = "Chat created successfully"
+        data['chat_id'] = chat.id
+        print(chat.id)
 
-    return JsonResponse(data)
+    return HttpResponse(json.dumps(data), content_type="application/json")
        

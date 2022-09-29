@@ -1,10 +1,8 @@
-from email.mime import application
-import webbrowser
+
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 from channels.security.websocket import AllowedHostsOriginValidator, OriginValidator
-
-from django.urls import re_path
+from django.core.asgi import get_asgi_application
 from ..base import consumer
 from ..base.consumer import ChatConsumer
 from django.urls import path
@@ -14,11 +12,12 @@ from django.urls import path
 # ]
 
 application = ProtocolTypeRouter({
+    'http': get_asgi_application(),
     'websocket': AllowedHostsOriginValidator(
         AuthMiddlewareStack(
             URLRouter([
-                path('private_chat/<room_id>', ChatConsumer),
+                path('private_chat/<room_id>/', ChatConsumer.as_asgi()),
             ])
         )
-    )
+    ),
 })
