@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="264b82e6-96f9-47a3-9ee7-a6b21afdd0d1" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/emuegg/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/emuegg/base/management/commands/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/emuegg/base/migrations/0011_user_username.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emuegg/base/management/load_sample_users.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/management/load_sample_users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/base/management/load_sample_users.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/management/commands/load_sample_users.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/base/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/base/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/emuegg/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/emuegg/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/emuegg/sample_user.csv" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/sample_user.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,6 +51,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/emuegg/base/management/commands" />
       <recent name="$PROJECT_DIR$/emuegg/base/management" />
       <recent name="$PROJECT_DIR$/emuegg/base" />
     </key>

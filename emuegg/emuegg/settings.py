@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'emuegg',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'herb244.crow',
         'HOST': '127.0.0.1',
         'PORT': 3306,
     }

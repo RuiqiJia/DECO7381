@@ -1,7 +1,8 @@
 import csv
 import pandas as pd
 from django.core.management import BaseCommand, CommandError
-from ..models import User
+# from emuegg.base.models import User
+from ...models import User
 
 class Command(BaseCommand):
     help = 'Load the sample user csv file into the database'
@@ -16,21 +17,23 @@ class Command(BaseCommand):
         user_df = pd.read_csv(path)
 
         for index, row in user_df.iterrows():
+            print(str(index) + "with row number " + str(row))
             email = row["email"]
-            username = row["username"]
+            u_name = row["username"]
             major = row["major"]
             country = row["country"]
-            course = row["course"]
+            # course = row["course"]
 
             # populate User object for each row
-            user = User(email = email,
-                        Country = country,
-                        Major = major,
-                        Course = course)
+            user = User(email=email,
+                        Country=country,
+                        Major=major
+                        # Course = course
+                        )
 
-        # save user object
-        user.save()
-        print(f"User: {email}, {username} saved...")
+            # save user object
+            user.save()
+        # print(f"User: {email}, {username} saved...")
 
 
 # Use following command to load sample user to database

@@ -24,7 +24,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import User
-from notifications.signals import notify
+
 
 def loginView(req):
     page = 'login'
