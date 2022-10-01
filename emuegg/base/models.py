@@ -11,6 +11,7 @@ class User(AbstractUser):
     Country = models.CharField(max_length=50, null=True)
     Major = models.CharField(max_length=50, null=True)
     Courses = models.CharField(max_length=50, null=True)
+    username = models.CharField(max_length=50, unique=False, null=True)
     USERNAME_FIELD: str = 'email'
     REQUIRED_FIELDS: list = ['username', 'country']
 

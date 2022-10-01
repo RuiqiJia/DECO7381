@@ -15,22 +15,22 @@ class Command(BaseCommand):
         User.objects.all().delete()
         path = kwargs['path']
         user_df = pd.read_csv(path)
+        print(user_df)
 
         for index, row in user_df.iterrows():
             print(str(index) + "with row number " + str(row))
             email = row["email"]
-            u_name = row["username"]
+            # username = row["username"]   # this attribute not working
             major = row["major"]
             country = row["country"]
-            # course = row["course"]
+            course = row["course"]
 
             # populate User object for each row
             user = User(email=email,
                         Country=country,
-                        Major=major
-                        # Course = course
+                        Major=major,
+                        Courses=course
                         )
-
             # save user object
             user.save()
         # print(f"User: {email}, {username} saved...")

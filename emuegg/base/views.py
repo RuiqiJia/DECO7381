@@ -21,11 +21,11 @@ from itertools import chain
 from django.conf import settings
 
 # required library to build message notification
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .models import User
-from notifications.signals import notify
-from geopy.geocoders import Nominatim
+# from django.shortcuts import render, redirect
+# from django.http import HttpResponse
+# from .models import User
+# from notifications.signals import notify
+# from geopy.geocoders import Nominatim
 
 def loginView(req):
     page = 'login'
