@@ -51,4 +51,5 @@ urlpatterns = [
     # path('', views.index, name='index'),
     # path('message', views.message, name='message'),
     # url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('chat_list/', views.chat_list, name="chat_list")
 ]

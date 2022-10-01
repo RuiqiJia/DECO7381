@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat_list</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        * {
+            font-family: Lato;
+        }
+
+        .chat-header {
+            background-color: #bfa;
+            background-image: linear-gradient(135deg, #b930fd, #106AD2);
+            width: 100%;
+            height: 350px;
+            border-bottom-left-radius: 120px;
+            border-bottom-right-radius: 120px;
+            box-shadow: 0px 20px 12px #d5d5d5;
+        }
+
+        .chat-container {
+            font-size: 5em;
+            text-align: center;
+            position: relative;
+            top: 180px;
+            color: white;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+
+        .chat-box-wrapper {
+            margin-left: 80px;
+            margin-right: 80px;
+        }
+
+        .chat-list-word {
+            font-size: 3em;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            color: #90908F
+        }
+
+        .chat-box {
+            font-size: 3em;
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-text-wrapper {
+            padding-left: 30px;
+            padding-right: 150px;
+        }
+
+        .chat-text-detail {
+            color: #ADAEAE;
+            font-size: 0.9em;
+        }
+
+        .chat-box img {
+            border-radius: 100%;
+        }
+
+        .chat-reminder {
+            background-color: #106AD2;
+            color: white;
+            border-radius: 100%;
+            width: 60px;
+            text-align: center;
+        }
+
+        .chat-box-bottom {
+            height: 50px;
+            margin-left: 180px;
+            margin-right: 25px;
+            border-bottom: 1px solid #EBE8E8;
+        }
+
+        .chat-box-wrapper2 {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-header">
+        <div class="chat-container">
+            <div class="row">
+                <div class="col-xs-3">
+                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                </div>
+                <div class="col-xs-6">Chats</div>
+                <div class="col-xs-3">
+                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="chat-box-wrapper">
+        <div class="chat-list-word">Chat List</div>
+        <div class="chat-box">
+            <div>
+                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Jack Li</div>
+                <div class="chat-text-detail">We need to meet today</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">1</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div>
+                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Jack Li</div>
+                <div class="chat-text-detail">We need to meet today</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">1</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div>
+                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Jack Li</div>
+                <div class="chat-text-detail">We need to meet today</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">1</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div>
+                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Jack Li</div>
+                <div class="chat-text-detail">We need to meet today</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">1</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div>
+                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Jack Li</div>
+                <div class="chat-text-detail">We need to meet today</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">1</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div>
+                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Jack Li</div>
+                <div class="chat-text-detail">We need to meet today</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">1</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div>
+                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Jack Li</div>
+                <div class="chat-text-detail">We need to meet today</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">1</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

@@ -16,15 +16,16 @@ import json
 from .status import Status
 from itertools import chain
 # visualize wikipedia contents of corresponding city
-import wikipedia
-import re
+# import wikipedia
+# import re
 from django.conf import settings
 
 # required library to build message notification
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import User
-
+from notifications.signals import notify
+from geopy.geocoders import Nominatim
 
 def loginView(req):
     page = 'login'
@@ -191,8 +192,8 @@ def map(req):
     loc = req.POST.get("location")
     loc = str(loc).strip()
     #error handling for china
-    if loc in ("China", "china", "CHINA"):
-        loc = "中国"
+    # if loc in ("China", "china", "CHINA"):
+    #     loc = "中国"
     location = geocoder.osm(loc)
     lat = location.lat
     lng = location.lng
@@ -200,23 +201,23 @@ def map(req):
     m = folium.Map(location=[lat, lng], zoom_start=4)
 
     # added by JWM, display the wikipedia content of the location
-    wiki_loc = wikipedia.page(loc)
-    wiki_content = str(wiki_loc.content)[0:200]
-
-    open_brankets = ['[', '(', '{']
-    close_brankets = {']': '[', ')': '(', '}': '{'}
-    stack = []
+    # wiki_loc = wikipedia.page(loc)
+    # wiki_content = str(wiki_loc.content)[0:200]
+    #
+    # open_brankets = ['[', '(', '{']
+    # close_brankets = {']': '[', ')': '(', '}': '{'}
+    # stack = []
     #
     # start = -100
     # end = -1
-    wiki_content_new = ""
-    wiki_content = re.sub("[\(\[].*?[\)\]]", "", wiki_content)
+    # wiki_content_new = ""
+    # wiki_content = re.sub("[\(\[].*?[\)\]]", "", wiki_content)
 
-    for i in range(len(wiki_content)):
-        if (wiki_content[i] in open_brankets) or (wiki_content[i] in close_brankets.keys()):
-            pass
-        else:
-            wiki_content_new += wiki_content[i]
+    # for i in range(len(wiki_content)):
+    #     if (wiki_content[i] in open_brankets) or (wiki_content[i] in close_brankets.keys()):
+    #         pass
+    #     else:
+    #         wiki_content_new += wiki_content[i]
     # for i in range(len(wiki_content)):
     #
     #     # if wiki_content[i] in open_brankets and start == -1:
@@ -229,7 +230,16 @@ def map(req):
     #     #     end = i
     # wiki_content = wiki_content[0:start] + wiki_content[end+1:]
 
-    folium.Marker([lat, lng], popup='<strong>' + '<a href="">' + loc + '</a>' + '<br>' + wiki_content_new + '</strong>', tooltip="Click for more information").add_to(m)
+    # folium.Marker([lat, lng], popup='<strong>' + '<a href="">' + loc + '</a>' + '<br>' + wiki_content_new + '</strong>', tooltip="Click for more information").add_to(m)
+
+    geolocator = Nominatim(user_agent="geoapiExercises")
+    country_name = geolocator.reverse(str(lat)+","+str(lng)).raw['address'].get('country', '')
+    print(country_name)
+
+    url = "https://en.wikipedia.org/wiki/" + loc
+    iframe = '<iframe frameborder="0" height="250px" src="' + url + '"></iframe><h4><a href="http://127.0.0.1:8000/"> Join Discussion >>> </a></h4>'
+    print(iframe)
+    folium.Marker([lat, lng], popup=folium.Popup(max_width=300, html=iframe)).add_to(m)
 
     fig = branca.element.Figure(height="100%")
     fig.add_child(m)
@@ -462,4 +472,8 @@ def start_chat(req, *args, **kwargs):
         print(chat.id)
 
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+def chat_list(req):
+    return render(req, 'base/chat_list.html')
+
        

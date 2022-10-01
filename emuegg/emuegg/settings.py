@@ -92,10 +92,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'emuegg',
         'USER': 'root',
-        'PASSWORD': 'herb244.crow',
+        'PASSWORD': '',
         'HOST': '127.0.0.1',
         'PORT': 3306,
     }
+
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'emuegg',
@@ -103,6 +104,15 @@ DATABASES = {
     #     'PASSWORD': '',
     #     'HOST': 'deco3801-emuegg.uqcloud.net',
     #     'PORT': 22,
+    # }
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'emuegg',
+    #     'USER': 'root',
+    #     'PASSWORD': 'wx68928bill',
+    #     'HOST': 'localhost',
+    #     'PORT': 3306,
     # }
 }
 
