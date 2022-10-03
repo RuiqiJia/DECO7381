@@ -25,7 +25,7 @@ from django.conf import settings
 # from django.http import HttpResponse
 # from .models import User
 # from notifications.signals import notify
-# from geopy.geocoders import Nominatim
+from geopy.geocoders import Nominatim
 
 def loginView(req):
     page = 'login'
@@ -183,6 +183,7 @@ def map(req):
     # return render(req, 'base/map.html', data)
 
     if req.method == "GET":
+        # m = folium.Map(location=[-24.7761086, 134.755], zoom_start=4)
         m = folium.Map(location=[-24.7761086, 134.755], zoom_start=4)
         fig = branca.element.Figure(height="100%")
         fig.add_child(m)
@@ -379,23 +380,23 @@ def accept_request(req, *args, **kwargs):
     
     return JsonResponse({'res' : 'Friend request has been accepted successfully'})
 
-def friend_list(req, *args, **kwargs):
-    data = {}
-    auth_user = req.user
-    if auth_user.is_authenticated:
-        user_id = kwargs.get('user_id')
-        if user_id:
-            user = User.objects.get(id=user_id)
-            list = []
-            friend_list = Friends.objects.get(user=user)
+# def friend_list(req, *args, **kwargs):
+#     data = {}
+#     auth_user = req.user
+#     if auth_user.is_authenticated:
+#         user_id = kwargs.get('user_id')
+#         if user_id:
+#             user = User.objects.get(id=user_id)
+#             list = []
+#             friend_list = Friends.objects.get(user=user)
             
-            for friend in friend_list.friend.all():
-                list.append(friend)
-        if auth_user != user:
+#             for friend in friend_list.friend.all():
+#                 list.append(friend)
+#         if auth_user != user:
             
-            return HttpResponse('You are not allowed to view this page')
-    data['friends'] = list
-    return render(req, 'base/friends_list.html', data)
+#             return HttpResponse('You are not allowed to view this page')
+#     data['friends'] = list
+#     return render(req, 'base/friends_list.html', data)
 # Juewen Ma
 # visualise the message received from other users(half-way through)
 def index(request):
@@ -475,5 +476,6 @@ def start_chat(req, *args, **kwargs):
 
 def chat_list(req):
     return render(req, 'base/chat_list.html')
-
        
+def friend(req):
+    return render(req, 'base/friend_list.html')

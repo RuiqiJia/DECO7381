@@ -13,7 +13,7 @@ class User(AbstractUser):
     Courses = models.CharField(max_length=50, null=True)
     username = models.CharField(max_length=50, unique=False, null=True)
     USERNAME_FIELD: str = 'email'
-    REQUIRED_FIELDS: list = ['username', 'country']
+    REQUIRED_FIELDS: list = ['username', 'Country']
 
 class Topic(models.Model):
     name = models.CharField(max_length=200)
