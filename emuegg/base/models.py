@@ -10,8 +10,9 @@ class User(AbstractUser):
     Picture = models.ImageField(null=True, default='')
     Country = models.CharField(max_length=50, null=True)
     Major = models.CharField(max_length=50, null=True)
-    Courses = models.CharField(max_length=50, null=True)
+    Courses = models.CharField(max_length=200, null=True)
     username = models.CharField(max_length=50, unique=False, null=True)
+    Topics = models.CharField(max_length=200, null=True)  # Juewen Ma -- Oct 5
     USERNAME_FIELD: str = 'email'
     REQUIRED_FIELDS: list = ['username', 'Country']
 

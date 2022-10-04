@@ -14,8 +14,8 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
 
         # 清除所有的 user和channel 已有数据，如果当前开发依赖这些已有数据，不要run这两行！
-        # User.objects.all().delete()
-        # Channel.objects.all().delete()
+        User.objects.all().delete()
+        Channel.objects.all().delete()
         path = kwargs['path']
         user_df = pd.read_csv(path)
         print(user_df)

@@ -1,105 +1,41 @@
-email, username,major,country,course
-Ekaterinaa@uq.net.au,Ekaterina  ,IT, UZB ,
-Luc@uq.net.au,Luc  ,IT, FRA ,
-Joal@uq.net.au,Joal  ,IT, FRA ,
-Cdric223@uq.net.au,Cdric  ,IT, FRA ,
-Didier@uq.net.au,Didier  ,IT, FRA ,
-Bertrand@uq.net.au,Bertrand  ,IT, FRA ,
-Guillaume@uq.net.au,Guillaume  ,IT, FRA ,
-Olivier@uq.net.au,Olivier  ,IT, FRA ,
-Michal@uq.net.au,Michal  ,IT, FRA ,
-Jrme@uq.net.au,Jrme  ,IT, FRA ,
-Daouda@uq.net.au,Daouda  ,IT, FRA ,
-Nikola@uq.net.au, Nikola  ,IT,CAN,
-Christophe@uq.net.au, Christophe  ,IT,CAN,
-Daniel@uq.net.au, Daniel  ,IT,CAN,
-Thierry@uq.net.au, Thierry  ,IT,CAN,
-Cdric@uq.net.au,Cdric  ,IT,CAN,
-Vctor@uq.net.au,Vctor  ,IT, ESP ,
-David@uq.net.au,David  ,IT, ESP ,
-Jon@uq.net.au, Jon  ,IT, ESP ,
-DavidLi@uq.net.au, David  ,IT, ESP ,
-Joss@uq.net.au, Jos??  ,IT, ESP ,
-Rubin@uq.net.au, Rub??n  ,IT, ESP ,
-Juannan@uq.net.au, Juan??n  ,IT, ESP ,
-Alberto@uq.net.au, Alberto  ,IT, ESP ,
-Raylo@uq.net.au, Ra??l  ,IT, ESP ,
-Carlosss@uq.net.au, Carlos  ,IT, ESP ,
-Albert1234@uq.net.au, Albert  ,IT, ESP ,
-Iker@uq.net.au, Iker  ,IT, ESP ,
-Cristian@uq.net.au, Cristian  ,IT, ESP ,
-Demetrio@uq.net.au, Demetrio  ,IT, ESP ,
-Katrine@uq.net.au, Katrine  ,CS, NOR ,
-Kristine@uq.net.au, Kristine  ,CS, NOR ,
-Tonjeasd@uq.net.au, Tonje  ,CS, NOR ,
-Gro@uq.net.au, Gro  ,CS, NOR ,
-Marit@uq.net.au, Marit  ,CS, NOR ,
-Tonje@uq.net.au, Tonje  ,CS, NOR ,
-Katarina@uq.net.au, Katarina  ,CS, NOR ,
-Kari@uq.net.au, Kari  ,CS, NOR ,
-Linn-Kristin@uq.net.au, Linn-Kristin  ,CS, NOR ,
-Karoline@uq.net.au, Karoline  ,CS, NOR ,
-Ragnhild@uq.net.au, Ragnhild  ,CS, NOR ,
-Else-Marthe@uq.net.au, Else-Marthe  ,CS, NOR ,
-Grril@uq.net.au, G?ril  ,CS, NOR ,
-Emilia@uq.net.au, Emilia  ,CS, RUS ,
-Yana@uq.net.au, Yana  ,CS, RUS ,
-Inna@uq.net.au, Inna  ,CS, RUS ,
-Elena@uq.net.au, Elena  ,CS, RUS ,
-Irinala@uq.net.au, Irina  ,CS, RUS ,
-Ekaterinana@uq.net.au, Ekaterina  ,CS, RUS ,
-Oxana@uq.net.au, Oxana  ,CS, RUS ,
-Natalia@uq.net.au, Natalia  ,CS, RUS ,
-Maria@uq.net.au, Maria  ,CS, RUS ,
-Yelena@uq.net.au, Yelena  ,CS, RUS ,
-Irina@uq.net.au, Irina  ,CS, RUS ,
-Liudmila@uq.net.au, Liudmila  ,CS, RUS ,
-Ekaterina@uq.net.au, Ekaterina  ,CS, RUS ,
-Anna@uq.net.au, Anna  ,CS, RUS ,
-Choi@uq.net.au, Choi  ,CS, KOR ,
-Bae@uq.net.au, Bae  ,CS, KOR ,
-Lee@uq.net.au, Lee  ,CS, KOR ,
-Kimsim@uq.net.au, Kim  ,CS, KOR ,
-Moon@uq.net.au, Moon  ,CS, KOR ,
-Kimliu@uq.net.au, Kim  ,CS, KOR ,
-Oh@uq.net.au, Oh  ,CS, KOR ,
-Kim@uq.net.au, Kim  ,CS, KOR ,
-Park@uq.net.au, Park  ,CS, KOR ,
-Hong@uq.net.au, Hong  ,CS, KOR ,
-An@uq.net.au, An  ,CS, KOR ,
-Song@uq.net.au, Song  ,CS, KOR ,
-Huh@uq.net.au, Huh  ,CS, KOR ,
-Ohha@uq.net.au, Oh  ,CS, KOR ,
-Sebastian@uq.net.au, Sebastian  ,CS, GER ,
-Moritz@uq.net.au, Moritz  ,CS, GER ,
-Tobias@uq.net.au, Tobias  ,CS, GER ,
-Florian@uq.net.au, Florian  ,DS, GER ,
-Oliver@uq.net.au, Oliver  ,DS, GER ,
-Niklas@uq.net.au, Niklas  ,DS, GER ,
-Jan-Marco@uq.net.au, Jan-Marco  ,DS, GER ,
-Maximilian@uq.net.au, Maximilian  ,DS, GER ,
-Carlos@uq.net.au, Carlos  ,DS, GER ,
-Benjamin@uq.net.au, Benjamin  ,DS, GER ,
-Timo@uq.net.au, Timo  ,DS, GER ,
-Philip@uq.net.au, Philip  ,DS, GER ,
-Matthias@uq.net.au, Matthias  ,DS, GER ,
-Max@uq.net.au, Max  ,DS, GER ,
-Tibor@uq.net.au, Tibor  ,DS, GER ,
-Christopher@uq.net.au, Christopher  ,DS, GER ,
-Philipp@uq.net.au, Philipp  ,DS, GER ,
-Victor@uq.net.au, Victor  ,DS, ESP ,
-Eduardo@uq.net.au, Eduardo  ,DS, ESP ,
-Xavier@uq.net.au, Xavier  ,DS, ESP ,
-Albert@uq.net.au, Albert  ,DS, ESP ,
-Roc@uq.net.au, Roc  ,ID, ESP ,
-Juan@uq.net.au, Juan  ,ID, ESP ,
-Santiago@uq.net.au, Santiago  ,ID, ESP ,
-Rodrigo@uq.net.au, Rodrigo  ,ID, ESP ,
-Sergi@uq.net.au, Sergi  ,ID, ESP ,
-Alex@uq.net.au, Alex  ,ID, ESP ,
-Franciscoolin@uq.net.au, Francisco  ,ID, ESP ,
-Francisco@uq.net.au, Francisco  ,ID, ESP ,
-Davidcai@uq.net.au, David  ,ID, ESP ,
-Ramon@uq.net.au, Ramon  ,ID, ESP ,
-Pablo@uq.net.au, Pablo  ,ID, ESP ,
-Eduard@uq.net.au, Eduard  ,ID, ESP ,
+email, username,major,country,course,topic
+Ekaterina@uq.net.au,Ekaterina  ,IT,China,"INFS3200,DECO2500,INFS2200","Dance,Fitness"
+Luc@uq.net.au,Luc  ,IT,China,"COMS3200,CSSE2002,COMP3506","Game,Sport,Music,Study"
+Joal@uq.net.au,Joal  ,IT,China,"CSSE3003,DECO2500,CSSE2002,COMP3506","Fitness,Sport,Culture,Dance,Study"
+Cdric@uq.net.au,Cdric  ,IT,China,"INFS3200,DECO1800",Game
+Didier@uq.net.au,Didier  ,IT,China,"CSSE2002,COMP3506,INFS2200","Music,Game,Fitness,Study,Sport"
+Bertrand@uq.net.au,Bertrand  ,DS,China,"COMP3702,INFS1200,CSSE3003,CSSE1001","Sport,Dance,Culture,News"
+Guillaume@uq.net.au,Guillaume  ,DS,China,"COMS3200,INFS2200","Dance,Music,News,Culture"
+Olivier@uq.net.au,Olivier  ,DS,China,"DECO2500,COMP3506","Dance,Music"
+Michal@uq.net.au,Michal  ,DS,China,"COMP3506,CSSE1001,CSSE3003,DECO2500","Fitness,Study,Game,Music"
+Jrme@uq.net.au,Jrme  ,DS,China,"INFS3200,CSSE2002,DECO1400",Music
+Daouda@uq.net.au,Daouda  ,ID,China,"DECO1800,DECO1400,COMS3200",Game
+Nikola@uq.net.au,Nikola  ,ID,China,"COMP3702,CSSE1001,CSSE3003,DECO2500",Study
+Christophe@uq.net.au,Christophe,ID,China,"COMP3702,INFS2200",Game
+Daniel@uq.net.au,Daniel,ID,China,"CSSE3003,CSSE2002,INFS1200,DECO1800","Fitness,Music,News,Dance"
+Thierry@uq.net.au,Thierry,ID,China,"CSSE1001,INFS2200","Study,Culture,News"
+Cendy@uq.net.au,Cendy,CS,China,"DECO1800,DECO2500,CSSE3003,COMS3200","Game,News"
+Vctor@uq.net.au,Vctor  ,CS,China,"DECO1800,CSSE1001,CSSE3003","Dance,Music"
+Noah@uq.net.au,Noah  ,CS,China,"DECO1400,COMS3200","Music,Study,Fitness,Culture"
+Jon@uq.net.au,Jon  ,CS,China,"DECO2500,COMS3200","Study,Game"
+David@uq.net.au,David  ,CS,China,"CSSE1001,INFS2200,INFS1200",Game
+Joss@uq.net.au,Joss,IT,Australia,"INFS3200,DECO2500,INFS2200","Dance,Fitness"
+Rubin@uq.net.au,Rubin  ,IT,Australia,"COMS3200,CSSE2002,COMP3506","Game,Sport,Music,Study"
+Juannan@uq.net.au,Juannan  ,IT,Australia,"CSSE3003,DECO2500,CSSE2002,COMP3506","Fitness,Sport,Culture,Dance,Study"
+Alberto@uq.net.au,Alberto  ,IT,Australia,"INFS3200,DECO1800",Game
+Raylo@uq.net.au,Raylo,IT,Australia,"CSSE2002,COMP3506,INFS2200","Music,Game,Fitness,Study,Sport"
+Carlo@uq.net.au,Carlo,DS,Australia,"COMP3702,INFS1200,CSSE3003,CSSE1001","Sport,Dance,Culture,News"
+Albert@uq.net.au,Albert  ,DS,Australia,"COMS3200,INFS2200","Dance,Music,News,Culture"
+Iker@uq.net.au,Iker  ,DS,Australia,"DECO2500,COMP3506","Dance,Music"
+Cristian@uq.net.au,Cristian  ,DS,Australia,"COMP3506,CSSE1001,CSSE3003,DECO2500","Fitness,Study,Game,Music"
+Demetrio@uq.net.au,Demetrio  ,DS,Australia,"INFS3200,CSSE2002,DECO1400",Music
+Katrine@uq.net.au,Katrine  ,ID,Australia,"DECO1800,DECO1400,COMS3200",Game
+Kristine@uq.net.au,Kristine  ,ID,Australia,"COMP3702,CSSE1001,CSSE3003,DECO2500",Study
+Tom@uq.net.au,Tom,ID,Australia,"COMP3702,INFS2200",Game
+Gro@uq.net.au,Gro  ,ID,Australia,"CSSE3003,CSSE2002,INFS1200,DECO1800","Fitness,Music,News,Dance"
+Marit@uq.net.au,Marit  ,ID,Australia,"CSSE1001,INFS2200","Study,Culture,News"
+Tonje@uq.net.au,Tonje  ,CS,Australia,"DECO1800,DECO2500,CSSE3003,COMS3200","Game,News"
+Katarina@uq.net.au,Katarina  ,CS,Australia,"DECO1800,CSSE1001,CSSE3003","Dance,Music"
+Kari@uq.net.au,Kari  ,CS,Australia,"DECO1400,COMS3200","Music,Study,Fitness,Culture"
+Lin@uq.net.au,Lin,CS,Australia,"DECO2500,COMS3200","Study,Game"
+Karoline@uq.net.au,Karoline  ,CS,Australia,"CSSE1001,INFS2200,INFS1200",Game
