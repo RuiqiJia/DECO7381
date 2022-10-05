@@ -46,7 +46,8 @@ urlpatterns = [
 
     # comment-in by juewen Ma, previously was comment out
     # path('friend_list/<user_id>/', views.friend_list, name="friend_list"),
-    path('friend_list/', views.friend_list, name="friend_list"),
+    path('friend_list/<user_id>/', views.friend_list, name="friend_list"),
+    # path('friend_list/', views.friend_list, name="friend_list"),
 
     # path('friend/', views.friend, name="friend"),
 

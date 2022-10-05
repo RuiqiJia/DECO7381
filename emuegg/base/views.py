@@ -237,7 +237,7 @@ def map(req):
     country_name = geolocator.reverse(str(lat)+","+str(lng)).raw['address'].get('country', '')
     print(country_name)
 
-    url = "https://en.wikipedia.org/wiki/" + loc
+    url = "https://en.wikipedia.org/wiki/" + country_name
     iframe = '<iframe frameborder="0" height="250px" src="' + url + '"></iframe><h4><a href="http://127.0.0.1:8000/"> Join Discussion >>> </a></h4>'
     print(iframe)
     folium.Marker([lat, lng], popup=folium.Popup(max_width=300, html=iframe)).add_to(m)
