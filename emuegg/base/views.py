@@ -380,25 +380,40 @@ def accept_request(req, *args, **kwargs):
     
     return JsonResponse({'res' : 'Friend request has been accepted successfully'})
 
-# def friend_list(req, *args, **kwargs):
-#     data = {}
-#     auth_user = req.user
-#     if auth_user.is_authenticated:
-#         user_id = kwargs.get('user_id')
-#         if user_id:
-#             user = User.objects.get(id=user_id)
-#             list = []
-#             friend_list = Friends.objects.get(user=user)
-            
-#             for friend in friend_list.friend.all():
-#                 list.append(friend)
-#         if auth_user != user:
-            
-#             return HttpResponse('You are not allowed to view this page')
-#     data['friends'] = list
-#     return render(req, 'base/friends_list.html', data)
-# Juewen Ma
-# visualise the message received from other users(half-way through)
+def friend_list(req, *args, **kwargs):
+    # data = {}
+    # auth_user = req.user
+    # if auth_user.is_authenticated:
+    #     user_id = kwargs.get('user_id')
+    #     if user_id:
+    #         user = User.objects.get(id=user_id)
+    #         list = []
+    #         friend_list = Friends.objects.get(user=user)
+    #
+    #         for friend in friend_list.friend.all():
+    #             list.append(friend)
+    #     if auth_user != user:
+    #
+    #         return HttpResponse('You are not allowed to view this page')
+    # data['friends'] = list
+    # return render(req, 'base/friends_list.html', data)
+
+    data = {}
+    auth_user = req.user
+    if auth_user.is_authenticated:
+        print(auth_user.id)
+        # get current user object along with its username, Country, Course enrolled, etc
+        curr_user = User.objects.get(id=auth_user.id)
+        username = curr_user.username
+        topics = curr_user.Topics
+        major = curr_user.Major
+        courses = curr_user.Courses
+        country = curr_user.Country
+
+
+    return HttpResponse(country)
+
+
 def index(request):
     try:
         users = User.objects.all()

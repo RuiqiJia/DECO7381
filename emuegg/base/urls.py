@@ -43,14 +43,12 @@ urlpatterns = [
     path('accept_request/<requests_id>/', views.accept_request, name="accept_request"),
     path('private_chat/', views.private_chat, name="private_chat"),
     path('start_chat/', views.start_chat, name="start_chat"),
-    # path('friend_list/<user_id>/', views.friend_list, name="friend_list"),
-    path('friend/', views.friend, name="friend"),
 
-    # message notification purpose
-    # Juewen Ma
-    # path('admin/', admin.site.urls),
-    # path('', views.index, name='index'),
-    # path('message', views.message, name='message'),
-    # url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    # comment-in by juewen Ma, previously was comment out
+    # path('friend_list/<user_id>/', views.friend_list, name="friend_list"),
+    path('friend_list/', views.friend_list, name="friend_list"),
+
+    # path('friend/', views.friend, name="friend"),
+
     path('chat_list/', views.chat_list, name="chat_list")
 ]

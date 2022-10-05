@@ -14,8 +14,8 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
 
         # 清除所有的 user和channel 已有数据，如果当前开发依赖这些已有数据，不要run这两行！
-        User.objects.all().delete()
-        Channel.objects.all().delete()
+        # User.objects.all().delete()
+        # Channel.objects.all().delete()
         path = kwargs['path']
         user_df = pd.read_csv(path)
         print(user_df)
@@ -23,16 +23,19 @@ class Command(BaseCommand):
         for index, row in user_df.iterrows():
             print(str(index) + "with row number " + str(row))
             email = row["email"]
-            # username = row["username"]   # this attribute not working
+            username = row["username"]
             major = row["major"]
             country = row["country"]
             course = row["course"]
+            topic = row["topic"]
 
             # populate User object for each row
             user = User(email=email,
-                        Country=country,
+                        username=username,
                         Major=major,
-                        Courses=course
+                        Country=country,
+                        Courses=course,
+                        Topics=topic
                         )
             # save user object
             user.save()

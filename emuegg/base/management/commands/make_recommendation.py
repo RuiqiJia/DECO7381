@@ -1,5 +1,7 @@
-from models import User
 
+import django
+
+from emuegg.base.models import User
 
 # load it when friend_list method in view.py finished editing
 # from models import friend_list
@@ -13,6 +15,8 @@ from models import User
     Spot 3 -- not same country, the highest topic similarity (Jaccard index)
     Spot 4 -- not same country, the highest all attribute similarity (Jaccard index)
 """
+
+
 class MakeRecommendation:
 
     def __init__(self, user_id, user_name, topics, major, course, country):
@@ -48,15 +52,23 @@ class MakeRecommendation:
         Spot 2 recommend user with different nationality and then calculate
         similarity based on course they enroll
         """
+        similarity_score = []
         # step 1: filter user with different country
+        queryset = User.objects.exclude(Country=self.country)
 
         # step 2: loop through each user to split their course list
+        print("Called from spot2_recommend method, the queryset length is" + str(len(queryset)))
+
+        for user in queryset:
+            user.username
+            user.Country
+            user.Courses
+
+
 
         # step 3: calculate each individual similarity score
 
         # step 4: descending order the similarity score and get the user
-
-
 
     def spot3_recommend(self):
         """
@@ -71,18 +83,11 @@ class MakeRecommendation:
 
         # step 4: descending order the similarity score and get the top user
 
-
-
     def spot4_recommend(self):
         """
         Spot 4 recommend user with different nationality and then calculate similarity
         based on all important attributes
         """
-
-
-
-
-
 
     def split_string(self, topics: str) -> list:
         """
@@ -93,3 +98,9 @@ class MakeRecommendation:
         """
 
 
+def main():
+    print("Hello World!")
+
+
+if __name__ == "__main__":
+    main()
