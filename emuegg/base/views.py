@@ -399,17 +399,30 @@ def friend_list(req, *args, **kwargs):
         major = curr_user.Major
         courses = curr_user.Courses
         country = curr_user.Country
+
+        # collect the recommendation result
         recommend = MakeRecommendation(auth_user.id, username, topics, major, courses, country)
-        recommendation_list.append(recommend.spot1_recommend())
+        # Spot 1
+        spot1 = recommend.spot1_recommend()
+        recommendation_list.append(spot1)
+        print(str(spot1) + "is the first recommendation")
 
+        # Spot 2
+        spot2 = recommend.spot2_recommend(spot1)
+        recommendation_list.append(spot2)
+        print(str(spot2) + "is the second recommendation")
 
-        print(recommendation_list)
+        # Spot 3
+        spot3 = recommend.spot3_recommend(spot1, spot2)
+        recommendation_list.append(spot3)
+        print(str(spot3) + "is the third recommendation")
 
+        # Spot 4
+        spot4 = recommend.spot4_recommend(spot1, spot2, spot3)
+        recommendation_list.append(spot4)
+        print(str(spot4) + "is the fouth recommendation")
 
-
-
-
-
+        print(recommend.split_string(topics))
 
         # ***** SHOW CURRENT FRIEND LIST *****
         user_id = kwargs.get('user_id')
@@ -428,7 +441,7 @@ def friend_list(req, *args, **kwargs):
             return HttpResponse('You are not allowed to view this page')
     data['friends'] = list
     data['recommendation'] = recommendation_list
-    print(data)
+
 
     return render(req, 'base/friend_list.html', data)
 

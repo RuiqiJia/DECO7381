@@ -260,18 +260,11 @@
                 </div>
             </div> 
             <div class="row">
+                {% for recommend in recommendation %}
                 <div class="col-xs-3 recommend-reason">
-                    <p>[[[]]] has same <strong>major</strong> with you!</p>
+                    <p>{{recommend.username}} has same <strong>major</strong> with you!</p>
                 </div>
-                <div class="col-xs-3 recommend-reason">
-                    <p>[[[]]] has same <strong>course</strong> with you!</p>
-                </div>
-                <div class="col-xs-3 recommend-reason">
-                    <p>[[[]]] has same <strong>interest</strong> with you!</p>
-                </div>
-                <div class="col-xs-3 recommend-reason">
-                    <p>[[[]]] has same <strong>major</strong> with you!</p>
-                </div>
+                {% endfor %}
             </div>
                 
             
@@ -283,13 +276,6 @@
 
         <div class="friend-box-wrapper">
             <div class="friend-list-word">Friend List</div>
-            <!--    Test only, added by Juewen Ma        -->
-            {% for recommend in recommendation %}
-             <div class="friend-text-wrapper">
-                    <div><strong>{{recommend.username}}</strong></div>
-             </div>
-
-            {% endfor %}
 
             {% for friend in friends %}
 

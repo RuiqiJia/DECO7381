@@ -5,8 +5,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/emuegg/base/management/commands/make_recommendation.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/management/commands/make_recommendation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/emuegg/base/templates/base/friend_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/templates/base/friend_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emuegg/base/templates/base/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/templates/base/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emuegg/base/templates/base/map.html" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/templates/base/map.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/emuegg/base/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
