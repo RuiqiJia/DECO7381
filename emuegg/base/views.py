@@ -20,6 +20,7 @@ from itertools import chain
 # import wikipedia
 # import re
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 
 # required library to build message notification
 # from django.shortcuts import render, redirect
@@ -382,42 +383,28 @@ def accept_request(req, *args, **kwargs):
     return JsonResponse({'res' : 'Friend request has been accepted successfully'})
 
 def friend_list(req, *args, **kwargs):
-    # data = {}
-    # auth_user = req.user
-    # if auth_user.is_authenticated:
-    #     user_id = kwargs.get('user_id')
-    #     if user_id:
-    #         user = User.objects.get(id=user_id)
-    #         list = []
-    #         friend_list = Friends.objects.get(user=user)
-    #
-    #         for friend in friend_list.friend.all():
-    #             list.append(friend)
-    #     if auth_user != user:
-    #
-    #         return HttpResponse('You are not allowed to view this page')
-    # data['friends'] = list
-    # return render(req, 'base/friends_list.html', data)
-
-    # wlj 10/06, pass user's friend list to friend_list.html
+    # Written by Juewen Ma - Oct.7
     data = {}
-    list = []
     auth_user = req.user
+    list = []
     if auth_user.is_authenticated:
-        print(auth_user.id)
-        print(auth_user.username)
-        curr_user = User.objects.get(id=auth_user.id)
-        if auth_user.id:
-            print()
-            friend_list = Friends.objects.get(user=curr_user.id)
-            print(friend_list)
-    
-            for friend in friend_list.friend.all():
-                list.append(friend)
-                print(friend, end=', ')
+        user_id = kwargs.get('user_id')
+        if user_id:
+            user = User.objects.get(id=user_id)
+            # error handling if get method cannot retrieve any available user
+            try:
+                friend_list = Friends.objects.get(user=user.id)
+                for friend in friend_list.friend.all():
+                    list.append(friend)
+            except ObjectDoesNotExist:
+                pass
 
+        if auth_user != user:
+
+            return HttpResponse('You are not allowed to view this page')
     data['friends'] = list
     return render(req, 'base/friend_list.html', data)
+
 
     # JW Ma, for test
     # data = {}
@@ -431,9 +418,9 @@ def friend_list(req, *args, **kwargs):
     #     major = curr_user.Major
     #     courses = curr_user.Courses
     #     country = curr_user.Country
-
-
-    return HttpResponse(country)
+    #
+    #
+    # return HttpResponse(country)
 
 
 def index(request):

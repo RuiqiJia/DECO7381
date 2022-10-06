@@ -44,9 +44,8 @@ urlpatterns = [
     path('private_chat/', views.private_chat, name="private_chat"),
     path('start_chat/', views.start_chat, name="start_chat"),
 
-    # comment-in by juewen Ma, previously was comment out
-    # path('friend_list/<user_id>/', views.friend_list, name="friend_list"),    # not use friends_list.html, use friend_list.html instead
-    path('friends_list/<user_id>/', views.friend_list, name="friend_list"),
+
+    path('friend_list/<int:user_id>/', views.friend_list, name="friend_list"),    # not use friends_list.html, use friend_list.html instead
 
     # path('friend/', views.friend, name="friend"),
 

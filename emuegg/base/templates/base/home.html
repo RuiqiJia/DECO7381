@@ -304,15 +304,20 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-position" aria-labelledby="dropdownMenu1">
                     <li>
-                        <a href="/private_chat">
+                        <a href="/private_chat/">
                             <img src="{% static 'images/1.png' %}" alt="function1">Private Chat
                         </a>
                     </li>
+                    <!-- friend list url path modified by Juewen Ma (10.07),
+                        只有当前有用户登陆状态下传参 user.id才不会报错，所以展示friend list前需判断是否有用户处在登陆状态，
+                        若当前无用户登录，则nevigation bar里不展示friends这条-->
+                    {% if request.user.is_authenticated %}
                     <li>
-                        <a href="/friends_list/1">
+                        <a href="{% url 'friend_list' user_id=user.id %}">
                             <img src="{% static 'images/2.png' %}" alt="function1">Friends
                         </a>
                     </li>
+                    {% endif %}
                     <li>
                         <a href="/map/">
                             <img src="{% static 'images/3.png' %}" alt="function1">Cultural Map
