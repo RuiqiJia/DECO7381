@@ -230,11 +230,20 @@
                                 <img src="{% static 'images/menu-discuss.png' %}" alt="function1">Discussion
                             </a>
                         </li>
+                        <!--  if no user was logged in, redirect it to login page, else, else, visit friend list page -->
+                        {% if request.user.is_authenticated %}
                         <li>
-                            <a href="/friends_list/1">
+                            <a href="{% url 'friend_list' user_id=user.id %}">
                                 <img src="{% static 'images/menu-friend.png' %}" alt="function1">Friends
                             </a>
                         </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">
+                                <img src="{% static 'images/menu-friend.png' %}" alt="function1">Friends
+                            </a>
+                        </li>
+                        {% endif %}
                         <li>
                             <a href="/chat_list">
                                 <img src="{% static 'images/menu-chat.png' %}" alt="function1">Private Chat

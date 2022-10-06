@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from scipy.fft import idct
+
+from .management.commands.make_recommendation import MakeRecommendation
 from .models import User, Channel, Message, Topic, Friends, FriendRequest, PrivateChat, PrivateMessage
 from .forms import UserForm, CustomeUserCreationForm, RoomForm, CountryForm 
 import folium
@@ -387,7 +389,29 @@ def friend_list(req, *args, **kwargs):
     data = {}
     auth_user = req.user
     list = []
+    recommendation_list = []
     if auth_user.is_authenticated:
+        # ***** DO RECOMMENDATION *****
+        # get current user object along with its username, Country, Course enrolled, etc
+        curr_user = User.objects.get(id=auth_user.id)
+        username = curr_user.username
+        topics = curr_user.Topics
+        major = curr_user.Major
+        courses = curr_user.Courses
+        country = curr_user.Country
+        recommend = MakeRecommendation(auth_user.id, username, topics, major, courses, country)
+        recommendation_list.append(recommend.spot1_recommend())
+
+
+        print(recommendation_list)
+
+
+
+
+
+
+
+        # ***** SHOW CURRENT FRIEND LIST *****
         user_id = kwargs.get('user_id')
         if user_id:
             user = User.objects.get(id=user_id)
@@ -403,6 +427,9 @@ def friend_list(req, *args, **kwargs):
 
             return HttpResponse('You are not allowed to view this page')
     data['friends'] = list
+    data['recommendation'] = recommendation_list
+    print(data)
+
     return render(req, 'base/friend_list.html', data)
 
 

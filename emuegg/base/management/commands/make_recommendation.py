@@ -1,7 +1,7 @@
 
 import django
 
-from emuegg.base.models import User
+from ...models import User
 
 # load it when friend_list method in view.py finished editing
 # from models import friend_list
@@ -43,7 +43,7 @@ class MakeRecommendation:
         Spot 1 recommend user with different nationality and then choose one with same major
         """
         # retrieve the first user object
-        top_user = User.objects.exclude(Country=self.country).filter(Major=self.major)[:1]
+        top_user = User.objects.exclude(Country=self.country).filter(Major=self.major)[:1].get()
 
         return top_user
 
@@ -59,10 +59,10 @@ class MakeRecommendation:
         # step 2: loop through each user to split their course list
         print("Called from spot2_recommend method, the queryset length is" + str(len(queryset)))
 
-        for user in queryset:
-            user.username
-            user.Country
-            user.Courses
+        # for user in queryset:
+        #     user.username
+        #     user.Country
+        #     user.Courses
 
 
 

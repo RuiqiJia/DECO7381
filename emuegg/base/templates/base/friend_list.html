@@ -283,6 +283,13 @@
 
         <div class="friend-box-wrapper">
             <div class="friend-list-word">Friend List</div>
+            <!--    Test only, added by Juewen Ma        -->
+            {% for recommend in recommendation %}
+             <div class="friend-text-wrapper">
+                    <div><strong>{{recommend.username}}</strong></div>
+             </div>
+
+            {% endfor %}
 
             {% for friend in friends %}
 
@@ -297,6 +304,8 @@
             <div class="friend-box-bottom"></div>
 
             {% endfor %}
+
+
 
 <!-- 
             <div class="friend-box">
