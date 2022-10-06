@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
+from scipy.fft import idct
 from .models import User, Channel, Message, Topic, Friends, FriendRequest, PrivateChat, PrivateMessage
 from .forms import UserForm, CustomeUserCreationForm, RoomForm, CountryForm 
 import folium
@@ -398,17 +399,38 @@ def friend_list(req, *args, **kwargs):
     # data['friends'] = list
     # return render(req, 'base/friends_list.html', data)
 
+    # wlj 10/06, pass user's friend list to friend_list.html
     data = {}
+    list = []
     auth_user = req.user
     if auth_user.is_authenticated:
         print(auth_user.id)
-        # get current user object along with its username, Country, Course enrolled, etc
+        print(auth_user.username)
         curr_user = User.objects.get(id=auth_user.id)
-        username = curr_user.username
-        topics = curr_user.Topics
-        major = curr_user.Major
-        courses = curr_user.Courses
-        country = curr_user.Country
+        if auth_user.id:
+            print()
+            friend_list = Friends.objects.get(user=curr_user.id)
+            print(friend_list)
+    
+            for friend in friend_list.friend.all():
+                list.append(friend)
+                print(friend, end=', ')
+
+    data['friends'] = list
+    return render(req, 'base/friend_list.html', data)
+
+    # JW Ma, for test
+    # data = {}
+    # auth_user = req.user
+    # if auth_user.is_authenticated:
+    #     print(auth_user.id)
+    #     # get current user object along with its username, Country, Course enrolled, etc
+    #     curr_user = User.objects.get(id=auth_user.id)
+    #     username = curr_user.username
+    #     topics = curr_user.Topics
+    #     major = curr_user.Major
+    #     courses = curr_user.Courses
+    #     country = curr_user.Country
 
 
     return HttpResponse(country)

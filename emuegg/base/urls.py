@@ -45,9 +45,8 @@ urlpatterns = [
     path('start_chat/', views.start_chat, name="start_chat"),
 
     # comment-in by juewen Ma, previously was comment out
-    # path('friend_list/<user_id>/', views.friend_list, name="friend_list"),
-    path('friend_list/<user_id>/', views.friend_list, name="friend_list"),
-    # path('friend_list/', views.friend_list, name="friend_list"),
+    # path('friend_list/<user_id>/', views.friend_list, name="friend_list"),    # not use friends_list.html, use friend_list.html instead
+    path('friends_list/<user_id>/', views.friend_list, name="friend_list"),
 
     # path('friend/', views.friend, name="friend"),
 
