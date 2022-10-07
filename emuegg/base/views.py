@@ -261,9 +261,11 @@ def createChannel(req):
         form = RoomForm(req.POST)
         if form.is_valid():
             form.save()
-            return HttpResponse('Channel has been created successfully')
+            # return HttpResponse('Channel has been created successfully')
+            return redirect('home')
     data = {'form' : RoomForm()}
     return render(req, 'base/channel_form.html', data)
+    # return render(req, 'base/channel_create.html', data)
 
 @login_required(login_url='login')
 def updateChannel(req, id):
@@ -282,7 +284,7 @@ def updateChannel(req, id):
 def deleteChannel(req, id):
     channel = Channel.objects.get(id=id)
     if req.user != channel.host:
-        return HttpResponse('You are not allowed to update this channel')
+        return HttpResponse('You are not allowed to delete this channel')
     if req.method == 'POST':
         channel.delete()
         return redirect('home')
@@ -428,11 +430,15 @@ def friend_list(req, *args, **kwargs):
         user_id = kwargs.get('user_id')
         if user_id:
             user = User.objects.get(id=user_id)
+            print("user_id: ", user_id)
             # error handling if get method cannot retrieve any available user
             try:
                 friend_list = Friends.objects.get(user=user.id)
+                print("friend_list: ", friend_list.__class__)
+                print("friend_list.friend.all(): ", friend_list.friend.all())
                 for friend in friend_list.friend.all():
                     list.append(friend)
+                    print("friend: ", friend)
             except ObjectDoesNotExist:
                 pass
 

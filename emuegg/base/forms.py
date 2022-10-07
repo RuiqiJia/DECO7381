@@ -18,6 +18,10 @@ class RoomForm(ModelForm):
     class Meta:
         model = Channel
         fields = '__all__'
+
+        # set initial value for host, participants, update, created
+        # initial={'host': '1', 'participants': '1', } # ? how to get current user? current time? 
+        # fields = ['name', 'topic', 'description']
         
 
 class CountryForm(ModelForm):

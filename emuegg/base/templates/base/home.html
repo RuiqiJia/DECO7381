@@ -310,7 +310,7 @@
                     </li>
                     <!-- friend list url path modified by Juewen Ma (10.07),
                         只有当前有用户登陆状态下传参 user.id才不会报错，所以展示friend list前需判断是否有用户处在登陆状态，
-                        若当前无用户登录，则nevigation bar里不展示friends这条-->
+                        若当前无用户登录，jump to login page-->
                     {% if request.user.is_authenticated %}
                     <li>
                         <a href="{% url 'friend_list' user_id=user.id %}">
@@ -346,9 +346,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/profile/2">
-                            <img src="{% static 'images/7.png' %}" alt="function1">User Profile
+                        {% if request.user.is_authenticated %}
+                        <a href="{% url 'profile' id=user.id %}">
+                            <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
                         </a>
+                        {% else %}
+                        <a href="{% url 'login' %}">
+                            <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
+                        </a>
+                        {% endif %}
                     </li>
 
                 </ul>

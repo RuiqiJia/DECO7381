@@ -211,9 +211,17 @@
 
                         <ul class="dropdown-menu dropdown-menu-position" aria-labelledby="dropdownMenu1">
                             <li>
-                                <a href="#">
+                                
+                                {% if request.user.is_authenticated %}
+                                <a href="{% url 'profile' id=user.id %}">
                                     <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
                                 </a>
+                                {% else %}
+                                <a href="{% url 'login' %}">
+                                    <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
+                                </a>
+                                {% endif %}
+                                
                             </li>
                             <li>
                                 <a href="/map">
@@ -231,9 +239,15 @@
                                 </a>
                             </li>
                             <li>
+                                {% if request.user.is_authenticated %}
                                 <a href="/chat_list">
                                     <img src="{% static 'images/menu-chat.png' %}" alt="function1">Private Chat
                                 </a>
+                                {% else %}
+                                <a href="{% url 'login' %}">
+                                    <img src="{% static 'images/menu-chat.png' %}" alt="function1">Private Chat
+                                </a>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>
