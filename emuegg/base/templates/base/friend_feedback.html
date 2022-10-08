@@ -1,5 +1,3 @@
-
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -85,8 +83,7 @@
             }
 
             .dropdown-menu li a {
-                padding: 0.25rem 0rem;
-                padding-left: 0.5rem;
+                padding: 0.25rem 0rem 0rem 0.5rem;
                 font-size: 0.75rem;
                 color: aliceblue;
             }
@@ -106,21 +103,31 @@
 
             /* form */
 
-            .create-form {
+            .delete-form {
               position: relative;
               top: 2rem;
               text-align: center;
             }
-
-            .create-form-title {
+            
+            .delete-form-title {
+              padding-bottom: 1rem;
               margin: auto;
-              font-size: 1.5rem;
+              font-size: 1.3rem;
               color: #90908F
             }
+
+            .delete-form p {
+              padding: 1rem;
+            }
+
+            .delete-form a {
+              padding: 1.5rem;
+            }
+
             
-            .create-form form {
+            .delete-form form {
               padding: 2rem;
-              
+              font-size: 1rem;
             }
             
             body {
@@ -154,7 +161,7 @@
                         </span>
                     </div>
 
-                    <div class="col-xs-6">Discussion</div>
+                    <div class="col-xs-6">Friends</div>
                     <div class="col-xs-3">
 
                         <!-- <span class="glyphicon glyphicon-align-justify" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-hidden="true"></span> -->
@@ -166,7 +173,7 @@
 
                         <ul class="dropdown-menu dropdown-menu-position" aria-labelledby="dropdownMenu1">
                             <li>
-                                <a href="#">
+                                <a href="{% url 'profile' id=user.id %}">
                                     <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
                                 </a>
                             </li>
@@ -181,7 +188,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/#">
+                                <a href="{% url 'friend_list' user_id=user.id %}">
                                     <img src="{% static 'images/menu-friend.png' %}" alt="function1">Friends
                                 </a>
                             </li>
@@ -198,16 +205,22 @@
 
         
         {% block content %}
-        <div class="create-form">
 
-          <div class="create-form-title">Create New Discussion</div>
-          
-          <form method="post" action="">
+        <div class="delete-form">
+
+
+
+            <!-- <div class="delete-form-title">Adding request is already sent!</div> -->
+            <div class="delete-form-title">{{ res }}</div>
+
             {% csrf_token %} {{form.as_p}}
-            <input type="submit" value="submit" />
-          </form>
+            <!-- <p>Please wait for accept. </p> -->
+            <a href="{{request.META.HTTP_REFERER}}">Go back</a>
+            <a herf="{% url 'friend_list' user_id=user.id %}">See my friend list</a>
+
         </div>
-        {% endblock content%}
+
+        {% endblock content %}
 
 
     </body>

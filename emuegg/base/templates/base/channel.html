@@ -8,148 +8,386 @@
     <title>Discussion Channels</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <style>
-        .channel-top {
-            padding: 40px 10px 0 10px;
-            border-bottom: 1px solid #dddddd;
-            background-color: white;
+
+        
+        :root {
+            font-size: 20px;
         }
 
-        .channel-top div {
+        body {
+            background-color: #F3F6F9;
+            font-family: Lato;
+        }
+
+        .chat-header {
+            background-image: linear-gradient(135deg, #b930fd, #106AD2);
+            width: 100%;
+            height: 115px;
+            border-bottom-left-radius: 50px;
+            border-bottom-right-radius: 50px;
+            box-shadow: 0px 8px 6px #bbb9b9;
+        }
+        
+        
+        .chat-container {
+            font-size: 2.1em;
             text-align: center;
-            padding-bottom: 5px;
+            position: relative;
+            top:55px;
+            color: white;
+            margin-left: 25px;
+            margin-right: 25px;
         }
 
-        .get-back {
-            position: absolute;
-            top: 37px;
-            left: 20px;
-            font-size: 2em;
+        /* header */
+
+        .map-header {
+            background-color: #bfa;
+            background-image: linear-gradient(135deg, #b930fd, #106AD2);
+            width: 100%;
+            height: 6rem;
+            border-bottom-left-radius: 2.433rem;
+            border-bottom-right-radius: 2.433rem;
+            box-shadow: 0px 1rem 0.6rem #d5d5d5;
+            z-index: 999;
+        }
+
+        .map-container {
+            font-size: 1.4rem;
+            text-align: center;
+            position: relative;
+            top: 3rem;
+            color: white;
+            margin-left: 1.014rem;
+            margin-right: 1.014rem;
+        }
+
+        #go-back img,
+        #menu img {
+            vertical-align: unset;
+        }
+
+        #go-back,
+        #menu {
+            width: 1.8rem;
+            vertical-align: unset;
+            padding-bottom: 0.250rem;
         }
 
 
-        .channel-header-wrapper,
-        .post {
-            padding: 10px 10px;
+        /* drop-down menu */
+
+        #user-icon {
+            border-radius: 100%;
         }
 
+        #current-page {
+            background-color: #0063d4;
+        }
+
+        #current-page li a{
+            font-weight: bold;
+
+        }
+
+        .dropdown-menu {
+            padding: 0.25rem 0rem 0.25rem 0rem;
+            background-color: #4b8ad3;
+            border-radius: 10%;
+            font-size: 1rem;
+            max-width: 7rem;
+        }
+
+        .dropdown-menu li {
+            padding: 0.25rem 0.1rem 0.25rem;
+        }
+
+        .dropdown-menu li a {
+            padding: 0.25rem 0rem 0rem 0.5rem;
+            font-size: 0.75rem;
+            color: aliceblue;
+        }
+
+        .dropdown-menu li a img {
+            padding-right: 0.25rem;
+            /* padding-left: 0.5rem; */
+            width: 1.5rem;
+            padding-right: 0.25rem;
+        }
+
+        .dropdown-menu-position {
+            top: 115%;
+            left: -53%;
+            /* right: 17%; */
+        }
+
+        /* channels display */
         .channel-header-wrapper {
+            padding: 15px;
+            margin: 25px 15px 15px 15px;
             background-color: white;
-            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 9px 10px #ebebeb;
         }
 
-        .channel-header img,
-        .post img {
-            width: 50px;
+        .channel-header-wrapper img,
+        .message-header img {
+            width: 40px;
+            border-radius: 100%;
         }
 
-        .channel-header-name,
-        .channel-header-description,
-        .message-header {
-            margin: 15px 0;
-            padding: 0 15px;
+        .channel-header span {
+            font-size: 1.15em;
+            font-weight: bold;
+            margin-left: 10px;
+            color: #60627B;
         }
 
-        .post {
-            background-color: white;
+        .channel-header-name {
+            margin: 15px 0 15px 0;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        .channel-header-description {
+            margin: 10px 0 10px 0;
+            color: #9FA0A3;
+        }
+
+        .channel-time-wrapper {
+            overflow: hidden;
+        }
+
+        .channel-topic {
+            float: left;
+            background-image: linear-gradient(135deg, #b930fd, #106AD2);
+            color: white;
+            padding: 5px 10px 5px 10px;
+            font-size: smaller;
+            border-radius: 7px;
+        }
+
+        .channel-time {
+            float: right;
+            color: #cecece;
+            font-size: smaller;
         }
 
         .comment-header {
-            border-bottom: 1px solid #dddddd;
-
+            margin: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
         }
 
-        .comment-header span {
-            border-bottom: 3px solid #337ab7;
+        .post-wrapper {
+            margin: 15px;
         }
 
         .message-wrapper {
-            overflow:hidden;
-            padding-bottom: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0px 9px 10px #ebebeb;
         }
 
-        .message-body {
-            float: left;
-            margin: 0;
-            position: relative;
-            top: 0;
-            left: 70px;
+        .message-header a{
+            font-size: 1.15em;
+            font-weight: bold;
+            margin-left: 10px;
+            color: #60627B;
+        }
+
+        .post-body {
+            margin: 10px 0 10px 0;
+            color: #616161;
+            font-size: larger;
+        }
+
+        .post-footer {
+            overflow: hidden;
         }
 
         .message-operation {
+            float: left;
+        }
+
+        .post-time {
             float: right;
-            font-size: 1.3em;
-
+            color: #cecece;
+            font-size: smaller;
         }
 
-        .comment-time,
-        .channel-time {
-            text-align: right;
-            margin-top: 10px;
-            color: rgb(150, 150, 150);
-        }
-
-        .comment-time {
-            border-bottom: 1px solid #dddddd;
+        .message-operation a {
+            color: #9f9d9d;
+            font-size: 1.1em;
+            margin-left: 5px;
         }
 
         .typein-bar {
-            {% comment %} border: 1px solid black; {% endcomment %}
             text-align: center;
-
+            margin: 0 40px 0 40px;
+            position: fixed;
+            bottom: 20px;
         }
 
         .typein-text {
             width: 300px;
+            border: 0;
+            height: 40px;
+            padding: 0;
+            border-radius: 20px;
+            box-shadow: 0px 1px 15px #e1dfdf;
+        }
+
+        .typein-bar button {
+            border: transparent;
+            background-color: transparent;
+            padding: 0;
+        }
+
+        .typein-bar img {
+            width: 30px;
         }
 
     </style>
 </head>
 <body>
-    <div class="channel-top">
-        <a href="{% url 'home' %}">
-            <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span>
-        </a>
-        <div>
-            <span class="h3">Channel Room</span>
+{#<div class="chat-header">#}
+{#        <div class="chat-container">#}
+{#            <div class="row">#}
+{#                <div class="col-xs-3">#}
+{#                    <a style="color: white" href="{% url 'home' %}">#}
+{#                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>#}
+{#                    </a>#}
+{#                </div>#}
+{#                <div class="col-xs-6">Channels</div>#}
+{#                <div class="col-xs-3">#}
+{#                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+<div class="map-header">
+        <div class="map-container">
+            <div class="row">
+
+                <div class="col-xs-3">
+                    <!-- <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> -->
+                    <span class="glyphicon" aria-hidden="true">
+                        <a href="{% url 'home' %}">
+                            <img id="go-back" src="{% static 'images/header-back.png' %}">
+                        </a>
+                    </span>
+                </div>
+
+                <div class="col-xs-6">Discussion</div>
+                <div class="col-xs-3">
+
+                    <!-- <span class="glyphicon glyphicon-align-justify" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-hidden="true"></span> -->
+                    <span class="glyphicon" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-hidden="true">
+                        <a href="#">
+                            <img id="menu" src="{% static 'images/header-menu.png' %}">
+                        </a>
+                    </span>
+
+                    <ul class="dropdown-menu dropdown-menu-position" aria-labelledby="dropdownMenu1">
+
+                        <li>
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'profile' id=user.id %}">
+                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
+                            </a>
+                            {% else %}
+                            <a href="{% url 'login' %}">
+                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">Log in / Sign up
+                            </a>
+                            {% endif %}
+                        </li>
+
+                        <li>
+                            <a href="/map_test/">
+                                <img src="{% static 'images/menu-map.png' %}" alt="function1">Cultural Map
+                            </a>
+                        </li>
+
+                        <li  id="current-page">
+                            <a href="{% url 'home' %}">
+                                <img src="{% static 'images/menu-discuss.png' %}" alt="function1">Discussion
+                            </a>
+                        </li>
+
+                        <!--  if no user was logged in, redirect it to login page, else, else, visit friend list page -->
+                        {% if request.user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'friend_list' user_id=user.id %}">
+                                <img src="{% static 'images/menu-friend.png' %}" alt="function1">Friends
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">
+                                <img src="{% static 'images/menu-friend.png' %}" alt="function1">Friends
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li>
+                            {% if request.user.is_authenticated %}
+                            <a href="/chat_list">
+                                <img src="{% static 'images/menu-chat.png' %}" alt="function1">Private Chat
+                            </a>
+                            {% else %}
+                            <a href="{% url 'login' %}">
+                                <img src="{% static 'images/menu-chat.png' %}" alt="function1">Private Chat
+                            </a>
+                            {% endif %}
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-    
-        
+
 <div class="channel">
-    <div style="background-color: #dddddd;">
+    <div>
         <div class="channel-header-wrapper">
             <div class="channel-header">
-                <img src="{% static 'images/normal-user.jpg' %}" alt="Logo image" class="img-circle">
-                <span class="h4" style="color: #337ab7;">{{ channel.host.username }}</span>
+                <img src="{% static 'images/normal-user2.png' %}" alt="Logo image" class="img-circle">
+                <span>@{{ channel.host.username }}</span>
             </div>
             <div class="channel-header-name">
-                <span class="h2">{{ channel.name }}</span>
+                <span class="">{{ channel.name }}</span>
             </div>
             <div class="channel-header-description">{{ channel.description }}</div>
-            <div class="channel-time">
-                <span>{{ channel.created }}</span>            
-            </div>    
-
-
+            <div class="channel-time-wrapper">
+                <div class="channel-topic">#{{ channel.topic }}</div>
+                <div class="channel-time">{{ channel.created }}</div>
+            </div>
         </div>
 
-        <div class="post">
-            <div class="h4 comment-header">
+        <div class="comment-header">
                 <span>Paticipants ({{participants.count }})</span>
-            </div>    
+        </div>
+
+        <div class="post-wrapper">
             {% for post in posts %}
-                <div class="message">
-                    
+                <div class="message-wrapper">
+
                     <div class="message-header">
                         <img src="{% static 'images/profile2.jpg' %}" alt="Logo image" class="img-circle">
-                        <a class="h5" style="color: #337ab7;" href="{% url 'profile' user.id %}">@{{ post.user.username }}</a>
+                        <a  href="{% url 'profile' user.id %}">
+                            @{{ post.user.username }}
+                        </a>
                     </div>
 
 
-                    <div class="message-wrapper">
-                        <div class="h3 message-body">
-                            {{ post.message }}   
-                        </div>
+                    <div class="post-body">
+                        {{ post.message }}
+                    </div>
+                    <div class="post-footer">
                         <div  class="message-operation">
                             {% if request.user == post.user %}
                             <a href="{% url 'delete_message' post.id %}">
@@ -157,30 +395,26 @@
                             </a>
                             {% endif %}
                         </div>
+                        <div class="post-time">{{ post.created }} ago</div>
                     </div>
-                    <div class="comment-time">
-                        <span>{{ post.created | timesince }} ago</span>
-                    </div>    
 
                 </div>
             {% endfor %}
-            </ul>
 
         </div>
     </div>
+</div>
 
-    <div class="typein-bar">
+<div class="typein-bar">
 
         {% if request.user.is_authenticated %}
                 <form action="" method="post">
                     {% csrf_token %}
-                        <input class="typein-text" type="text" name="message" placeholder="Typing your messages here"/>
-                        <input type="submit" value="Post"/>
+                        <input class="typein-text" type="text" name="message" placeholder="     Typing your messages here"/>
+                        <button class="btn btn-default" type="submit"><img src={% static 'images/send.png' %}></button>
                 </form>
         {% endif %}
     </div>
-
-</div>
 
 
 <script src="{% static 'js/jquery-3.6.0.js' %}"></script>

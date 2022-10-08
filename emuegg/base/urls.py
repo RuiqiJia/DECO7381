@@ -17,7 +17,7 @@ urlpatterns = [
     path('profile/<str:id>/', views.profile, name="profile"),
     path('updateProfile/', views.updateProfile, name="updateProfile"),
     path('channel/<str:id>/', views.channel, name="channel"),
-    path('map/', views.map, name="map"),
+    # path('map/', views.map, name="map"),
     path('create_channel/', views.createChannel, name="create_channel"),
     path('update_channel/<str:id>/', views.updateChannel, name="update_channel"),
     path('delete_channel/<str:id>/', views.deleteChannel, name="delete_channel"),
@@ -49,5 +49,8 @@ urlpatterns = [
 
     # path('friend/', views.friend, name="friend"),
 
-    path('chat_list/', views.chat_list, name="chat_list")
+    path('chat_list/', views.chat_list, name="chat_list"),
+    path('chat_box/', views.chat_box, name="chat_box"),
+    path('map_test/', views.map_test, name="map_test"),
+    # path('feedback/', views.friend_feedback, name="friend_feedback")
 ]

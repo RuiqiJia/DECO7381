@@ -320,12 +320,16 @@ def send_request(req, id):
     receiver = User.objects.get(id=id)
     friend_request, created = FriendRequest.objects.get_or_create(sender=user, receiver=receiver)
     if created:
-        data['response'] = "Friend request has been sent successfully"
-        return JsonResponse(data)
+        res = "Friend request has been sent successfully"
+        # data['res'] = res
+        # return JsonResponse(data)
+        return render(req, 'base/friend_feedback.html', {'res': res})
 
     else:
-        return HttpResponse('Friend request already sent')
-    # 
+        res = "Friend request has been sent successfully"
+        # return HttpResponse('Friend request already sent')
+        return render(req, 'base/friend_feedback.html', {'res': res})
+    
     # if req.method == 'POST' and user.is_authenticated:
     #     receiver_id = req.POST.get("receiver_id")
     #     if receiver_id:
@@ -382,9 +386,10 @@ def accept_request(req, *args, **kwargs):
             if friend_request.receiver == auth_user:
                 friend_request.accept_requests()
                 friend_request.delete()
-                data['res'] = "Friend request has been accepted successfully"
+                res = "Friend request has been accepted successfully"
     
-    return JsonResponse({'res' : 'Friend request has been accepted successfully'})
+    # return JsonResponse({'res' : 'Friend request has been accepted successfully'})
+    return render(req, 'base/friend_feedback.html', {'res': res})
 
 def friend_list(req, *args, **kwargs):
     # Written by Juewen Ma - Oct.7
@@ -546,6 +551,27 @@ def start_chat(req, *args, **kwargs):
 
 def chat_list(req):
     return render(req, 'base/chat_list.html')
+
+def chat_box(req):
+    return render(req, 'base/chat_box.html')
        
 def friend(req):
     return render(req, 'base/friend_list.html')
+
+def map_test(req):
+    if req.method == "GET":
+        return render(req, 'base/map_test.html')
+
+    loc = req.POST.get("location")
+    loc = str(loc).strip()
+    print(loc)
+    # print(url)
+    location = geocoder.osm(loc)
+    country = location.country
+    url = "https://en.wikipedia.org/wiki/" + country
+    lat = location.lat
+    lng = location.lng
+    print(lat, lng)
+
+    return render(req, "base/map_test.html", {"lat": lat, "lng": lng, "url": url})
+

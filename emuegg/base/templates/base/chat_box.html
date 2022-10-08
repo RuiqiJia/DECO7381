@@ -1,0 +1,529 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Chat_box</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+
+
+        :root {
+            font-size: 20px;
+        }
+
+        * {
+            font-family: Lato;
+        }
+
+        .filter-wrapper {
+            filter: none;
+            height: 896px;
+        }
+
+
+        /* header */
+
+        .chat-header {
+            background-color: #bfa;
+            background-image: linear-gradient(135deg, #b930fd, #106AD2);
+            width: 100%;
+            height: 6rem;
+            border-bottom-left-radius: 2.433rem;
+            border-bottom-right-radius: 2.433rem;
+            box-shadow: 0px 1rem 0.6rem #d5d5d5;
+            z-index: 999;
+        }
+
+        .chat-container {
+            /* {#font-size: 1.5rem;#}
+            {#text-align: center;#}
+            {#position: relative;#}
+            {#top: 3.649rem;#}
+            {#color: white;#}
+            {#margin-left: 1.014rem;#}
+            {#margin-right: 1.014rem;#} */
+            font-size: 2em;
+            text-align: center;
+            position: relative;
+            top:55px;
+            color: white;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+
+        #go-back img,
+        #menu img {
+            vertical-align: top;
+        }
+
+        #go-back,
+        #menu {
+            width: 1.8rem;
+            vertical-align: unset;
+            padding-bottom: 0.250rem;
+        }
+
+
+        /* drop-down menu */
+
+        #user-icon {
+            border-radius: 100%;
+        }
+
+        #current-page {
+            background-color: #0063d4;
+            border-bottom-left-radius: 0.433rem;
+            border-bottom-right-radius: 0.433rem;
+        }
+
+        #current-page li a{
+            font-weight: bold;
+
+        }
+
+        .dropdown-menu {
+            padding: 0.25rem 0rem 0.25rem 0rem;
+            background-color: #4b8ad3;
+            border-radius: 10%;
+            font-size: 1rem;
+            max-width: 7rem;
+        }
+
+        .dropdown-menu li {
+            padding: 0.25rem 0.1rem 0.25rem;
+        }
+
+        .dropdown-menu li a {
+            padding: 0.25rem 0rem 0rem 0.5rem;
+            font-size: 0.75rem;
+            color: aliceblue;
+        }
+
+        .dropdown-menu li a img {
+            padding-right: 0.25rem;
+            /* padding-left: 0.5rem; */
+            width: 1.5rem;
+            padding-right: 0.25rem;
+        }
+
+        .dropdown-menu-position {
+            top: 115%;
+            left: -53%;
+            /* right: 17%; */
+        }
+
+        /* main chat body */
+        .chat-container a {
+            color: white;
+        }
+
+        .friendchat-wrapper {
+            display: flex;
+            margin-left: 20px;
+            margin-top: 40px;
+            color: #919191;
+            overflow: hidden;
+            font-size: 1.1em;
+        }
+
+        .friendchat-message {
+            {#float: left;#}
+            width: 80%;
+            margin-left: 10px;
+        }
+
+        .friend-portrait img{
+            width: 50px;
+            border-radius: 100%;
+            margin-top: 80px;
+        }
+
+        .message-detail {
+            background-color: #F2F2F8;
+            padding: 10px 20px 10px 20px;
+            margin-right: 80px;
+            border-radius: 20px;
+            box-shadow: 0px 5px 10px #d5d5d5;
+        }
+
+        .message-detail2 {
+            margin-top: 15px;
+            background-color: #F2F2F8;
+            padding: 10px 20px 10px 20px;
+            margin-right: 80px;
+            border-radius: 20px;
+            box-shadow: 0px 5px 10px #d5d5d5;
+        }
+
+        .message-detail2 img {
+            width: 30px;
+        }
+
+        #slang-prompt {
+            margin-top: 15px;
+            display: none;
+            transition: 1s ease;
+        }
+
+        #slang-prompt img{
+            width: 100px;
+        }
+
+        .message-time {
+            margin-top: 10px;
+            font-size: small;
+        }
+
+        .userchat-wrapper {
+            display: flex;
+            margin-top: 40px;
+            font-size: 1.1em;
+            color: #DCDCDC;
+            margin-right: 20px;
+            justify-content: flex-end;
+        }
+
+        .user-portrait img {
+            width: 50px;
+            border-radius: 100%;
+            margin-top: 15px;
+
+        }
+
+        .userchat-message {
+            margin-right: 10px;
+        }
+
+        .usermessage-detail {
+            background-color: #106AD2;
+            padding: 10px 20px 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0px 5px 10px #c1c1c1;
+        }
+
+        .usermessage-time {
+            text-align: right;
+            margin-top: 10px;
+            color: #919191;
+            font-size: small;
+        }
+
+        .send-wrapper {
+            bottom: 24px;
+            position: fixed;
+            /* top: 0px; */
+            left: 25px;
+            width: 400px;
+        }
+
+        .message-input {
+            padding: 0;
+            {#width: 550px;#}
+        }
+
+        .input-button {
+            padding: 0;
+        }
+
+        .message-input input,
+        .input-button button {
+            height: 40px;
+            background-color: #F2F2F8;
+        }
+
+        .message-input input {
+            border-top-left-radius: 50px;
+            border-bottom-left-radius: 50px;
+            padding-left: 80px;
+            border: none;
+        }
+
+        .input-button button {
+            border-top-right-radius: 50px;
+            border-bottom-right-radius: 50px;
+            padding: 0 5px 0 5px;
+            border: none;
+        }
+
+        .input-button img {
+            width: 30px;
+        }
+
+        #slang {
+            color:#106AD2;
+            font-style: italic;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+
+        .topic-button {
+            height: 40px;
+            border: none;
+            border-radius: 100%;
+            width: 40px;
+            padding: 0;
+        }
+
+        .topic-button img {
+            width: 30px;
+        }
+
+        .topic-wrapper {
+            height: 350px;
+            width: 80%;
+            background-color: #ffffff;
+            position: absolute;
+            left: 40px;
+            padding: 15px 20px 15px 20px;
+            box-shadow: 1px 10px 50px #c9c9c9;
+            top: 200px;
+            border-radius: 25px;
+            display: none;
+        }
+
+        .close-button {
+            text-align: right;
+        }
+
+        .button {
+            font-size: 1.2em;
+            border: none;
+            padding: 0;
+        }
+
+        .topic-title {
+            font-size: 1.7em;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .topic-title img {
+            width: 30px;
+        }
+
+        .topic-content {
+            font-size: 1.2em;
+            margin-top: 15px;
+            color: #919191;
+        }
+
+        .topics {
+            font-weight: bold;
+            font-size: larger;
+            background: linear-gradient(to right, #A32CDF, #106AD2);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+    </style>
+
+    <script>
+        window.onload = function() {
+            {#var slang = document.getElementById("slang");#}
+            var slang = document.getElementById("slangicon");
+            var slangMessage = document.getElementById("slang-prompt");
+            var sum = 0;
+            slang.onclick = function() {
+                {#console.log(slangMessage.style.display);#}
+                {#slangMessage.style.display = "block";#}
+                if (sum % 2 === 0) {
+                    slangMessage.style.display = "block";
+                    sum++;
+                } else if (sum % 2 !== 0) {
+                    slangMessage.style.display = "none";
+                    sum++;
+                }
+            }
+
+            var topicButton = document.getElementsByClassName("topic-button")[0];
+            var topicWrapper = document.getElementsByClassName("topic-wrapper")[0];
+            var filterWrapper = document.getElementsByClassName("filter-wrapper")[0];
+            topicButton.onclick = function() {
+                topicWrapper.style.display = "block";
+                filterWrapper.style.filter = "blur(3px)";
+            }
+
+            var closeButton = document.getElementsByClassName("button")[0];
+            closeButton.onclick = function () {
+                topicWrapper.style.display = "none";
+                filterWrapper.style.filter = "none";
+            }
+        }
+    </script>
+
+</head>
+<!--Image reference:
+"Light icons", Unknown. [Online]. Available: https://icons8.com/icons/set/light
+"Hash icons", Unknown. [Online]. Available: https://icons8.com/icons/set/hash
+"Send icons", Unknown. [Online]. Available: https://icons8.com/icons/set/send
+"Woman in Brown and White Checkered Dress Holding Pink and Red Balloons", Anna Pou. [Online]. Available: https://www.pexels.com/photo/woman-in-brown-and-white-checkered-dress-holding-pink-and-red-balloons-9452056/
+"Beautiful Woman with Blonde Hair Posing Outdoors", Diyar Shahbaz. [Online]. Available: https://www.pexels.com/photo/beautiful-woman-with-blonde-hair-posing-outdoors-13693487/
+ -->
+<body>
+<div class="filter-wrapper">
+    <div class="chat-header">
+        <div class="chat-container">
+            <div class="row">
+
+                <div class="col-xs-3">
+                    <!-- <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> -->
+                    <span class="glyphicon" aria-hidden="true">
+                        <a href="{% url 'chat_list' %}">
+                            <img id="go-back" src="{% static 'images/header-back.png' %}">
+                        </a>
+                    </span>
+                </div>
+
+                <div class="col-xs-6">Private Chat</div>
+                <div class="col-xs-3">
+
+                    <!-- <span class="glyphicon glyphicon-align-justify" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-hidden="true"></span> -->
+                    <span class="glyphicon" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-hidden="true">
+                        <a href="#">
+                            <img id="menu" src="{% static 'images/header-menu.png' %}">
+                        </a>
+                    </span>
+
+                    <ul class="dropdown-menu dropdown-menu-position" aria-labelledby="dropdownMenu1">
+
+                        <li>
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'profile' id=user.id %}">
+                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
+                            </a>
+                            {% else %}
+                            <a href="{% url 'login' %}">
+                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
+                            </a>
+                            {% endif %}
+                        </li>
+
+                        <li>
+                            <a href="/map/">
+                                <img src="{% static 'images/menu-map.png' %}" alt="function1">Cultural Map
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'home' %}">
+                                <img src="{% static 'images/menu-discuss.png' %}" alt="function1">Discussion
+                            </a>
+                        </li>
+
+                        <!--  if no user was logged in, redirect it to login page, else, else, visit friend list page -->
+                        {% if request.user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'friend_list' user_id=user.id %}">
+                                <img src="{% static 'images/menu-friend.png' %}" alt="function1">Friends
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">
+                                <img src="{% static 'images/menu-friend.png' %}" alt="function1">Friends
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li id="current-page">
+                            {% if request.user.is_authenticated %}
+                            <a href="/chat_list">
+                                <img src="{% static 'images/menu-chat.png' %}" alt="function1">Private Chat
+                            </a>
+                            {% else %}
+                            <a href="{% url 'login' %}">
+                                <img src="{% static 'images/menu-chat.png' %}" alt="function1">Private Chat
+                            </a>
+                            {% endif %}
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="friendchat-wrapper">
+        <div class="friend-portrait">
+            <img src="{% static 'images/friend-portrait.png' %}" alt="portrait">
+        </div>
+        <div class="friendchat-message">
+            <div class="message-detail">
+                <div>Hello! nice to meet you!</div>
+                <div>Can we have a chat?</div>
+            </div>
+            <div class="message-detail2">
+                <div>
+                    <span>I love </span><span id="slang">TimTam</span>
+                    <img id="slangicon" src="{% static 'images/slangprompt.png' %}" alt="slang">
+                </div>
+                <div id="slang-prompt">
+                    <div>Tim Tam is an Australian brand of chocolate biscuit.</div>
+                    <img src="{% static 'images/TimTam.png' %}" alt="timtam">
+                </div>
+            </div>
+            <div class="message-time">06:58PM</div>
+        </div>
+    </div>
+
+    <div class="userchat-wrapper">
+        <div class="userchat-message">
+            <div class="usermessage-detail">
+                <div>
+                    Hello! nice to meet you toooooo!
+                </div>
+                <div>
+                    I also like chocolate
+                </div>
+            </div>
+            <div class="usermessage-time">06:58PM</div>
+        </div>
+        <div class="user-portrait">
+            <img src="{% static 'images/user-portrait.png' %}" alt="portrait">
+        </div>
+    </div>
+
+    <div class="row send-wrapper">
+        <div class="col-xs-2">
+            <button class="btn topic-button" type="button">
+                <img src={% static 'images/topic.png' %}>
+            </button>
+        </div>
+
+        <div class="col-xs-8 message-input">
+            <input type="text" class="form-control" placeholder="Type your message...">
+        </div>
+        <div class="col-xs-2 input-button">
+            <button class="btn btn-default" type="button"><img src={% static 'images/send.png' %}></button>
+        </div>
+    </div>
+</div>
+
+    <div class="topic-wrapper">
+        <div class="close-button">
+            <button class="btn btn-default button">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+        </div>
+        <div class="topic-title">
+            <span><img src={% static 'images/topic.png' %}></span>
+            <span>Suggested Topics</span>
+        </div>
+        <div class="topic-content">
+            Jack also majors in <span class="topics">#IT</span>, talk about your courses!
+        </div>
+
+        <div class="topic-content">
+            Jack also likes <span class="topics">#Sports</span>, talk about your sport experience!
+        </div>
+
+    </div>
+
+
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

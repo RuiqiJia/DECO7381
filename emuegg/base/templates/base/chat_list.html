@@ -3,95 +3,267 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Chat_list</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <style>
-        * {
+
+
+        :root {
+            font-size: 20px;
+        }
+
+        body {
             font-family: Lato;
         }
+
+
+        /* header */
 
         .chat-header {
             background-color: #bfa;
             background-image: linear-gradient(135deg, #b930fd, #106AD2);
             width: 100%;
-            height: 350px;
-            border-bottom-left-radius: 120px;
-            border-bottom-right-radius: 120px;
-            box-shadow: 0px 20px 12px #d5d5d5;
+            height: 6rem;
+            border-bottom-left-radius: 2.433rem;
+            border-bottom-right-radius: 2.433rem;
+            box-shadow: 0px 1rem 0.6rem #d5d5d5;
+            z-index: 999;
         }
 
         .chat-container {
-            font-size: 5em;
+            font-size: 1.4rem;
             text-align: center;
             position: relative;
-            top: 180px;
+            top: 3rem;
             color: white;
-            margin-left: 50px;
-            margin-right: 50px;
+            margin-left: 1.014rem;
+            margin-right: 1.014rem;
+
         }
 
+        #go-back img,
+        #menu img {
+            vertical-align: unset;
+        }
+
+        #go-back,
+        #menu {
+            width: 1.8rem;
+            vertical-align: unset;
+            padding-bottom: 0.250rem;
+        }
+
+
+        /* drop-down menu */
+
+        #user-icon {
+            border-radius: 100%;
+        }
+
+        #current-page {
+            background-color: #0063d4;
+            border-bottom-left-radius: 0.433rem;
+            border-bottom-right-radius: 0.433rem;
+        }
+
+        #current-page li a{
+            font-weight: bold;
+
+        }
+
+        .dropdown-menu {
+            padding: 0.25rem 0rem 0.25rem 0rem;
+            background-color: #4b8ad3;
+            border-radius: 10%;
+            font-size: 1rem;
+            max-width: 7rem;
+        }
+
+        .dropdown-menu li {
+            padding: 0.25rem 0.1rem 0.25rem;
+        }
+
+        .dropdown-menu li a {
+            padding: 0.25rem 0rem 0rem 0.5rem;
+            font-size: 0.75rem;
+            color: aliceblue;
+        }
+
+        .dropdown-menu li a img {
+            padding-right: 0.25rem;
+            /* padding-left: 0.5rem; */
+            width: 1.5rem;
+            padding-right: 0.25rem;
+        }
+
+        .dropdown-menu-position {
+            top: 115%;
+            left: -53%;
+            /* right: 17%; */
+        }
+
+        /* chat box */
         .chat-box-wrapper {
-            margin-left: 80px;
-            margin-right: 80px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .chat-box-wrapper a{
+            color: black;
         }
 
         .chat-list-word {
-            font-size: 3em;
-            padding-top: 50px;
-            padding-bottom: 50px;
-            color: #90908F
+            padding-top: 20px;
+            padding-bottom: 20px;
+            font-size: 1.3em;
+            color: #90908F;
         }
 
         .chat-box {
-            font-size: 3em;
+            font-size: 1.2em;
             display: flex;
             align-items: center;
         }
 
         .chat-text-wrapper {
-            padding-left: 30px;
-            padding-right: 150px;
+            padding-left: 20px;
+            padding-right: 30px;
+            width: 80%;
+        }
+
+        .chat-text-wrapper div:first-child {
+            font-weight: bolder;
         }
 
         .chat-text-detail {
             color: #ADAEAE;
-            font-size: 0.9em;
+            font-size: 0.84em;
+        }
+
+        .chat-text-bubble {
+            box-shadow: 0px 3px 10px #5b4ad9;
+            border-radius: 100%;
         }
 
         .chat-box img {
             border-radius: 100%;
+            width: 50px;
         }
 
         .chat-reminder {
             background-color: #106AD2;
             color: white;
             border-radius: 100%;
-            width: 60px;
+            width: 24px;
             text-align: center;
         }
 
         .chat-box-bottom {
-            height: 50px;
-            margin-left: 180px;
-            margin-right: 25px;
+            height: 20px;
+            margin-left: 67px;
             border-bottom: 1px solid #EBE8E8;
         }
 
         .chat-box-wrapper2 {
-            padding-top: 50px;
+            padding-top: 20px;
         }
+
+        .chat-img-wrapper {
+            box-shadow: 0px 15px 30px #9d9b9b;
+            border-radius: 100%;
+        }
+
     </style>
 </head>
+<!--Image reference:
+"WBoy with Bag Watching Cartoon", Shardar Tarikul Islam. [Online]. Available: https://www.pexels.com/photo/boy-with-bag-watching-cartoon-9091808/
+"White Swans on the River", Helena Jankovičová Kováčová. [Online]. Available: https://www.pexels.com/photo/white-swans-on-the-river-9460553/
+"Man on a Protest Talking Through a Megaphone", Lara Jameson. [Online]. Available: https://www.pexels.com/photo/man-on-a-protest-talking-through-a-megaphone-8899177/
+"Girls Walking Bridge near Metro Station", Katya Wolf. [Online]. Available: https://www.pexels.com/photo/girls-walking-bridge-near-metro-station-8733168/
+"Motor Vehicles Traffic on the City Road", el jusuf. [Online]. Available: https://www.pexels.com/photo/motor-vehicles-traffic-on-the-city-road-13110709/
+"Man Standing on Road", Kaique Rocha. [Online]. Available: https://www.pexels.com/photo/man-standing-on-road-108153/
+ -->
+
 <body>
     <div class="chat-header">
         <div class="chat-container">
             <div class="row">
+
                 <div class="col-xs-3">
-                    <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                    <!-- <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> -->
+                    <span class="glyphicon" aria-hidden="true">
+                        <a href="{% url 'home' %}">
+                            <img id="go-back" src="{% static 'images/header-back.png' %}">
+                        </a>
+                    </span>
                 </div>
-                <div class="col-xs-6">Chats</div>
+
+                <div class="col-xs-6">Private Chat</div>
                 <div class="col-xs-3">
-                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+
+                    <!-- <span class="glyphicon glyphicon-align-justify" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-hidden="true"></span> -->
+                    <span class="glyphicon" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-hidden="true">
+                        <a href="#">
+                            <img id="menu" src="{% static 'images/header-menu.png' %}">
+                        </a>
+                    </span>
+
+                    <ul class="dropdown-menu dropdown-menu-position" aria-labelledby="dropdownMenu1">
+
+                        <li>
+                            {% if request.user.is_authenticated %}
+                            <a href="{% url 'profile' id=user.id %}">
+                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
+                            </a>
+                            {% else %}
+                            <a href="{% url 'login' %}">
+                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
+                            </a>
+                            {% endif %}
+                        </li>
+
+                        <li>
+                            <a href="/map_test/">
+                                <img src="{% static 'images/menu-map.png' %}" alt="function1">Cultural Map
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'home' %}">
+                                <img src="{% static 'images/menu-discuss.png' %}" alt="function1">Discussion
+                            </a>
+                        </li>
+
+                        <!--  if no user was logged in, redirect it to login page, else, else, visit friend list page -->
+                        {% if request.user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'friend_list' user_id=user.id %}">
+                                <img src="{% static 'images/menu-friend.png' %}" alt="function1">Friends
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'login' %}">
+                                <img src="{% static 'images/menu-friend.png' %}" alt="function1">Friends
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li id="current-page">
+                            {% if request.user.is_authenticated %}
+                            <a href="/chat_list">
+                                <img src="{% static 'images/menu-chat.png' %}" alt="function1">Private Chat
+                            </a>
+                            {% else %}
+                            <a href="{% url 'login' %}">
+                                <img src="{% static 'images/menu-chat.png' %}" alt="function1">Private Chat
+                            </a>
+                            {% endif %}
+                        </li>
+
+                    </ul>
                 </div>
             </div>
         </div>
@@ -100,13 +272,91 @@
 
     <div class="chat-box-wrapper">
         <div class="chat-list-word">Chat List</div>
-        <div class="chat-box">
-            <div>
-                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+        <a href="{% url 'chat_box' %}">
+            <div class="chat-box">
+            <div class="chat-img-wrapper">
+                <img src="{% static 'images/friend-portrait.png' %}" alt="normal-user">
             </div>
             <div class="chat-text-wrapper">
                 <div>Jack Li</div>
-                <div class="chat-text-detail">We need to meet today</div>
+                <div class="chat-text-detail">If you have time, will you call me tomorrow?</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">2</div>
+            </div>
+            </div>
+        </a>
+{#        <div class="chat-box">#}
+{#            <div class="chat-img-wrapper">#}
+{#                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">#}
+{#            </div>#}
+{#            <div class="chat-text-wrapper">#}
+{#                <div>Jack Li</div>#}
+{#                <div class="chat-text-detail">We need to meet today</div>#}
+{#            </div>#}
+{#            <div class="chat-text-bubble">#}
+{#                <div class="chat-reminder">2</div>#}
+{#            </div>#}
+{#        </div>#}
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div class="chat-img-wrapper">
+                <img src="{% static 'images/normal-user2.png' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Nicole Payten</div>
+                <div class="chat-text-detail">Congratulations on your success last night!</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">5</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div class="chat-img-wrapper">
+                <img src="{% static 'images/normal-user3.png' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Betty Baker</div>
+                <div class="chat-text-detail">What do you mean？It was my fault?</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">4</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div class="chat-img-wrapper">
+                <img src="{% static 'images/normal-user4.png' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Lydia Clerk</div>
+                <div class="chat-text-detail">I can't find the key to the door, do you see it?</div>
+            </div>
+            <div class="chat-text-bubble">
+                <div class="chat-reminder">9</div>
+            </div>
+        </div>
+        <div class="chat-box-bottom"></div>
+    </div>
+
+    <div class="chat-box-wrapper chat-box-wrapper2">
+        <div class="chat-box">
+            <div class="chat-img-wrapper">
+                <img src="{% static 'images/normal-user5.png' %}" alt="normal-user">
+            </div>
+            <div class="chat-text-wrapper">
+                <div>Madison Carpenter</div>
+                <div class="chat-text-detail">Where are you going for your vacation this summer?</div>
             </div>
             <div class="chat-text-bubble">
                 <div class="chat-reminder">1</div>
@@ -117,15 +367,15 @@
 
     <div class="chat-box-wrapper chat-box-wrapper2">
         <div class="chat-box">
-            <div>
-                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+            <div class="chat-img-wrapper">
+                <img src="{% static 'images/normal-user6.png' %}" alt="normal-user">
             </div>
             <div class="chat-text-wrapper">
-                <div>Jack Li</div>
-                <div class="chat-text-detail">We need to meet today</div>
+                <div>Kaylee Barber</div>
+                <div class="chat-text-detail">Okay. I'm ready. I think I can do it.</div>
             </div>
             <div class="chat-text-bubble">
-                <div class="chat-reminder">1</div>
+                <div class="chat-reminder">2</div>
             </div>
         </div>
         <div class="chat-box-bottom"></div>
@@ -133,79 +383,15 @@
 
     <div class="chat-box-wrapper chat-box-wrapper2">
         <div class="chat-box">
-            <div>
-                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+            <div class="chat-img-wrapper">
+                <img src="{% static 'images/normal-user7.png' %}" alt="normal-user">
             </div>
             <div class="chat-text-wrapper">
-                <div>Jack Li</div>
-                <div class="chat-text-detail">We need to meet today</div>
+                <div>Teresa Cooper</div>
+                <div class="chat-text-detail">I can't believe it! I'm so so so so glad.</div>
             </div>
             <div class="chat-text-bubble">
-                <div class="chat-reminder">1</div>
-            </div>
-        </div>
-        <div class="chat-box-bottom"></div>
-    </div>
-
-    <div class="chat-box-wrapper chat-box-wrapper2">
-        <div class="chat-box">
-            <div>
-                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
-            </div>
-            <div class="chat-text-wrapper">
-                <div>Jack Li</div>
-                <div class="chat-text-detail">We need to meet today</div>
-            </div>
-            <div class="chat-text-bubble">
-                <div class="chat-reminder">1</div>
-            </div>
-        </div>
-        <div class="chat-box-bottom"></div>
-    </div>
-
-    <div class="chat-box-wrapper chat-box-wrapper2">
-        <div class="chat-box">
-            <div>
-                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
-            </div>
-            <div class="chat-text-wrapper">
-                <div>Jack Li</div>
-                <div class="chat-text-detail">We need to meet today</div>
-            </div>
-            <div class="chat-text-bubble">
-                <div class="chat-reminder">1</div>
-            </div>
-        </div>
-        <div class="chat-box-bottom"></div>
-    </div>
-
-    <div class="chat-box-wrapper chat-box-wrapper2">
-        <div class="chat-box">
-            <div>
-                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
-            </div>
-            <div class="chat-text-wrapper">
-                <div>Jack Li</div>
-                <div class="chat-text-detail">We need to meet today</div>
-            </div>
-            <div class="chat-text-bubble">
-                <div class="chat-reminder">1</div>
-            </div>
-        </div>
-        <div class="chat-box-bottom"></div>
-    </div>
-
-    <div class="chat-box-wrapper chat-box-wrapper2">
-        <div class="chat-box">
-            <div>
-                <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
-            </div>
-            <div class="chat-text-wrapper">
-                <div>Jack Li</div>
-                <div class="chat-text-detail">We need to meet today</div>
-            </div>
-            <div class="chat-text-bubble">
-                <div class="chat-reminder">1</div>
+                <div class="chat-reminder">3</div>
             </div>
         </div>
         <div class="chat-box-bottom"></div>
