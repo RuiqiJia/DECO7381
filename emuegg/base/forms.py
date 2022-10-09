@@ -6,7 +6,7 @@ from .models import User, Channel
 class UserForm(ModelForm):
     class Meta:
         model = User
-        fields = ['Picture', 'username', 'email', 'Country', 'Major', 'Courses']
+        fields = ['Picture', 'username', 'email', 'Country', 'Major', 'Courses', 'Topics']
 
 
 class CustomeUserCreationForm(UserCreationForm):
@@ -28,4 +28,3 @@ class CountryForm(ModelForm):
     class Meta:
         model = User
         fields = ['Country']
-    

@@ -216,7 +216,7 @@
             {% csrf_token %} {{form.as_p}}
             <!-- <p>Please wait for accept. </p> -->
             <a href="{{request.META.HTTP_REFERER}}">Go back</a>
-            <a herf="{% url 'friend_list' user_id=user.id %}">See my friend list</a>
+<!--            <a herf="{% url 'friend_list' user_id=user.id %}">See my friend list</a>-->
 
         </div>
 

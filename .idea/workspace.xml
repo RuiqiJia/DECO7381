@@ -3,9 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="264b82e6-96f9-47a3-9ee7-a6b21afdd0d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emuegg/base/management/commands/make_recommendation.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/management/commands/make_recommendation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emuegg/base/templates/base/friend_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/templates/base/friend_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emuegg/base/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/base/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/base/templates/base/chat_box.html" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/templates/base/chat_box.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/base/templates/base/delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/templates/base/delete.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/base/templates/base/friend_feedback.html" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/templates/base/friend_feedback.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/base/templates/base/updateProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/templates/base/updateProfile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/emuegg/emuegg/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/emuegg/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +49,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/emuegg/base/templates/base" />
       <recent name="$PROJECT_DIR$/emuegg/base/management/commands" />
       <recent name="$PROJECT_DIR$/emuegg/base" />
       <recent name="$PROJECT_DIR$/emuegg" />
