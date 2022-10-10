@@ -2,12 +2,13 @@ from email.policy import default
 from math import degrees
 from django.db import models
 
+
 from django.contrib.auth.models import AbstractUser
 # from .utility import create_chat
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, null=True)
-    Picture = models.ImageField(null=True, default='')
+    Picture = models.ImageField(upload_to='avatar/', null=True, default='') # Juewen Ma -- Oct 10
     Country = models.CharField(max_length=50, null=True)
     Major = models.CharField(max_length=50, null=True)
     Courses = models.CharField(max_length=200, null=True)

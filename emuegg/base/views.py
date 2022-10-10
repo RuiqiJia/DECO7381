@@ -457,23 +457,6 @@ def friend_list(req, *args, **kwargs):
     return render(req, 'base/friend_list.html', data)
 
 
-    # JW Ma, for test
-    # data = {}
-    # auth_user = req.user
-    # if auth_user.is_authenticated:
-    #     print(auth_user.id)
-    #     # get current user object along with its username, Country, Course enrolled, etc
-    #     curr_user = User.objects.get(id=auth_user.id)
-    #     username = curr_user.username
-    #     topics = curr_user.Topics
-    #     major = curr_user.Major
-    #     courses = curr_user.Courses
-    #     country = curr_user.Country
-    #
-    #
-    # return HttpResponse(country)
-
-
 def index(request):
     try:
         users = User.objects.all()
