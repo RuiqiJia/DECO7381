@@ -321,12 +321,11 @@
                                 </div>
                             </div>
                         {% endif %} {% if is_friend %}
-                        <div
-                                class="btn btn-primary"
-                                onclick="createOrReturnPrivateChat('{{ id }}')"
-                        >
-                            <span class="message-btn">Message</span>
-                        </div>
+                        <a href="/chat_box/">
+                            <div class="btn btn-primary">
+                                <span>Message</span>
+                            </div>
+                        </a>
                     {% endif %}
                     </div>
                 {% endif %}
