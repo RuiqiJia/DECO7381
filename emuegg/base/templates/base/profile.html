@@ -222,7 +222,7 @@
         {% if request.user == user %}
             <img src="{% static 'images/profile2.jpg' %}" alt="Logo image" class="img-circle">
         {% else %}
-            <img src="{% static 'images/normal-user.jpg' %}" alt="Logo image" class="img-circle">
+            <img src="/images/{{user.Picture}}" alt="Logo image" class="img-circle">
         {% endif %}
         <div class="h1 profile-font">{{ user.username }}</div>
     </div>

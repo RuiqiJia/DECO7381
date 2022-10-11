@@ -92,7 +92,7 @@ def profile(req, id):
     user = User.objects.get(id=id)
     channels = user.channel_set.all()
     messages = user.message_set.all()
-    data = {'user' : user, 'channels' : channels, 'messages' : messages}
+    data = {'user': user, 'channels': channels, 'messages': messages}
     try:
         friends = Friends.objects.get(user=user)
     except Friends.DoesNotExist:
@@ -105,7 +105,7 @@ def profile(req, id):
     friend_request = Status.NO_REQUEST.value
     friend_requests = None
 
-    auth_user =  req.user
+    auth_user = req.user
     if auth_user.is_authenticated and auth_user != user:
         is_self = False
         if all_friends.filter(id=auth_user.id):
