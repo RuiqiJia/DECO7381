@@ -543,8 +543,17 @@ def friend(req):
 
 def map_test(req):
     if req.method == "GET":
-        return render(req, 'base/map_test.html')
 
+        capitals = ['Beijing', 'Canberra', 'Tokyo', 'Seoul', 'Manila', 'Hanoi', 'Kuala_Lumpur', 'Jakarta', 'New_Delhi', 'Bangkok']
+        cors = []
+        for capital in capitals:
+            Capitallocation = geocoder.osm(capital)
+            capLat = Capitallocation.lat
+            capLng = Capitallocation.lng
+            url1 = 'https://en.wikipedia.org/wiki/' + capital
+            cors.append([capLat, capLng, url1])
+        return render(req, 'base/map_test.html', {'cors': cors})
+        
     loc = req.POST.get("location")
     loc = str(loc).strip()
     print(loc)

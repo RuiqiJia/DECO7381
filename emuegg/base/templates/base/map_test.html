@@ -221,7 +221,7 @@
               </li>
 
               <li id="current-page">
-                <a href="/map/">
+                <a href="/map_test/">
                   <img
                     src="{% static 'images/menu-map.png' %}"
                     alt="function1"
@@ -318,16 +318,21 @@
     <script>
       console.log({{ lat }})
       console.log({{ lng }})
-      var url = document.getElementById("loc").innerText
 
+      var url = document.getElementById("loc").innerText
+      // var urls = document.getElementById("loc1").innerText
       var map = L.map('map', {attributionControl: false, zoomControl: false}).setView([17.908452, 120.913507], 3);
 
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
           attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
-
-      {#map.setView([{{ lat }}, {{ lng }}], 4);#}
+      var marker2
+      {% for cor in cors %}
+        marker2 = L.marker([{{ cor }}[0], {{ cor }}[1]]).addTo(map);
+        // marker2.bindPopup('<iframe style="border-radius: 10px; width: 100%; border-bottom: 3px solid #a32cdf73; border-top: 3px solid #a32cdf73;" src="' + cor[2] + '" frameborder="0" height="420px"></iframe><h4 style="text-align: center;background-color: red;color: white;margin: 15px 70px;padding: 10px 1px;border-radius: 10px;background-image: linear-gradient(135deg, #b930fd, #106AD2);box-shadow: 0px 3px 5px #7340db82;"><a style="color: white;" href="http://127.0.0.1:8000/?query=Culture"> Join Discussion</a></h4>');
+      {% endfor %}
+      console.log({{urls}})
       var marker = L.marker([{{ lat }}, {{ lng }}]).addTo(map);
       map.flyTo([{{ lat }}, {{ lng }}], 5)
       var count = 0;
@@ -341,7 +346,6 @@
               count ++;
           }
       });
-      {#iframe = '<iframe frameborder="0" height="250px" src="' + url + '"></iframe><h4><a href="https://www.baidu.com"> Join Discussion >>> </a></h4>'#}
       marker.bindPopup('<iframe style="border-radius: 10px; width: 100%; border-bottom: 3px solid #a32cdf73; border-top: 3px solid #a32cdf73;" src="' + url + '" frameborder="0" height="420px"></iframe><h4 style="text-align: center;background-color: red;color: white;margin: 15px 70px;padding: 10px 1px;border-radius: 10px;background-image: linear-gradient(135deg, #b930fd, #106AD2);box-shadow: 0px 3px 5px #7340db82;"><a style="color: white;" href="http://127.0.0.1:8000/?query=Culture"> Join Discussion</a></h4>');
     </script>
     <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
