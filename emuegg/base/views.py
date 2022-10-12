@@ -548,8 +548,9 @@ def map_test(req):
             Capitallocation = geocoder.osm(capital)
             capLat = Capitallocation.lat
             capLng = Capitallocation.lng
+            country= Capitallocation.country
             url1 = 'https://en.wikipedia.org/wiki/' + capital
-            cors.append([capLat, capLng, url1])
+            cors.append([capLat, capLng, url1, country])
         return render(req, 'base/map_test.html', {'cors': cors})
 
     loc = req.POST.get("location")
@@ -563,5 +564,5 @@ def map_test(req):
     lng = location.lng
     print(lat, lng)
 
-    return render(req, "base/map_test.html", {"lat": lat, "lng": lng, "url": url})
+    return render(req, "base/map_test.html", {"lat": lat, "lng": lng, "url": url, 'country': country})
 
