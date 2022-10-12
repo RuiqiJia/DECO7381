@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
   </head>
   <body>
-    {% include 'navbar.html' %} {% block content %}
-    <h1>main</h1>
-    {% endblock%}
+    {% block content %} {% endblock%}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   </body>
 </html>

@@ -1,5 +1,3 @@
-from calendar import c
-from distutils.util import change_root
 
 import branca
 from django.shortcuts import render, redirect
@@ -553,7 +551,7 @@ def map_test(req):
             url1 = 'https://en.wikipedia.org/wiki/' + capital
             cors.append([capLat, capLng, url1])
         return render(req, 'base/map_test.html', {'cors': cors})
-        
+
     loc = req.POST.get("location")
     loc = str(loc).strip()
     print(loc)
