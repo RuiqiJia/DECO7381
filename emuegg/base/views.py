@@ -87,49 +87,77 @@ def home(req):
     return render(req, 'base/home.html', data)
 
 def profile(req, id):
+    # control how much information will be display on profile
+    # True: auth_user's profile and friend's profile; False: non-friend's profile
+    safe_mode = False
+
+    # get the user with given id
     user = User.objects.get(id=id)
+    print("input user", user)  # checking purpose
+    # access its related channels and messages
     channels = user.channel_set.all()
     messages = user.message_set.all()
     data = {'user': user, 'channels': channels, 'messages': messages}
+    # try to get the entry of given user in friend table, if not exist, create that user instead
+    # id: auto-generated id; user_id: corresponding user id (one-to-one)
     try:
         friends = Friends.objects.get(user=user)
+        print("get friends: ", friends) # checking purpose
     except Friends.DoesNotExist:
         friends = Friends(user=user)
         friends.save()
+    # get the user's friends
     all_friends = friends.friend.all()
+
     data = {}
     is_self = True
     is_friend = False
     friend_request = Status.NO_REQUEST.value
     friend_requests = None
-
+    # get the user who trigger this HTTP request (user who logged in to the account)
     auth_user = req.user
+    # user who logged in request other user's profile
     if auth_user.is_authenticated and auth_user != user:
         is_self = False
+        # check whether the login user is a friend of that user
         if all_friends.filter(id=auth_user.id):
             is_friend = True
+            safe_mode = True
         else:
             is_friend = False
+            safe_mode = False
             #frind request send to auth_user
             if is_friendRequest(sender=user, receiver=auth_user) != False:
                 friend_request = Status.REQUEST_SENT.value
                 data['pending_request'] = is_friendRequest(sender=user, receiver=auth_user).id
             # friend request sent from auth_user
-            elif is_friendRequest(sender=user, receiver=auth_user) != False:
+            elif is_friendRequest(sender=auth_user, receiver=user) != False:
                 friend_request = Status.REQUEST_RECEIVED.value
+                print(friend_request, "from here")
             else:
                 # no request
                 friend_request = Status.NO_REQUEST.value
+                print("No request found")
     elif not auth_user.is_authenticated:
         is_self = False
+    # request the auth_user's own profile
     else:
         friend_requests = FriendRequest.objects.filter(receiver=auth_user, is_accepted=True)
-    data['user'] = user  
+        safe_mode = True
+
+    # check current user
+    data['user'] = user
     data['is_self'] = is_self
     data['is_friend'] = is_friend
+    # 若访问非当前登陆用户profile，传回对应用户(发出/收到)的friend request信息
     data['friend_request'] = friend_request
+    # 若访问当前登陆用户的profile，传回登陆用户自己的friend request信息
     data['friend_requests'] = friend_requests
+    # 传回当前访问profile用户的所有好友entries
     data['all_friends'] = all_friends
+    # used to check how mush information to disclose
+    data['safe_mode'] = safe_mode
+
     return render(req, 'base/profile.html', data)
 
 @login_required(login_url='login')
