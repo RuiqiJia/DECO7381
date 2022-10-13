@@ -495,12 +495,20 @@
 {#                            </a>#}
 {#                            <span style="display: block">Join</span>#}
 {#                        </div>#}
+
                         <div class="channel-header-title">
+
                             <div class="user-portrait">
                                 <a href="{% url 'profile' channel.host.id %}">
-                                    <img src="{% static 'images/user-portrait.png' %}">
+                                    <!-- update channel image display -->
+                                    {% if channel.host.Picture == null or channel.host.Picture == '' %}
+                                        <img src="{% static 'images/user-portrait.png'%}">
+                                    {% else %}
+                                        <img src="/images/{{channel.host.Picture}}">
+                                    {% endif %}
                                 </a>
                             </div>
+
                             <div class="channel-header-content">
                                 <div class="channel-title">
                                     <a href="{% url 'channel' channel.id %}">

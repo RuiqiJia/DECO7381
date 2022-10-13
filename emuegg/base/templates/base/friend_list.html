@@ -296,7 +296,12 @@
             <div class="friend-box">
                 <a href="{% url 'profile' id=friend.id %}">
                     <div>
-                        <img src="{% static 'images/normal-user.jpg' %}" alt="normal-user">
+                        {% if friend.Picture == null or friend.Picture == '' %}
+                            <img src="{% static 'images/user-portrait.png' %}" alt="normal-user">
+
+                        {% else %}
+                            <img src="/images/{{friend.Picture}}" alt="normal-user">
+                        {% endif %}
                     </div>
                 </a>
                 <div class="friend-text-wrapper">

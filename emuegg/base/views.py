@@ -79,10 +79,10 @@ def home(req):
     channel_count = channels.count()
     topics = Topic.objects.all()
     channel_messages = Message.objects.all().order_by('-created')
-    data = {'channels' : channels,
-     'topics' : topics,
-      'channel_count' : channel_count,
-        'channel_messages' : channel_messages
+    data = {'channels': channels,
+            'topics': topics,
+            'channel_count': channel_count,
+            'channel_messages': channel_messages
       }
     return render(req, 'base/home.html', data)
 
