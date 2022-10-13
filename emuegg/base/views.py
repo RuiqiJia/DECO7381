@@ -596,7 +596,7 @@ def chat_box(req):
         except ObjectDoesNotExist:
 
             pass
-
+    
     data['friend'] = friend
     return render(req, 'base/chat_box.html', data)
 

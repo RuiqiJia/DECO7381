@@ -447,9 +447,15 @@
     </div>
 
     <div class="friendchat-wrapper">
+        {% if friend == None %}
+        <div class="friend-portrait">
+            <img src="{% static 'images/friend-portrait.png' %}" alt="normal-user">
+        </div>
+        {% else %}
         <div class="friend-portrait">
             <img src="/images/{{friend.Picture}}" alt="portrait">
         </div>
+        {% endif %}
         <div class="friendchat-message">
             <div class="message-detail">
                 <div>Hello! nice to meet you!</div>
