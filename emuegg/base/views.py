@@ -559,13 +559,51 @@ def start_chat(req, *args, **kwargs):
     return HttpResponse(json.dumps(data), content_type="application/json")
 
 def chat_list(req):
-    return render(req, 'base/chat_list.html')
+    list = []
+    data = {}
+    friend = None
+    if req.method == "GET":
+        user = req.user
+        try:
+            friend_list = Friends.objects.get(user=user)
+
+            for friend in friend_list.friend.all():
+                list.append(friend)
+                print("friend: ", friend)
+            friend = list[0]
+        except ObjectDoesNotExist:
+
+            pass
+
+    data['friend'] = friend
+
+    return render(req, 'base/chat_list.html', data)
+
 
 def chat_box(req):
-    return render(req, 'base/chat_box.html')
-       
+    list = []
+    data = {}
+    friend = None
+    if req.method == "GET":
+        user = req.user
+        try:
+            friend_list = Friends.objects.get(user=user)
+
+            for friend in friend_list.friend.all():
+                list.append(friend)
+                print("friend: ", friend)
+            friend = list[0]
+        except ObjectDoesNotExist:
+
+            pass
+
+    data['friend'] = friend
+    return render(req, 'base/chat_box.html', data)
+
+
 def friend(req):
     return render(req, 'base/friend_list.html')
+
 
 def map_test(req):
     if req.method == "GET":

@@ -274,13 +274,24 @@
         <div class="chat-list-word">Chat List</div>
         <a href="{% url 'chat_box' %}">
             <div class="chat-box">
-            <div class="chat-img-wrapper">
-                <img src="{% static 'images/friend-portrait.png' %}" alt="normal-user">
-            </div>
-            <div class="chat-text-wrapper">
-                <div>Jack Li</div>
-                <div class="chat-text-detail">If you have time, will you call me tomorrow?</div>
-            </div>
+
+            {% if friend == None %}
+                <div class="chat-img-wrapper">
+                    <img src="{% static 'images/friend-portrait.png' %}" alt="normal-user">
+                </div>
+                <div class="chat-text-wrapper">
+                        <div>Jack Li</div>
+                    <div class="chat-text-detail">If you have time, will you call me tomorrow?</div>
+                </div>
+            {% else %}
+                <div class="chat-img-wrapper">
+                    <img src="/images/{{friend.Picture}}" alt="normal-user">
+                </div>
+                <div class="chat-text-wrapper">
+                        <div>{{friend.username}}</div>
+                    <div class="chat-text-detail">If you have time, will you call me tomorrow?</div>
+                </div>
+            {% endif %}
             <div class="chat-text-bubble">
                 <div class="chat-reminder">2</div>
             </div>
