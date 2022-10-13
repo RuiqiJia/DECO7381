@@ -1,12 +1,8 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-# used for building notification purpose
 from django.contrib import admin
 from django.urls import path, include
-# from AppCore import views
-# import notifications.urls
-# from django.conf.urls import url
 
 
 urlpatterns = [

@@ -21,7 +21,7 @@
       <div>
         <div>
           <div>
-            <a id="user_info_profile" href="">
+            <a href="">
               <h3 id="chatfriend_username">name</h3>
             </a>
             
@@ -40,12 +40,12 @@
                 {% for msgFriend in friends_list %}
                 <div
                   onclick="onSelect('{{msgFriend.friend.id}}')"
-                  id="id_friend_container_{{msgFriend.friend.id}}"
+                  id=""
                 >
-                  <img id="id_friend_img_{{msgFriend.friend.id}}" src="" />
+                  <img id="" src="" />
                   <div>
                     <span>{{msgFriend.friend.username}}</span>
-                    <span class="friend-message-span"
+                    <span
                       >{{msgFriend.message|truncatechars:20}}</span
                     >
                   </div>
@@ -57,53 +57,9 @@
         </div>
       </div>
     </div>
-
-    <!-- Client Error MODAL -->
-    <!-- <button
-      type="button"
-      id="id_trigger_client_error_modal"
-      class="d-none btn btn-primary"
-      data-toggle="modal"
-      data-target="#id_client_error_modal"
-    ></button>
-    <div
-      class="modal fade"
-      id="id_client_error_modal"
-      tabindex="-1"
-      role="dialog"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Socket Client Error</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p id="id_client_error_modal_body">Something went wrong.</p>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-              id="id_client_error_modal_close_btn"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      </div>
-    </div> -->
-    <!-- Client Error MODAL -->
-
-    <script type="text/javascript">
+    {% endblock %}
+  </body>
+      <script type="text/javascript">
       const user_id = $("#loginUser").val();
       var socket = null;
       onStart();
@@ -211,65 +167,5 @@
           },
         });
       }
-
-      // socket.onopen = function (e) {
-      //   chatForm.on("submit", function (e) {
-      //     e.preventDefault();
-      //     let message = input_message.val();
-      //     let receiver = get_receiver_id();
-      //     let thread_id = get_active_thread_id();
-
-      //     let data = {
-      //       message: message,
-      //       sender: user_id,
-      //       receiver: receiver,
-      //       thread_id: thread_id,
-      //     };
-      //     data = JSON.stringify(data);
-      //     socket.send(data);
-      //     chatForm.reset();
-      //   });
-      // };
-
-      // socket.onmessage = function (e) {
-      //   const data = JSON.parse(e.data);
-      //   const message = data["message"];
-      //   const sender_id = data["sender"];
-      //   get_new_message(message, sender_id);
-      // };
-      // const message = data["message"];
-
-      // document.querySelector("#chat").addEventListener("submit", (e) => {
-      //   e.preventDefault();
-      //   let message = e.target.message.value;
-      //   socket.send(
-      //     JSON.stringify({
-      //       message: message,
-      //     })
-      //   );
-      //   chatForm.reset();
-      // });
-
-      // function get_new_message(message, sender_id) {
-      //   if (sender_id == user_id) {
-      //     return `<div class="message message--right">
-      //               <div class="message__text">${message}</div>
-      //           </div>`;
-      //   } else {
-      //     return `<div class="message message--left">
-      //               <div class="message__text">${message}</div>
-      //           </div>`;
-      //   }
-      // }
-
-      // function get_receiver_id() {
-      //   let receiver_id = $(".messages-wrapper.is_active").attr(
-      //     "other-user-id"
-      //   );
-      //   receiver_id = $.trim(receiver_id);
-      //   return receiver_id;
-      // }
     </script>
-    {% endblock content %}
-  </body>
 </html>

@@ -1,13 +1,10 @@
-
 import branca
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
-from scipy.fft import idct
-
 from .management.commands.make_recommendation import MakeRecommendation
 from .models import User, Channel, Message, Topic, Friends, FriendRequest, PrivateChat, PrivateMessage
 from .forms import UserForm, CustomeUserCreationForm, RoomForm, CountryForm 
@@ -16,17 +13,8 @@ import geocoder
 import json
 from .status import Status
 from itertools import chain
-# visualize wikipedia contents of corresponding city
-# import wikipedia
-# import re
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-
-# required library to build message notification
-# from django.shortcuts import render, redirect
-# from django.http import HttpResponse
-# from .models import User
-# from notifications.signals import notify
 from geopy.geocoders import Nominatim
 
 def loginView(req):
@@ -190,28 +178,6 @@ def channel(req, id):
     return render(req, 'base/channel.html', data)
 
 def map(req):
-    # form = CountryForm()
-    # users = User.objects.all()
-    #
-    # location = geocoder.osm('Australia')
-    # lat = location.lat
-    # lng = location.lng
-    # if req.method == 'POST':
-    #     form = CountryForm(req.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('map')
-    # m = folium.Map(location=[-27.4973, 153.0134], zoom_start=4)
-    # folium.Marker([lat, lng], popup='<strong>Brisbane</strong>', tooltip="Click for more information").add_to(m)
-    #
-    # # 调整地图全屏的关键
-    # fig = branca.element.Figure(height="100%")
-    # fig.add_child(m)
-    #
-    # m = m._repr_html_()
-    # data = {'m' : m, 'form' : form}
-    # return render(req, 'base/map.html', data)
-
     if req.method == "GET":
         # m = folium.Map(location=[-24.7761086, 134.755], zoom_start=4)
         m = folium.Map(location=[-24.7761086, 134.755], zoom_start=4)
@@ -230,39 +196,6 @@ def map(req):
     lng = location.lng
 
     m = folium.Map(location=[lat, lng], zoom_start=4)
-
-    # added by JWM, display the wikipedia content of the location
-    # wiki_loc = wikipedia.page(loc)
-    # wiki_content = str(wiki_loc.content)[0:200]
-    #
-    # open_brankets = ['[', '(', '{']
-    # close_brankets = {']': '[', ')': '(', '}': '{'}
-    # stack = []
-    #
-    # start = -100
-    # end = -1
-    # wiki_content_new = ""
-    # wiki_content = re.sub("[\(\[].*?[\)\]]", "", wiki_content)
-
-    # for i in range(len(wiki_content)):
-    #     if (wiki_content[i] in open_brankets) or (wiki_content[i] in close_brankets.keys()):
-    #         pass
-    #     else:
-    #         wiki_content_new += wiki_content[i]
-    # for i in range(len(wiki_content)):
-    #
-    #     # if wiki_content[i] in open_brankets and start == -1:
-    #     #     start = i
-    #     #     stack.append(wiki_content[i])
-    #     # # elif wiki_content[i] in close_brankets.keys() and len(stack) > 1:
-    #     # #     stack.pop()
-    #     # elif wiki_content[i] in close_brankets.keys() and end == -1:
-    #     #     # stack.pop()
-    #     #     end = i
-    # wiki_content = wiki_content[0:start] + wiki_content[end+1:]
-
-    # folium.Marker([lat, lng], popup='<strong>' + '<a href="">' + loc + '</a>' + '<br>' + wiki_content_new + '</strong>', tooltip="Click for more information").add_to(m)
-
     geolocator = Nominatim(user_agent="geoapiExercises")
     country_name = geolocator.reverse(str(lat)+","+str(lng)).raw['address'].get('country', '')
     print(country_name)
@@ -275,11 +208,7 @@ def map(req):
     fig = branca.element.Figure(height="100%")
     fig.add_child(m)
     m = m._repr_html_()
-    # loc_name = Channel.objects.get(name=loc)
-
     return render(req, "base/map.html", {'m': m})
-
-    
 
 @login_required(login_url='login')
 def createChannel(req):
@@ -287,11 +216,9 @@ def createChannel(req):
         form = RoomForm(req.POST)
         if form.is_valid():
             form.save()
-            # return HttpResponse('Channel has been created successfully')
             return redirect('home')
     data = {'form' : RoomForm()}
     return render(req, 'base/channel_form.html', data)
-    # return render(req, 'base/channel_create.html', data)
 
 @login_required(login_url='login')
 def updateChannel(req, id):
@@ -347,32 +274,13 @@ def send_request(req, id):
     friend_request, created = FriendRequest.objects.get_or_create(sender=user, receiver=receiver)
     if created:
         res = "Friend request has been sent successfully"
-        # data['res'] = res
-        # return JsonResponse(data)
-        return render(req, 'base/friend_feedback.html', {'res': res})
 
+        return render(req, 'base/friend_feedback.html', {'res': res})
     else:
         res = "Friend request has been sent successfully"
-        # return HttpResponse('Friend request already sent')
         return render(req, 'base/friend_feedback.html', {'res': res})
     
-    # if req.method == 'POST' and user.is_authenticated:
-    #     receiver_id = req.POST.get("receiver_id")
-    #     if receiver_id:
-    #         receiver = User.objects.get(id=receiver_id)
-    #         friend_requests = FriendRequest.objects.filter(sender=user, receiver=receiver)
-    #         for request in friend_requests:
-    #             if request.is_accepted:
-    #                 return HttpResponse('You have sent a friend request to this user')
-    #         friend_request = FriendRequest(sender=user, receiver=receiver)
-    #         friend_request.save()
-    #         data['response'] = "Friend request has been sent successfully"
-    #     else:
-    #         data['response'] = "Please select a receiver"
-    # else:
-    #     data['response'] = "You are not authenticated"
-    # return JsonResponse(data)
-
+ 
 def requests_page(req, id):
     """
     List all friend requests
@@ -389,19 +297,6 @@ def requests_page(req, id):
     return render(req, 'base/requests_page.html', data)
 
 def accept_request(req, *args, **kwargs):
-
-    # friend_request = FriendRequest.objects.get(id=id)
-    # if friend_request.receiver == req.user:
-    #     #update friend model
-    #     # Friends.user = req.user
-    #     # Friends.user.save()
-    #     # Friends.friend = friend_request.sender
-    #     # Friends.friend.save()
-    #     # friend_request.receiver.friends.add(friend_request.sender)
-    #     # friend_request.sender.friends.add(friend_request.receiver)
-    #     friend_request.accept_request()
-    #     friend_request.delete()
-    #     return HttpResponse('Friend request has been accepted')
     data = {}
     auth_user = req.user
     
@@ -413,8 +308,6 @@ def accept_request(req, *args, **kwargs):
                 friend_request.accept_requests()
                 friend_request.delete()
                 res = "Friend request has been accepted successfully"
-    
-    # return JsonResponse({'res' : 'Friend request has been accepted successfully'})
     return render(req, 'base/friend_feedback.html', {'res': res})
 
 def friend_list(req, *args, **kwargs):
@@ -506,7 +399,7 @@ def message(request):
     except Exception as e:
         print(e)
         return HttpResponse("Please login from admin site for sending messages")
-DEBUG = False
+
 def private_chat(req):
     friend_lists = Friends.objects.all()
     for f in friend_lists:
@@ -626,7 +519,6 @@ def map_test(req):
     loc = req.POST.get("location")
     loc = str(loc).strip()
     print(loc)
-    # print(url)
     location = geocoder.osm(loc)
     country = location.country
     url = "https://en.wikipedia.org/wiki/" + country

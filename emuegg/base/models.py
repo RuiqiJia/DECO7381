@@ -1,10 +1,5 @@
-from email.policy import default
-from math import degrees
 from django.db import models
-
-
 from django.contrib.auth.models import AbstractUser
-# from .utility import create_chat
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, null=True)
@@ -63,9 +58,6 @@ class Friends(models.Model):
         if not friend in self.friend.all():
             self.friend.add(friend)
             self.save()
-        # chat = create_chat(self.user, friend)
-        # chat.save()
-
     
     def remove_friend(self, friend):
         if friend in self.friend.all():
