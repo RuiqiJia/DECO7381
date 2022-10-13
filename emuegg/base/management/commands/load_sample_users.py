@@ -10,6 +10,8 @@ from django.core import files
 from django.core.files.base import ContentFile
 import tempfile
 import requests
+import os
+
 
 class Command(BaseCommand):
     help = 'Load the sample user csv file into the database'
@@ -21,6 +23,14 @@ class Command(BaseCommand):
 
         # 清除 除super user外剩余的所有user！
         User.objects.exclude(is_staff=1).delete()
+        Channel.objects.all().delete()
+
+        # clear all images in avatar directory, ensure the file name we intended to save remain the same
+        # 因为要将load_image 文件夹里的图片存进avatar里，如果avatar中有同名文件，
+        # 则即将被存储的同名文件会被变更名称，因此需要先清空avatar文件夹
+        dir = 'static/images/avatar/'
+        for f in os.listdir(dir):
+            os.remove(os.path.join(dir, f))
 
         path = kwargs['path']
         user_df = pd.read_csv(path)
@@ -36,9 +46,13 @@ class Command(BaseCommand):
             topic = row["topic"]
 
             # get the url
-            url = 'https://xsgames.co/randomusers/assets/avatars/pixel/' + str(counter) + '.jpg'
+            # url = 'https://xsgames.co/randomusers/assets/avatars/pixel/' + str(counter) + '.jpg'
+
+            # url = 'static/images/avatar/' + str(counter) + '.png'
+
+            image_name = str(counter) + '.png'
             # retrieve the image
-            file_name, picture = retrieve_image(url)
+            file_name, picture = retrieve_image(image_name)
 
             # populate User object for each row
             user = User(email=email,
@@ -50,48 +64,54 @@ class Command(BaseCommand):
                         )
             # save user object
             user.save()
-
-            user.Picture.save(file_name, files.File(picture))
+            print(file_name, "is the file name")
+            user.Picture.save(image_name, ContentFile(picture))
             counter += 1
 
 
 """
 Specific function used to retrieve image from a given url
 """
-def retrieve_image(url):
-    # Avatar API to retrieve different avatar image when access each time
-    image_url = url
-    # Stream the image from the url
-    response = requests.get(image_url, allow_redirects=True, stream=True)
-    # error handling to check whether request works fine
-    if response.status_code != requests.codes.ok:
-        print("Something wrong with the request")
-        pass
+def retrieve_image(file_name):
+    # # Avatar API to retrieve different avatar image when access each time
+    # image_url = url
+    # # Stream the image from the url
+    # response = requests.get(image_url, allow_redirects=True, stream=True)
+    #
+    #
+    # # error handling to check whether request works fine
+    # if response.status_code != requests.codes.ok:
+    #     print("Something wrong with the request")
+    #     pass
+    #
+    # file_name = image_url.split('/')[-1]
+    # lf = tempfile.NamedTemporaryFile()
+    #
+    # for block in response.iter_content(1024 * 8):
+    #     # If no more file then stop
+    #     if not block:
+    #         break
+    #
+    #     # Write image block to temporary file
+    #     lf.write(block)
+    #
+    # return file_name, lf
 
-    file_name = image_url.split('/')[-1]
-    lf = tempfile.NamedTemporaryFile()
+    path = 'static/images/load_Image/' + file_name
+    # with open(path, 'rb') as f:
+    #     data = f.read()
 
-    for block in response.iter_content(1024 * 8):
-        # If no more file then stop
-        if not block:
-            break
+    with open(path, "rb") as image:
+        f = image.read()
+        b = bytearray(f)
 
-        # Write image block to temporary file
-        lf.write(block)
+    # data = Image.open(path)
 
-    return file_name, lf
-
-
-
-
-
-
-
-
-
-
-
-
+    # buf = io.BytesIO()
+    # data.save(buf, format='PNG')
+    # data = buf.getvalue()
+    print(file_name)
+    return file_name, b
 
 
 # Use following command to load sample user to database

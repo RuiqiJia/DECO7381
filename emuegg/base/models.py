@@ -8,7 +8,8 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, null=True)
-    Picture = models.ImageField(upload_to='avatar/', null=True, default='') # Juewen Ma -- Oct 10
+    Picture = models.ImageField(upload_to='avatar/', null=True, default='')  # Juewen Ma -- Oct 10
+
     Country = models.CharField(max_length=50, null=True)
     Major = models.CharField(max_length=50, null=True)
     Courses = models.CharField(max_length=200, null=True)

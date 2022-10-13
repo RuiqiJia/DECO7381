@@ -159,12 +159,40 @@
             width: 100%;
         }
 
+        body {
+            background-color: #337ab7;
+            font-family: Lato;
+
+        }
+
+        .profile-background {
+            height: 47%;
+        }
+
         .profile-wrapper {
-            padding-top: 120px;
+            background-color: white;
+            height: 55%;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+        }
+
+        .profile-header-wrapper {
+            position: relative;
+            top: 25%;
+            color: white;
         }
 
         .profile-header {
             text-align: center;
+            {#position: relative;#}
+            {#top: 25%;#}
+        }
+
+        .img-circle {
+            border-radius: 50%;
+            border: 3px solid;
+            width: 140px;
+            height: 140px;
         }
 
         .profile-font {
@@ -173,9 +201,10 @@
         }
 
         .profile_description {
-            margin: 3% 15%;
+            {#margin: 3% 15%;#}
             text-align: justify;
-            color: #858585;
+            {#color: #858585;#}
+            margin: 0 35px;
         }
 
         .profile-label {
@@ -191,34 +220,141 @@
 
         .profile-footer {
             text-align: center;
-            margin-top: 30px;
         }
 
         .profile-footer a {
-            width: 100px;
-            margin: 0 10px;
+            width: 80%;
+            margin-top: 15px;
+            font-size: 1.2em;
+            padding: 10px 0;
+            font-weight: bold;
+            border-radius: 10px;
         }
 
         .profile-friend {
             text-align: center;
-            margin-top: 30px;
         }
 
         .get-back {
             position: absolute;
-            top: 60px;
-            left: 40px;
-            font-size: 2em;
+            top: 5%;
+            left: 5%;
         }
+
+        .get-back img {
+            width: 35px;
+        }
+
+        .profile-info {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .profile-info img {
+            width: 25px;
+        }
+
+        .info-outer {
+            margin: 25px 40px 0 20px;
+        }
+
+        .info-outer span,
+        .country span,
+        .major span {
+            color: #797979;
+            margin-left: 10px;
+        }
+
+        .basic-info-wrapper img {
+            width: 25px
+        }
+
+        .detail {
+            margin-left: 35px;
+            margin-bottom: 5px;
+            padding: 5px 10px;
+            background-color: #d8d8d852;
+            border-radius: 10px;
+            overflow: scroll;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .basic-info-wrapper {
+            overflow: hidden;
+            margin: 0 20px;
+            padding-top: 25px
+        }
+
+        .country,
+        .major {
+            float: left;
+            width: 50%
+        }
+
+        .country-detail,
+        .major-detail {
+            margin-left: 35px;
+            margin-right: 15px;
+            padding: 5px 10px;
+            background-color: #d8d8d852;
+            border-radius: 10px;
+            overflow: hidden;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .sorry-prompt {
+            padding-top: 50px;
+        }
+
+        .sorry-prompt img {
+            width: 80px;
+        }
+
+        .prompt-words1,
+        .prompt-words2{
+            font-size: 1.5em;
+        }
+
+        .prompt-words1 {
+            margin-top: 10px;
+        }
+
+        .prompt-words2 {
+            margin-bottom: 10px;
+        }
+
+        .user-friends {
+            width: 80%;
+            margin-top: 15px;
+            font-size: 1.2em;
+            padding: 10px 0;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+
+
+
     </style>
 </head>
-<body>
-{# <a href="{% url 'home' %}"> <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span> #}
-<a href="javascript:history.go(-1)"> <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span>
-</a>
+<!--Image reference:
+"Major icons", Unknown. [Online]. Available: https://icons8.com/icons/set/major
+"Course icons", Unknown. [Online]. Available: https://icons8.com/icons/set/course
+"School icons", Unknown. [Online]. Available: https://icons8.com/icons/set/school
+"Topic icons", Unknown. [Online]. Available: https://icons8.com/icons/set/topic
+ -->
 
-<div class="container profile-wrapper">
-    <div class="profile-header">
+<body>
+<div class="profile-background">
+    <div  class="get-back">
+        <a href="javascript:history.go(-1)">
+{#            <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span>#}
+            <img src="{% static 'images/header-back.png' %}" alt="back">
+        </a>
+    </div>
+    <div class="profile-header-wrapper">
+        <div class="profile-header">
         {% if request.user == user %}
             <img src="{% static 'images/profile2.jpg' %}" alt="Logo image" class="img-circle">
         {% else %}
@@ -226,41 +362,104 @@
         {% endif %}
         <div class="h1 profile-font">{{ user.username }}</div>
     </div>
-    <div class="profile-label">
-        <div>
-            <span class="label label-success">IT Student</span>
-        </div>
-        <div>
-            <span class="label label-info">Gamer</span>
-        </div>
-        <div>
-            <span class="label label-danger">DC Fans</span>
-        </div>
-    </div>
-    <div class="profile_description">
+        <div class="profile_description">
         <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae vero amet iste nulla labore adipisci expedita earum repudiandae quasi quisquam numquam quo deserunt deleniti obcaecati ipsa, ullam magnam maxime eligendi.</span>
     </div>
+    </div>
+</div>
+{# <a href="{% url 'home' %}"> <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span> #}
 
+<div class="profile-wrapper">
 
     <div>
-
         <div>
-            {% if request.user == user %}
-                <div class="profile-footer">
-                    <a class="btn btn-primary" href="{% url 'updateProfile' %}">Edit Profile</a>
-                    <a class="btn btn-danger" href="{% url 'logout' %}">Sign out</a>
+            {% if request.user == user or is_friend %}
+                <div class="profile-info">
+
+                    <div class="basic-info-wrapper">
+                        <div class="country">
+                            <div>
+                            <img src="{% static 'images/country.png' %}" alt="country">
+                            <span>Country</span>
+                        </div>
+                            <div class="country-detail">{{ user.Country }}</div>
+                        </div>
+                        <div class="major">
+                            <div>
+                            <img src="{% static 'images/school.png' %}" alt="major">
+                            <span>Major</span>
+                        </div>
+                            <div class="major-detail">{{ user.Major }}</div>
+                        </div>
+                    </div>
+
+                    <div class="info-outer">
+                        <div>
+                            <img src="{% static 'images/course.png' %}" alt="course">
+                            <span>Courses</span>
+                        </div>
+                        <div class="detail">{{ user.Courses }}</div>
+                    </div>
+                    <div class="info-outer">
+                        <div>
+                            <img src="{% static 'images/poll.png' %}" alt="topics">
+                            <span>Topics</span>
+                        </div>
+                        <div class="detail">{{ user.Topics }}</div>
+                    </div>
                 </div>
+
+                {# footer buttons #}
+                {% if request.user == user %}
+                    <div class="profile-footer">
+                        <div>
+                            <a class="btn btn-primary" href="{% url 'updateProfile' %}">Edit Profile</a>
+                        </div>
+                        <div>
+                            <a class="btn btn-primary" href="{% url 'logout' %}">Sign Out</a>
+                        </div>
+                    </div>
+                {% endif %}
+
             {% else %}
+                <div class="basic-info-wrapper">
+                    <div class="country">
+                        <div>
+                            <img src="{% static 'images/country.png' %}" alt="country">
+                            <span>Country</span>
+                        </div>
+                        <div class="country-detail">{{ user.Country }}</div>
+                    </div>
+                    <div class="major">
+                        <div>
+                            <img src="{% static 'images/school.png' %}" alt="major">
+                            <span>Major</span>
+                        </div>
+                        <div class="major-detail">{{ user.Major }}</div>
+                    </div>
+                </div>
+
                 <div class="profile-footer">
-                    <a class="btn btn-primary" href="{% url 'send_request' user.id %}">
-                        Add friend
-                    </a>
+                    <div class="sorry-prompt">
+                        <img src="{% static 'images/sad.png' %}">
+                    </div>
+                    <div class="prompt-words1">
+                        Woops, You are not friends.
+                    </div>
+                    <div class="prompt-words2">
+                        Please add friend to see more.
+                    </div>
+                    <div>
+                        <a class="btn btn-primary" href="{% url 'send_request' user.id %}">Add Friend</a>
+                    </div>
                 </div>
             {% endif %}
 
         </div>
 
-        <div class="profile-friend">
+{#        friend-list button    #}
+        {% if request.user == user %}
+            <div class="profile-friend">
             <div class="">
                 {% if request.user.is_authenticated %}
                     <div class="">
@@ -303,7 +502,7 @@
             
                             <div class="">
                                 <a href="{% url 'friend_list' user.id %}">
-                                    <div class="btn btn-primary">
+                                    <div class="btn btn-primary user-friends">
                                         <span class="">Friends ({{ all_friends|length }})</span>
                                     </div>
                                 </a>
@@ -331,6 +530,7 @@
                 {% endif %}
             </div>
         </div>
+        {% endif %}
 
 
     </div>

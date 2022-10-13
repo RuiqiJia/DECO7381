@@ -566,11 +566,15 @@ def chat_list(req):
         user = req.user
         try:
             friend_list = Friends.objects.get(user=user)
-
+            counter = 0
             for friend in friend_list.friend.all():
                 list.append(friend)
                 print("friend: ", friend)
-            friend = list[0]
+                counter += 1
+            if counter == 0:
+                friend = None
+            else:
+                friend = list[0]
         except ObjectDoesNotExist:
 
             pass
@@ -596,7 +600,7 @@ def chat_box(req):
         except ObjectDoesNotExist:
 
             pass
-    
+
     data['friend'] = friend
     return render(req, 'base/chat_box.html', data)
 
