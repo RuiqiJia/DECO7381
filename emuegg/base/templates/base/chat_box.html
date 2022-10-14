@@ -318,6 +318,12 @@
             color: transparent;
         }
 
+        .popover-content {
+            padding: 9px 14px;
+            font-family: Lato;
+            color: #7b7b7b;
+        }
+
     </style>
 
     <script>
@@ -494,7 +500,7 @@
 
     <div class="row send-wrapper">
         <div class="col-xs-2">
-            <button class="btn topic-button" type="button">
+            <button class="btn topic-button" type="button" data-container="body" data-toggle="popover" data-placement="top" data-content="Recommended Topics">
                 <img src={% static 'images/topic.png' %}>
             </button>
         </div>
@@ -531,5 +537,11 @@
 
 <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover('show');
+    })
+</script>
+
 </body>
 </html>

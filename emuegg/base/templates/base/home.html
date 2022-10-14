@@ -40,7 +40,7 @@
             height: 6rem;
             border-bottom-left-radius: 2.433rem;
             border-bottom-right-radius: 2.433rem;
-            box-shadow: 0px 0.4rem 0.6rem #d5d5d5;
+            box-shadow: 0px 1rem 0.6rem #d5d5d5;
             z-index: 999;
         }
 
@@ -133,25 +133,26 @@
         }
 
         .search-bar {
-            padding: 0 10px;
+            padding: 0 20px;
             margin: 0;
             position: relative;
-            left: -25px;
-            width: 350px;
+            {#left: -25px;#}
+            {#width: 350px;#}
         }
 
         /* search bar */
 
         .input-group .form-control:first-child {
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
             height: 38px;
             border-right: 0;
+            border-radius: 25px 0 0 25px;
         }
 
         .input-group-addon:last-child {
             border-left: 0;
             background-color: white;
+            border-top-right-radius: 25px;
+            border-bottom-right-radius: 25px;
         }
         
         .content {
@@ -175,11 +176,11 @@
         .sidebar {
             display: flex;
             {#justify-content: center;#}
-            padding: 0 0 10px 0;
+            {#padding: 0 0 10px 0;#}
             font-size: 1.3em;
             font-weight: bold;
             overflow: scroll;
-
+            margin: 0 15px 10px 0;
         }
         .sidebar::-webkit-scrollbar {
             display: none;
@@ -379,10 +380,8 @@
         </div>
     </div>
 
-
-
-    <div class="row content" style="width:100%;">
-        <div class="col-xs-1">
+    <div class="content" style="width:100%;">
+        <div class="">
             <div class="dropdown">
                 <!-- <button class="btn btn-default dropdown-toggle hamburger-menu" type="button" id="dropdownMenu1"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -448,10 +447,10 @@
         </div>
 
         
-        <div class="col-xs-1"></div>
+        <div class=""></div>
 
 
-        <div class="col-xs-10">
+        <div class="">
            
             <form method="GET" action="{% url 'home' %}" class="navbar-form navbar-right search-bar" id="click">
                 {% csrf_token %}

@@ -160,20 +160,24 @@
         }
 
         body {
-            background-color: #337ab7;
+            {#background-color: #337ab7;#}
+            background-image: linear-gradient(175deg, #b930fd, #106AD2, #b930fd);
             font-family: Lato;
 
         }
 
         .profile-background {
-            height: 47%;
+            {#height: 47%;#}
+            padding: 10rem 0 2rem 0;
         }
 
         .profile-wrapper {
             background-color: white;
-            height: 55%;
+            {#height: 55%;#}
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
+            {#padding-bottom: 3rem;#}
+            height: 70%;
         }
 
         .profile-header-wrapper {
@@ -223,9 +227,15 @@
         }
 
         .profile-footer a {
+            {#width: 80%;#}
+            {#margin-top: 15px;#}
+            {#font-size: 1.2em;#}
+            {#padding: 10px 0;#}
+            {#font-weight: bold;#}
+            {#border-radius: 10px;#}
             width: 80%;
             margin-top: 15px;
-            font-size: 1.2em;
+            font-size: 1em;
             padding: 10px 0;
             font-weight: bold;
             border-radius: 10px;
@@ -246,7 +256,7 @@
         }
 
         .profile-info {
-            font-size: 1.2em;
+            font-size: 1em;
             margin-bottom: 20px;
         }
 
@@ -278,6 +288,8 @@
             overflow: scroll;
             font-size: 1.2em;
             font-weight: bold;
+            border: 1px solid #e8e8e8;
+
         }
 
         .basic-info-wrapper {
@@ -302,6 +314,7 @@
             overflow: hidden;
             font-size: 1.2em;
             font-weight: bold;
+            border: 1px solid #e8e8e8;
         }
 
         .sorry-prompt {
@@ -326,9 +339,15 @@
         }
 
         .user-friends {
+            {#width: 80%;#}
+            {#margin-top: 15px;#}
+            {#font-size: 1.2em;#}
+            {#padding: 10px 0;#}
+            {#font-weight: bold;#}
+            {#border-radius: 10px;#}
             width: 80%;
             margin-top: 15px;
-            font-size: 1.2em;
+            font-size: 1em;
             padding: 10px 0;
             font-weight: bold;
             border-radius: 10px;
@@ -339,6 +358,20 @@
             margin: 50px auto auto auto;
 
         }
+
+        .btn-primary {
+            background-color: #106AD2;
+        }
+
+        .friend-request {
+            width: 80%;
+            margin-top: 15px;
+            font-size: 1em;
+            padding: 10px 0;
+            font-weight: bold;
+            border-radius: 10px;
+        }
+
 
 
 
@@ -415,7 +448,7 @@
                     </div>
                 </div>
 
-                {# footer buttons #}
+                {# user edit & sign out buttons #}
                 {% if request.user == user %}
                     <div class="profile-footer">
                         <div>
@@ -523,7 +556,7 @@
 
                                     <div class="">
                                         <a href="{% url 'requests_page' user.id %}">
-                                            <span class="btn btn-warning">Friend Requests ({{ friend_requests|length }})</span>
+                                            <span class="btn btn-primary friend-request">Friend Requests ({{ friend_requests|length }})</span>
                                         </a>
                                     </div>
                                 </div>

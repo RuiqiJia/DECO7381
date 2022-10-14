@@ -1,241 +1,285 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LogIn</title>
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
     <style>
-      html,
-      body {
-        height: 100%;
-        width: 100%;
-      }
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
 
-      .login-wrapper {
-        padding-top: 100px;
-      }
+        .login-wrapper {
+            padding-top: 100px;
+        }
 
-      .login-header {
-        text-align: center;
-      }
+        .login-header {
+            text-align: center;
+        }
 
-      .logo-font {
-        margin-top: 10px;
-        margin-bottom: 50px;
-      }
+        .logo-font {
+            margin-top: 10px;
+            margin-bottom: 50px;
+        }
 
-      .login-choice {
-        padding-bottom: 5px;
-        height: 26px;
-        margin: 0 50px 30px 50px;
-        text-align: center;
-        border-bottom: 1px solid rgb(204, 204, 204);
-      }
+        .login-choice {
+            padding-bottom: 5px;
+            height: 26px;
+            margin: 0 50px 30px 50px;
+            text-align: center;
+            border-bottom: 1px solid rgb(204, 204, 204);
+        }
 
-      .login-choice div {
-        padding-bottom: 5px;
-      }
+        .login-choice div {
+            padding-bottom: 5px;
 
-      .login-choice div:first-child {
-        border-bottom: 1px solid #337ab7;
-        font-weight: bold;
-        font-style: italic;
-        font-size: 1.2em;
-        padding-bottom: 1px;
-      }
+        }
 
-      .login-form-1,
-      .login-form-2 {
-        width: 300px;
-        height: 40px;
-        margin: 0 40px 15px 40px;
-      }
+        .login-choice div:first-child {
+            border-bottom: 1px solid #337ab7;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 1.2em;
+            padding-bottom: 1px;
+            background: linear-gradient(to right, #A32CDF, #106AD2);
+            -webkit-background-clip: text;
+            color: transparent;
+            border-image-source: linear-gradient(to right, #8f41e9, #578aef);
+            border-image-slice: 1;
+        }
 
-      .login-form div:last-child input {
-        width: 300px;
-        margin: 10px 40px;
-        height: 38px;
-      }
+        .login-choice div:last-child a {
+            color: black;
+        }
 
-      .login-footer {
-        text-align: center;
-        font-size: 1.1em;
-      }
 
-      .login-footer div:first-child {
-        width: 180px;
-      }
+        .login-form-1,
+        .login-form-2 {
+            width: 300px;
+            height: 40px;
+            margin: 0 40px 15px 40px;
+        }
+
+        .login-form div:last-child input {
+            width: 300px;
+            margin: 10px 40px;
+            height: 38px;
+            background-image: linear-gradient(135deg, #b930fd, #106AD2);
+            border: none;
+        }
+
+        .login-footer {
+            text-align: center;
+            font-size: 1.1em;
+            padding: 0 10px;
+        }
+
+        .login-footer div:first-child {
+            width: 180px;
+        }
     </style>
-  </head>
-  <body>
-    {% if page == 'login' %}
+
+</head>
+<body>
+{% if page == 'login' %}
     <div class="container login-wrapper">
-      <div class="login-header">
-        <img
-          src="{% static 'images/logo.png' %}"
-          alt="Logo image"
-          class="img-circle"
-        />
-        <div class="h1 logo-font">BRIDGES</div>
-      </div>
-      <div>
-        <div class="row login-choice">
-          <div class="col-xs-6">Log In</div>
-          <div class="col-xs-6">Sigh Up</div>
+        <div class="login-header">
+            <img src="{% static 'images/logo.png' %}" alt="Logo image" class="img-circle">
+            <div class="h1 logo-font">BRIDGES</div>
         </div>
-        <form method="POST" action="" class="login-form">
-          {% csrf_token %}
-          <div>
-            <input
-              type="email"
-              name="email"
-              class="form-control login-form-1"
-              id="exampleInputEmail1"
-              placeholder="Please enter your email address"
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              name="password"
-              class="form-control login-form-2"
-              id="exampleInputEmail1"
-              placeholder="Please enter your Password"
-            />
-          </div>
-          <div>
-            <input type="submit" value="Login" class="btn btn-primary" />
-          </div>
-        </form>
-        <div class="row login-footer">
-          <div class="col-xs-6">
-            <a href="{% url 'signup' %}">Sign up</a>
-          </div>
-          <div class="col-xs-6">
-            <a href="{% url 'password_reset' %}">Forget password</a>
-          </div>
+        <div>
+            <div class="row login-choice">
+                <div class="col-xs-6">
+                    Log In
+                </div>
+                <div class="col-xs-6">
+                    <a href="{% url 'signup' %}">Sigh Up</a>
+                </div>
+            </div>
+            <form method="POST" action="" class="login-form">
+                {% csrf_token %}
+                <div>
+                    <input
+                            type="email"
+                            name="email"
+                            class="form-control login-form-1"
+                            id="exampleInputEmail1"
+                            placeholder="Please enter your email address"
+                    />
+                </div>
+                <div>
+                    <input
+                            type="password"
+                            name="password"
+                            class="form-control login-form-2"
+                            id="exampleInputEmail1"
+                            placeholder="Please enter your Password"
+                    />
+                </div>
+                <div>
+                    <input type="submit" value="Login" class="btn btn-primary"/>
+                </div>
+{#                <div>#}
+{#                    <a class="btn btn-primary">Enter Without Login</a>#}
+{#                </div>#}
+
+            </form>
+            <div class="row login-footer">
+                <div class="col-xs-6">
+                    <a href="{% url 'home' %}">Visitor Mode</a>
+{##}
+                </div>
+                <div class="col-xs-6">
+                    <a href="{% url 'password_reset' %}">Forget password</a>
+                </div>
+
+            </div>
         </div>
-      </div>
     </div>
 
-    {% else %} {% load static %}
+{% else %}
+    {% load static %}
     <style>
-      .get-back {
-        position: absolute;
-        top: 60px;
-        left: 40px;
-        font-size: 2em;
-      }
+        .get-back {
+            position: absolute;
+            top: 60px;
+            left: 40px;
+            font-size: 2em;
+        }
 
-      .login-choice div:first-child {
-        border-bottom: none;
-        font-weight: normal;
-        font-style: normal;
-        font-size: 1.1em;
-      }
+        .login-choice div:first-child {
+            border-bottom: none;
+            font-weight: normal;
+            font-style: normal;
+            font-size: 1.1em;
+        }
 
-      .login-choice div:last-child {
-        border-bottom: 1px solid #337ab7;
-        font-weight: bold;
-        font-style: italic;
-        font-size: 1.2em;
-        padding-bottom: 1px;
-      }
+        .login-choice div:first-child a {
+            color: black;
+        }
+
+        .login-choice div:last-child {
+            border-bottom: 1px solid #337ab7;
+            font-weight: bold;
+            font-style: italic;
+            font-size: 1.2em;
+            padding-bottom: 1px;
+            background: linear-gradient(to right, #A32CDF, #106AD2);
+            -webkit-background-clip: text;
+            color: transparent;
+            border-image-source: linear-gradient(to right, #8f41e9, #578aef);
+            border-image-slice: 1;
+        }
+
+        .reminder {
+            width: 300px;
+            margin: 0 11% 1%;
+            text-align: left;
+            font-size: 0.1em;
+            color: #9d9d9d;
+        }
     </style>
-    <a href="{% url 'login' %}">
-      <span
-        class="glyphicon glyphicon-chevron-left get-back"
-        aria-hidden="true"
-      ></span>
-    </a>
+{#    <a href="{% url 'login' %}"> <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span>#}
+{#    </a>#}
     <div class="container login-wrapper">
-      <div class="login-header">
-        <img
-          src="{% static 'images/logo.png' %}"
-          alt="Logo image"
-          class="img-circle"
-        />
-        <div class="h1 logo-font">BRIDGES</div>
-      </div>
-      <div>
-        <div class="row login-choice">
-          <div class="col-xs-6">Log In</div>
-          <div class="col-xs-6">Sigh Up</div>
+        <div class="login-header">
+            <img src="{% static 'images/logo.png' %}" alt="Logo image" class="img-circle">
+            <div class="h1 logo-font">BRIDGES</div>
         </div>
-        <form method="POST" action="" class="login-form">
-          {% csrf_token %}
-          <div>
-            <input
-              type="text"
-              name="username"
-              maxlength="150"
-              class="form-control login-form-1"
-              id="id_username"
-              autofocus=""
-              placeholder="Please enter your name"
-              required=""
-            />
-          </div>
-          <div>
-            <input
-              type="email"
-              name="email"
-              maxlength="254"
-              class="form-control login-form-2"
-              id="id_email"
-              placeholder="Please enter your E-mail"
-              required=""
-            />
-          </div>
-          <div>
-            <input
-              type="Country"
-              name="Country"
-              maxlength="50"
-              class="form-control login-form-2"
-              id="id_country"
-              placeholder="Please enter your Country"
-              required=""
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              name="password1"
-              autocomplete="new-password"
-              maxlength="50"
-              class="form-control login-form-2"
-              id="id_password1"
-              placeholder="Please enter your Password"
-              required=""
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              name="password2"
-              autocomplete="new-password"
-              maxlength="50"
-              class="form-control login-form-2"
-              id="id_password2"
-              placeholder="Please confirm your Password"
-              required=""
-            />
-          </div>
-          <div>
-            <input type="submit" value="Sign up" class="btn btn-primary" />
-          </div>
-        </form>
-      </div>
+        <div>
+            <div class="row login-choice">
+                <div class="col-xs-6">
+                    <a href="{% url 'login' %}">Log In</a>
+                </div>
+                <div class="col-xs-6">
+                    Sigh Up
+                </div>
+            </div>
+            <form method="POST" action="" class="login-form">
+                {% csrf_token %}
+                <div>
+
+                    <input
+                            type="text"
+                            name="username"
+                            maxlength="150"
+                            class="form-control login-form-1"
+                            id="id_username"
+                            autofocus=""
+                            placeholder="Please enter your name"
+                            required=""
+                    />
+                </div>
+                <div>
+                    <input
+                            type="email"
+                            name="email"
+                            maxlength="254"
+                            class="form-control login-form-2"
+                            id="id_email"
+                            placeholder="Please enter your E-mail"
+                            required=""
+                    />
+                </div>
+                <div>
+                    <input
+                            type="Country"
+                            name="Country"
+                            maxlength="50"
+                            class="form-control login-form-2"
+                            id="id_country"
+                            placeholder="Please enter your Country"
+                            required=""
+                    />
+                </div>
+                <div>
+                    <input
+                            type="password"
+                            name="password1"
+                            autocomplete="new-password"
+                            maxlength="50"
+                            class="form-control login-form-2"
+                            id="id_password1"
+                            placeholder="Please enter your Password"
+                            required=""
+                    />
+                </div>
+                <div>
+                    <input
+                            type="password"
+                            name="password2"
+                            autocomplete="new-password"
+                            maxlength="50"
+                            class="form-control login-form-2"
+                            id="id_password2"
+                            placeholder="Please confirm your Password"
+                            required=""
+                    />
+                </div>
+                <div class="reminder">
+                    * Passwords must include upper and lower case letters, numbers and special symbols.
+                </div>
+                <div>
+                    <input type="submit" value="Sign up" class="btn btn-primary"/>
+                </div>
+
+
+            </form>
+
+        </div>
+
     </div>
 
-    {% endif %}
+{% endif %}
 
-    <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-  </body>
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
 </html>
+
