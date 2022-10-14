@@ -94,6 +94,7 @@
 
       #current-page {
         background-color: #0063d4;
+        font-size: ;
       }
 
       #current-page li a {
@@ -330,16 +331,26 @@
       }).addTo(map);
       var marker2
       var cors = {{cors|safe}}
+      var count = 0;
+
       {% for cor in cors %}
         marker2 = L.marker([{{ cor|safe }}[0], {{ cor|safe }}[1]]).addTo(map);
         var url1 = {{ cor|safe }}[2]
         marker2.bindPopup('<iframe style="border-radius: 10px; width: 100%; border-bottom: 3px solid #a32cdf73; border-top: 3px solid #a32cdf73;" src="' + url1 + '" frameborder="0" height="420px"></iframe><h4 style="text-align: center;background-color: red;color: white;margin: 15px 70px;padding: 10px 1px;border-radius: 10px;background-image: linear-gradient(135deg, #b930fd, #106AD2);box-shadow: 0px 3px 5px #7340db82;"><a style="color: white;" href="http://deco3801-emuegg.uqcloud.net/?query='+ {{cor|safe}}[3] +'"> Join Discussion</a></h4>');
+        marker2.on('click',(e)=>{
+          if (count % 2 === 0) {
+              map.flyTo([{{ cor|safe }}[0] + 13, {{ cor|safe }}[1]], 5)
+              count ++;
+          } else {
+              map.flyTo([{{ cor|safe }}[1], {{ cor|safe }}[0]], 5)
+              count ++;
+          }
+        });
       {% endfor %}
-      console.log({{urls}})
+
+
       var marker = L.marker([{{ lat }}, {{ lng }}]).addTo(map);
       map.flyTo([{{ lat }}, {{ lng }}], 5)
-      var count = 0;
-
       marker.on('click',(e)=>{
           if (count % 2 === 0) {
               map.flyTo([{{ lat }} + 13, {{ lng }}], 5)
