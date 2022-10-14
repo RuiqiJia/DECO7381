@@ -5,11 +5,11 @@ class User(AbstractUser):
     email = models.EmailField(unique=True, null=True)
     Picture = models.ImageField(upload_to='avatar/', null=True, default='')  # Juewen Ma -- Oct 10
 
-    Country = models.CharField(max_length=50, null=True)
-    Major = models.CharField(max_length=50, null=True)
-    Courses = models.CharField(max_length=200, null=True)
+    Country = models.CharField(max_length=50, null=True, default='Australia')
+    Major = models.CharField(max_length=50, null=True, default='CS')
+    Courses = models.CharField(max_length=200, null=True, default='CSSE2002,COMP3506,INFS2200')
     username = models.CharField(max_length=50, unique=False, null=True)
-    Topics = models.CharField(max_length=200, null=True)  # Juewen Ma -- Oct 5
+    Topics = models.CharField(max_length=200, null=True, default='Study,Culture,News')  # Juewen Ma -- Oct 5
     USERNAME_FIELD: str = 'email'
     REQUIRED_FIELDS: list = ['username', 'Country']
 

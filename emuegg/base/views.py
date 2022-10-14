@@ -81,7 +81,7 @@ def profile(req, id):
 
     # get the user with given id
     user = User.objects.get(id=id)
-    print("input user", user)  # checking purpose
+    print("input user", user) # checking purpose
     # access its related channels and messages
     channels = user.channel_set.all()
     messages = user.message_set.all()
@@ -90,7 +90,7 @@ def profile(req, id):
     # id: auto-generated id; user_id: corresponding user id (one-to-one)
     try:
         friends = Friends.objects.get(user=user)
-        print("get friends: ", friends) # checking purpose
+        print("get friends: ", friends)  # checking purpose
     except Friends.DoesNotExist:
         friends = Friends(user=user)
         friends.save()
@@ -147,6 +147,7 @@ def profile(req, id):
     data['safe_mode'] = safe_mode
 
     return render(req, 'base/profile.html', data)
+
 
 @login_required(login_url='login')
 def updateProfile(req):
@@ -454,47 +455,52 @@ def start_chat(req, *args, **kwargs):
 def chat_list(req):
     list = []
     data = {}
-    friend = None
+    friends = None
     if req.method == "GET":
         user = req.user
         try:
             friend_list = Friends.objects.get(user=user)
             counter = 0
-            for friend in friend_list.friend.all():
-                list.append(friend)
-                print("friend: ", friend)
+            for each_friend in friend_list.friend.all():
+                list.append(each_friend)
+                print("friend: ", each_friend)
                 counter += 1
+
             if counter == 0:
-                friend = None
+                friends = None
             else:
-                friend = list[0]
+                friends = list[0]
         except ObjectDoesNotExist:
 
             pass
 
-    data['friend'] = friend
-
+    data['friend'] = friends
     return render(req, 'base/chat_list.html', data)
 
 
 def chat_box(req):
     list = []
     data = {}
-    friend = None
+    friends = None
     if req.method == "GET":
         user = req.user
         try:
             friend_list = Friends.objects.get(user=user)
+            counter = 0
+            for each_friend in friend_list.friend.all():
+                list.append(each_friend)
+                print("friend: ", each_friend)
+                counter += 1
 
-            for friend in friend_list.friend.all():
-                list.append(friend)
-                print("friend: ", friend)
-            friend = list[0]
+            if counter == 0:
+                friends = None
+            else:
+                friends = list[0]
         except ObjectDoesNotExist:
 
             pass
 
-    data['friend'] = friend
+    data['friend'] = friends
     return render(req, 'base/chat_box.html', data)
 
 
