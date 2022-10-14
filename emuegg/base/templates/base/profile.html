@@ -334,6 +334,12 @@
             border-radius: 10px;
         }
 
+        .new-added {
+            display: block;
+            margin: 50px auto auto auto;
+
+        }
+
 
 
     </style>
@@ -532,7 +538,7 @@
         {% elif safe_mode == True and request.user != user %}
             {% if is_friend == True %}
                 <a href="/chat_box/">
-                    <div class="btn btn-primary">
+                    <div class="btn btn-primary user-friends new-added">
                         <span>Message</span>
                     </div>
                 </a>

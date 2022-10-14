@@ -4,7 +4,6 @@
     <list default="true" id="264b82e6-96f9-47a3-9ee7-a6b21afdd0d1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/emuegg/base/templates/base/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/templates/base/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/emuegg/base/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/emuegg/base/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
