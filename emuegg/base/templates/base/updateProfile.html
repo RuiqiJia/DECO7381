@@ -269,13 +269,6 @@
     </div>
 
     <div class="delete-form">
-      {#
-      <div>
-        #} {#
-        <h3>Edit your profile</h3>
-        #} {#
-      </div>
-      #}
       <form method="POST" enctype="multipart/form-data" action="">
         {% csrf_token %} {% for field in form %}
         <div class="form-div">
