@@ -458,78 +458,85 @@
         </div>
 
 {#        friend-list button    #}
-        {% if request.user == user %}
+
+        {% if safe_mode == True and request.user == user %}
             <div class="profile-friend">
-            <div class="">
-                {% if request.user.is_authenticated %}
-                    <div class="">
-                        {% if request_sent == 0 %}
-                            <div class="">
-                                <div class="">
-                                    <span class="">Accept</span>
-                                    <span
-                                            id="id_cancel_{{ id }}"
-                                            class="decline-friend-request material-icons p-1"
-                                            onclick='triggerDeclineFriendRequest("{{ pending_friend_request_id }}")'
-                                    >cancel</span
-                                    >
-                                    <span
-                                            id="id_confirm_{{ id }}"
-                                            class="confirm-friend-request material-icons p-1"
-                                            onclick='triggerAcceptFriendRequest("{{ pending_request }}")'
-                                    >check</span
-                                    >
-                                </div>
-                            </div>
-                        {% endif %}
+                <div class="">
 
+                    {% if request.user.is_authenticated %}
                         <div class="">
-                            {% if is_friend == False and is_self == False %}
-                                {% if friend_request == 1 %}
+                            {% if request_sent == 0 %}
+                                <div class="">
                                     <div class="">
-                                        <button class="btn btn-danger" id="cancel_request_btn">
-                                            Cancel Request
-                                        </button>
+                                        <span class="">Accept</span>
+                                        <span
+                                                id="id_cancel_{{ id }}"
+                                                class="decline-friend-request material-icons p-1"
+                                                onclick='triggerDeclineFriendRequest("{{ pending_friend_request_id }}")'
+                                        >cancel</span
+                                        >
+                                        <span
+                                                id="id_confirm_{{ id }}"
+                                                class="confirm-friend-request material-icons p-1"
+                                                onclick='triggerAcceptFriendRequest("{{ pending_request }}")'
+                                        >check</span
+                                        >
                                     </div>
-                                {% endif %} {% endif %} {% if is_friend %}
-                                {% if request.user == user %}
-                            <div class="">
-                                <a href="{% url 'requests_page' user.id %}" class="btn btn-primary" type="button">Friend Requests</a>
-                            </div>
-                                {% endif %}
-                            
-                        {% endif %}
-            
-                            <div class="">
-                                <a href="{% url 'friend_list' user.id %}">
-                                    <div class="btn btn-primary user-friends">
-                                        <span class="">Friends ({{ all_friends|length }})</span>
-                                    </div>
-                                </a>
-                            </div>
-          
-                        </div>
+                                </div>
+                            {% endif %}
 
-                        {% if friend_requests %}
                             <div class="">
+                                {% if is_friend == False and is_self == False %}
+                                    {% if friend_request == 1 %}
+                                        <div class="">
+                                            <button class="btn btn-danger" id="cancel_request_btn">
+                                                Cancel Request
+                                            </button>
+                                        </div>
+                                    {% endif %} {% endif %} {% if is_friend %}
+                                    {% if request.user == user %}
+                                <div class="">
+                                    <a href="{% url 'requests_page' user.id %}" class="btn btn-primary" type="button">Friend Requests</a>
+                                </div>
+                                    {% endif %}
+
+                            {% endif %}
 
                                 <div class="">
-                                    <a href="{% url 'requests_page' user.id %}">    
-                                        <span class="btn btn-warning">Friend Requests ({{ friend_requests|length }})</span>
+                                    <a href="{% url 'friend_list' user.id %}">
+                                        <div class="btn btn-primary user-friends">
+                                            <span class="">Friends ({{ all_friends|length }})</span>
+                                        </div>
                                     </a>
                                 </div>
+
                             </div>
-                        {% endif %} {% if is_friend %}
-                        <a href="/chat_box/">
-                            <div class="btn btn-primary">
-                                <span>Message</span>
-                            </div>
-                        </a>
+
+                            {% if friend_requests %}
+                                <div class="">
+
+                                    <div class="">
+                                        <a href="{% url 'requests_page' user.id %}">
+                                            <span class="btn btn-warning">Friend Requests ({{ friend_requests|length }})</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+
+
+                        </div>
                     {% endif %}
-                    </div>
-                {% endif %}
+                </div>
             </div>
-        </div>
+        {% elif safe_mode == True and request.user != user %}
+            {% if is_friend == True %}
+                <a href="/chat_box/">
+                    <div class="btn btn-primary">
+                        <span>Message</span>
+                    </div>
+                </a>
+            {% endif %}
         {% endif %}
 
 

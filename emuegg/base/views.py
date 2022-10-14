@@ -107,13 +107,16 @@ def profile(req, id):
     # user who logged in request other user's profile
     if auth_user.is_authenticated and auth_user != user:
         is_self = False
+        print("It is entering")
         # check whether the login user is a friend of that user
         if all_friends.filter(id=auth_user.id):
             is_friend = True
             safe_mode = True
+            print("1")
         else:
             is_friend = False
             safe_mode = False
+            print("2")
             #frind request send to auth_user
             if is_friendRequest(sender=user, receiver=auth_user) != False:
                 friend_request = Status.REQUEST_SENT.value
@@ -145,7 +148,7 @@ def profile(req, id):
     data['all_friends'] = all_friends
     # used to check how mush information to disclose
     data['safe_mode'] = safe_mode
-
+    print("current profile is your friend:", is_friend)
     return render(req, 'base/profile.html', data)
 
 
