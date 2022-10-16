@@ -81,7 +81,10 @@ def profile(req, id):
 
     # get the user with given id
     user = User.objects.get(id=id)
-    print("input user", user) # checking purpose
+    # check whether username has not been change, if it is, update it with its email address
+    if user.username == '' or user.username is None:
+        user.username = user.email
+        user.save()
     # access its related channels and messages
     channels = user.channel_set.all()
     messages = user.message_set.all()
@@ -90,7 +93,7 @@ def profile(req, id):
     # id: auto-generated id; user_id: corresponding user id (one-to-one)
     try:
         friends = Friends.objects.get(user=user)
-        print("get friends: ", friends)  # checking purpose
+
     except Friends.DoesNotExist:
         friends = Friends(user=user)
         friends.save()

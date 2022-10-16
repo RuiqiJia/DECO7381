@@ -249,8 +249,8 @@
     </div>
     <div class="profile-header-wrapper">
         <div class="profile-header">
-        {% if request.user == user %}
-            <img src="{% static 'images/profile2.jpg' %}" alt="Logo image" class="img-circle">
+        {% if user.Picture == '' or user.Picture is None %}
+            <img src="{% static 'images/default-user.png' %}" alt="Logo image" class="img-circle">
         {% else %}
             <img src="/images/{{user.Picture}}" alt="Logo image" class="img-circle">
         {% endif %}
