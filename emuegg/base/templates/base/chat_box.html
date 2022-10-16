@@ -529,9 +529,16 @@
           </div>
           <div class="usermessage-time">06:58PM</div>
         </div>
-        <div class="user-portrait">
-          <img src="{% static 'images/user-portrait.png' %}" alt="portrait" />
-        </div>
+        {% if user.Picture == '' or user.Picture is None %}
+          <div class="user-portrait">
+            <img src="/images/default-user.png" alt="portrait" />
+          </div>
+        {% else %}
+          <div class="user-portrait">
+            <img src="/images/{{user.Picture}}" alt="portrait" />
+          </div>
+        {% endif%}
+
       </div>
 
       <div class="row send-wrapper">

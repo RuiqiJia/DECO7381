@@ -488,8 +488,32 @@ def chat_box(req):
     list = []
     data = {}
     friends = None
+    user = req.user
+
+    # initialize the required field
+    common_topic = []
+    common_courses = []
+    common_major = []
+    has_c_major = False
+    has_c_topics = False
+    has_c_courses = False
+
+    # generate req user's own topic, courses, major set
+    user_topic = {x for x in split_string(req.user.Topics)}
+    user_courses = {x for x in split_string(req.user.Courses)}
+    user_major = {req.user.Major}
+    print(user, user_major, user_courses, user_topic)
+
+    friend_topic = None
+    friend_courses = None
+    friend_major = None
+
+    has_friends = False
+
+    # 判断请求种类，若为get请求，传回相关参数
     if req.method == "GET":
         user = req.user
+
         try:
             friend_list = Friends.objects.get(user=user)
             counter = 0
@@ -497,16 +521,58 @@ def chat_box(req):
                 list.append(each_friend)
                 print("friend: ", each_friend)
                 counter += 1
-
+            # if no friend found
             if counter == 0:
                 friends = None
+                has_friends = False
+            # if some friend exists, display the first friend found
             else:
                 friends = list[0]
+                has_friends = True
         except ObjectDoesNotExist:
-
+            print("Object does not exist")
             pass
 
+    # 如果好友是None，默认传Jack Li 的写死界面
+    if friends is None:
+        pass
+    else:
+        # 如果有friend，传回friend相关参数
+        # generate this friend's topic, courses, major set
+        friend_topic = {x for x in split_string(friends.Topics)}
+        friend_courses = {x for x in split_string(friends.Courses)}
+        friend_major = {friends.Major}
+
+        # common_topic related variable
+        common_topic = user_topic.intersection(friend_topic)
+        has_c_topics = True if len(common_topic) > 0 else False
+
+        # common_major related variable
+        common_major = user_major.intersection(friend_major)
+        has_c_major = True if len(common_major) > 0 else False
+
+        # common_courses related variable
+        common_courses = user_courses.intersection(friend_courses)
+        has_c_courses = True if len(common_courses) > 0 else False
+
+    # 判断是用写死的Jack Li界面，还是当前基于此好友的动态界面
+    data['has_friends'] = has_friends
     data['friend'] = friends
+
+    # common major list  && whether has common major
+    data['common_major'] = common_major
+    data['has_c_major'] = has_c_major
+
+    # common topic list && whether has common topics
+    data['common_topic'] = common_topic
+    data['has_c_topics'] = has_c_topics
+    # common courses list && whether has common courses
+    data['common_courses'] = common_courses
+    data['has_c_courses'] = has_c_courses
+
+    # current user
+    data['user'] = user
+
     return render(req, 'base/chat_box.html', data)
 
 
@@ -540,3 +606,23 @@ def map_test(req):
 
     return render(req, "base/map_test.html", {"lat": lat, "lng": lng, "url": url, 'country': country})
 
+
+def split_string(string_sequence: str) -> list:
+        """
+        Helper method to split topic/course
+        topics: input topic string
+        Return:
+            list contains all topic
+        """
+
+        string_list = []
+        # return empty list if it is empty
+        if string_sequence is None:
+            return string_list
+        # split the string and strip the whitespace
+        else:
+            string_list = string_sequence.split(",")
+
+            for i in range(len(string_list)):
+                string_list[i] = string_list[i].strip()
+        return string_list
