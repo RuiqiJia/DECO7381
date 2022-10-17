@@ -17,6 +17,19 @@ https://www.python.org/ftp/python/3.10.8/python-3.10.8-amd64.exe
 1. https://dev.mysql.com/downloads/installer/
 1. run the installer and set password to `root`
 1. once installed, connected to database using password `root`, add new schema callled `emuegg`
+1. in settings.py, change the database settings to:
+```
+ DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'emuegg',
+            'USER': 'root',
+            'PASSWORD': 'root',
+            'HOST': 'localhost',
+            'PORT': 3306,
+        }
+    }
+```
 
 ## Install Django and run django server
 1. navigate to the project folder and run the following commands:
@@ -41,12 +54,17 @@ https://www.python.org/ftp/python/3.10.8/python-3.10.8-amd64.exe
 1. Alternatively, the project is upon UQ CLOUD ZONE, visit https://deco3801-emuegg.uqcloud.net/
 - logging in with the UQ SSO is required
 
+## load sample user
+1. Use the following command to load sample users to the database
+- `python3 manage.py load_sample_users --path sample_user.csv`
 
 ## Other instructions
-1. The application is using mobile first design approach, for better viewing experience, navigate to inspect [F12] on your browser and choose IPhone XR with 100% zoom.
+1. The application is using mobile first design approach, for better viewing experience, navigate to inspect [F12] on your browser and choose iPhone XR with 100% zoom.
 1. Information Entries Format(Please follow the instruction to enter the information if needed)：
-- For single field, if multiple topics/courses requires, seperate them with comma without space (e.g. "A,B")
-- Topics：sports,music
-- Courses: DECO3801,DECO7381
+- For single field, if multiple topics/courses requires, seperate them with comma without space (e.g. A,B)
+- Potential Courses to select: COMP3702,CSSE1001,CSSE3003,DECO2500,INFS2200,INFS1200,COMP3506,INFS3200,DECO1800,COMS3200,DECO1400
+- Potential Major to select: IT, ID, CS, BISM
+- Potential Topics to select: Music,Game,Fitness,Study,Sport,Dance,News
+- The reason for choosing from the given list is to make sure the recommendation algorithm can work properly. As there are limited number of sample users being loaded into database, selecting courses/topics/major from a smaller amount data will make sure a higher chance in common so that recommendation algorithm will always have someone to recommend.
 
 
