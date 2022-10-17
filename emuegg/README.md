@@ -19,7 +19,7 @@ https://www.python.org/ftp/python/3.10.8/python-3.10.8-amd64.exe
 1. once installed, connected to database using password `root`, add new schema callled `emuegg`
 
 ## Install Django and run django server
-1. navigate to the project folder and run the following command:
+1. navigate to the project folder and run the following commands:
 - `pip install django`
 - `pip install channels`
 - `pip install mysqlclient`
@@ -28,12 +28,12 @@ https://www.python.org/ftp/python/3.10.8/python-3.10.8-amd64.exe
 - `pip install geocoder`
 - `pip install geopy`
 - `pip install Pillow`
-1. After installing all the dependencies, run the following command to start the server:
+1. After installing all the dependencies, run the following commands to start the server:
 - `python manage.py migrate`
 - `python manage.py runserver`
 1. visit http://127.0.0.1:8000/ to view the website
 
-## Accesse database and create superuser
+## Access database and create superuser
 1. navigate to the project folder and run the following command:
 - `python manage.py createsuperuser`
 1. follow the instruction to create a superuser
