@@ -34,7 +34,7 @@
 
         body {
             background-color: #F3F6F9;
-            font-family: Lato, serif;
+            /* font-family: Lato, serif; */
         }
 
         /* header */
@@ -309,11 +309,11 @@
                         <li>
                             {% if request.user.is_authenticated %}
                             <a href="{% url 'profile' id=user.id %}">
-                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
+                                <img id="user-icon" src="{% static 'images/menu-profile.png' %}" alt="function1">My Profile
                             </a>
                             {% else %}
                             <a href="{% url 'login' %}">
-                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">Log in / Sign up
+                                <img id="user-icon" src="{% static 'images/menu-profile.png' %}" alt="function1">Log in / Sign up
                             </a>
                             {% endif %}
                         </li>

@@ -507,6 +507,8 @@ def chat_box(req):
     friend_topic = None
     friend_courses = None
     friend_major = None
+    friend_ename = None
+
 
     has_friends = False
 

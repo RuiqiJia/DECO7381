@@ -111,7 +111,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'emuegg',
         'USER': 'root',
-        'PASSWORD': 'wx68928bill',
+        # 'PASSWORD': 'wx68928bill',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': 3306,
     }

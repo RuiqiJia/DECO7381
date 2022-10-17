@@ -102,22 +102,47 @@
             /* recommend */
 
             .recommend-box {
-                padding-bottom: 0.5rem;
+                padding: 0.1rem;
+                padding-bottom: 0.2rem;
+                text-align: center;
             }
 
             .recommend-box-wrapper{
-                margin-left: 1.622rem;
-                margin-right: 1.622rem;
+                margin-left: 0.622rem;
+                margin-right: 0.622rem;
+                overflow: hidden;
             }
 
             .recommend-box img {
+                
                 border-radius: 100%;
-                width: 3.5rem;
+                width: 3rem;
+                padding-bottom: 0.2rem;
             }
 
             .recommend-box-bottom {
                 height: 1.014rem;
                 border-bottom: 0.101rem solid #EBE8E8;
+            }
+
+            .recommend-box div {
+                text-align: center;
+            }
+
+            .recommend-box .has-color {
+                background: linear-gradient(to right, #A32CDF, #106AD2);
+                -webkit-background-clip: text;
+                color: transparent;
+                /* font-weight:bolder; */
+            }
+
+            .recommend-box .reason {
+                font-weight: bolder;
+                /* font-size: larger; */
+            }
+            
+            .rmd-name {
+                text-align: center;
             }
 
             .recommend-reason {
@@ -154,7 +179,7 @@
 
             .friend-box img {
                 border-radius: 100%;
-                height: 3.5rem;
+                height: 3rem;
             }
 
             .friend-box-bottom {
@@ -250,7 +275,7 @@
         </div>
 
         <!-- recommend friends-->
-        <div class="row recommend-box-wrapper">
+        <div class="recommend-box-wrapper">
             <div class="friend-list-word">Recommendation for you</div>
             {% for recommend in recommendation %}
             <div class="col-xs-3 recommend-box">
@@ -261,15 +286,20 @@
                     </a>
 
                     {% if forloop.counter == 1 %}
-                    <p>{{recommend.username}} has same <strong>major</strong> with you!</p>
+                    <div><strong>{{recommend.username}}</strong></div>
+                    <div class="has-color">has same <span class="reason">major</span></div>
                     {% elif forloop.counter == 2 %}
-                    <p>{{recommend.username}} select similar <strong>courses</strong> with you!</p>
+                    <div><strong>{{recommend.username}}</strong></div>
+                    <div class="has-color">has similar <span class="reason">courses</span></div>
                     {% elif forloop.counter == 3 %}
-                    <p>{{recommend.username}} choose similar <strong>topics</strong> with you!</p>
+                    <div><strong>{{recommend.username}}</strong></div>
+                    <div class="has-color">has similar <span class="reason">topics</span></div>
                     {% else %}
-                    <p>{{recommend.username}} is most likely to be your <strong>bestie</strong></p>
-                    {% endif %}
+                    <div><strong>{{recommend.username}}</strong></div>
+                    <div class="has-color">most similar with you</div>
+                    {% endif %} 
 
+             
                 <!-- </div> -->
             </div>
             {% endfor %}

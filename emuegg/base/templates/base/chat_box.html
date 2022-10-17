@@ -488,16 +488,20 @@
     <!-- friend chat-->
       <div class="friendchat-wrapper">
         {% if friend == None %}
-        <div class="friend-portrait">
-          <img
-            src="{% static 'images/friend-portrait.png' %}"
-            alt="normal-user"
-          />
-        </div>
+        <a href="{% url 'profile' friend.id %}">
+          <div class="friend-portrait">
+            <img
+              src="{% static 'images/friend-portrait.png' %}"
+              alt="normal-user"
+            />
+          </div>
+        </a>
         {% else %}
-        <div class="friend-portrait">
-          <img src="/images/{{friend.Picture}}" alt="portrait" />
-        </div>
+        <a href="{% url 'profile' friend.id %}">
+          <div class="friend-portrait">
+            <img src="/images/{{friend.Picture}}" alt="portrait" />
+          </div>
+        </a>
         {% endif %}
         <div class="friendchat-message">
           <div class="message-detail">
@@ -532,13 +536,17 @@
           <div class="usermessage-time">06:58PM</div>
         </div>
         {% if user.Picture == '' or user.Picture is None %}
+        <a href="{% url 'profile' id=user.id %}">
           <div class="user-portrait">
             <img src="/images/default-user.png" alt="portrait" />
           </div>
+        </a>
         {% else %}
+        <a href="{% url 'profile' id=user.id %}">
           <div class="user-portrait">
             <img src="/images/{{user.Picture}}" alt="portrait" />
           </div>
+        </a>
         {% endif%}
 
       </div>
