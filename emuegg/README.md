@@ -2,6 +2,7 @@
 This document is a guide for setting up a development environment for Cultural Bridge that uses:
 1. windows
 1. python 3.10.8
+1. django 4.1.2
 1. pip
 1. mysql
 ## Install Python
@@ -37,6 +38,9 @@ https://www.python.org/ftp/python/3.10.8/python-3.10.8-amd64.exe
 - `python manage.py createsuperuser`
 1. follow the instruction to create a superuser
 1. visit http://127.0.0.1:8000/admin/ and login with the newly created superuser credentials
+1. Alternatively, the project is upon UQ CLOUD ZONE, visit https://deco3801-emuegg.uqcloud.net/
+- logging in with the UQ SSO is required
+
 
 ## Other instructions
 1. The application is using mobile first design approach, for better viewing experience, navigate to inspect [F12] on your browser and choose IPhone XR with 100% zoom.
