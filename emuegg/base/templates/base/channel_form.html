@@ -1,5 +1,3 @@
-
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +10,7 @@
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
         <style>
-            
+
             :root {
                 font-size: 20px;
             }
@@ -43,13 +41,13 @@
                 margin-left: 1.014rem;
                 margin-right: 1.014rem;
             }
-            
-            #go-back img, 
+
+            #go-back img,
             #menu img {
                 vertical-align: unset;
             }
 
-            #go-back, 
+            #go-back,
             #menu {
                 width: 1.8rem;
                 vertical-align: unset;
@@ -66,12 +64,12 @@
             #current-page {
                 background-color: #0063d4;
             }
-            
+
             #current-page li a{
                 font-weight: bold;
-                
+
             }
-            
+
             .dropdown-menu {
                 padding: 0.25rem 0rem 0.25rem 0rem;
                 background-color: #4b8ad3;
@@ -93,36 +91,32 @@
 
             .dropdown-menu li a img {
                 padding-right: 0.25rem;
-                /* padding-left: 0.5rem; */
                 width: 1.5rem;
-                padding-right: 0.25rem;
             }
 
             .dropdown-menu-position {
                 top: 115%;
                 left: -53%;
-                /* right: 17%; */
             }
 
             /* form */
 
             .create-form {
-              position: relative;
-              top: 2rem;
+              margin-top: 5%;
               text-align: center;
             }
 
             .create-form-title {
               margin: auto;
-              font-size: 1.5rem;
+              font-size: 1.3rem;
               color: #90908F
             }
-            
+
             .create-form form {
-              padding: 2rem;
-              
+              padding: 0.5rem 1.3rem;
+
             }
-            
+
             body {
                 padding: 0;
                 margin: 0;
@@ -132,6 +126,42 @@
             body {
                 height: 100%;
                 width: 100vw;
+            }
+
+            .form-table p {
+                margin: 0 5% 5% 5%;
+            }
+
+            .form-table label {
+                display: block;
+                text-align: left;
+                font-size: 0.9rem;
+            }
+
+            .form-table select,
+            .form-table input,
+            .form-table textarea {
+                width: 100%;
+                height: 2rem;
+                font-size: 0.8rem;
+                line-height: 1.42857143;
+                color: #8d8d8d;
+                background-image: none;
+                border: 1px solid #e8e8e8;
+                border-radius: 4px;
+                background-color: #d8d8d852;
+            }
+
+            .form-table textarea {
+                height: 100%;
+            }
+
+            .form-table .input-btn{
+                width: 50%;
+                border-radius: 15px;
+                font-size: 0.9rem;
+                background-color: #106AD2;
+                color: white;
             }
 
         </style>
@@ -171,7 +201,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/map">
+                                <a href="/map_test/">
                                     <img src="{% static 'images/menu-map.png' %}" alt="function1">Cultural Map
                                 </a>
                             </li>
@@ -196,15 +226,15 @@
             </div>
         </div>
 
-        
+
         {% block content %}
         <div class="create-form">
 
           <div class="create-form-title">Create New Discussion</div>
-          
-          <form method="post" action="">
+
+          <form method="post" action="" class="form-table">
             {% csrf_token %} {{form.as_p}}
-            <input type="submit" value="submit" />
+            <input type="submit" value="Submit" class="input-btn" />
           </form>
         </div>
         {% endblock content%}

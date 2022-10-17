@@ -86,7 +86,6 @@
 
       .dropdown-menu li a img {
         padding-right: 0.25rem;
-        /* padding-left: 0.5rem; */
         width: 1.5rem;
         padding-right: 0.25rem;
       }
@@ -94,15 +93,11 @@
       .dropdown-menu-position {
         top: 115%;
         left: -53%;
-        /* right: 17%; */
       }
 
       /* form */
 
       .delete-form {
-        {#position: relative;#}
-        {#top: 2rem;#}
-        {#text-align: center;#}
           margin-top: 1.2rem;
       }
 
@@ -167,7 +162,6 @@
       .edit-button a {
           float: left;
           font-size: 0.8rem;
-          /* margin-left: 10%; */
           width: 40%;
           border-radius: 10px;
       }
@@ -175,7 +169,6 @@
       .edit-button button {
           float: right;
           font-size: 0.8rem;
-          /* margin-right: 10%; */
           width: 40%;
           border-radius: 10px;
       }
@@ -187,8 +180,8 @@
   </head>
 
   <body>
-    <!-- header & menu -->
 
+    <!-- header & menu -->
     <div class="channel-header">
       <div class="channel-container">
         <div class="row">
@@ -268,6 +261,7 @@
       </div>
     </div>
 
+    <!-- update body -->
     <div class="delete-form">
       <form method="POST" enctype="multipart/form-data" action="">
         {% csrf_token %} {% for field in form %}
@@ -283,6 +277,7 @@
         </div>
       </form>
     </div>
+
   </body>
 
   <script src="{% static 'js/jquery-3.6.0.js' %}"></script>

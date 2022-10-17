@@ -15,23 +15,19 @@
         }
 
         body {
-            {#background-color: #337ab7;#}
             background-image: linear-gradient(175deg, #b930fd, #106AD2, #b930fd);
             font-family: Lato;
 
         }
 
         .profile-background {
-            {#height: 47%;#}
             padding: 10rem 0 2rem 0;
         }
 
         .profile-wrapper {
             background-color: white;
-            {#height: 55%;#}
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
-            {#padding-bottom: 3rem;#}
             height: 70%;
         }
 
@@ -43,8 +39,6 @@
 
         .profile-header {
             text-align: center;
-            {#position: relative;#}
-            {#top: 25%;#}
         }
 
         .img-circle {
@@ -60,9 +54,7 @@
         }
 
         .profile_description {
-            {#margin: 3% 15%;#}
             text-align: justify;
-            {#color: #858585;#}
             margin: 0 35px;
         }
 
@@ -82,12 +74,6 @@
         }
 
         .profile-footer a {
-            {#width: 80%;#}
-            {#margin-top: 15px;#}
-            {#font-size: 1.2em;#}
-            {#padding: 10px 0;#}
-            {#font-weight: bold;#}
-            {#border-radius: 10px;#}
             width: 80%;
             margin-top: 15px;
             font-size: 1em;
@@ -194,12 +180,6 @@
         }
 
         .user-friends {
-            {#width: 80%;#}
-            {#margin-top: 15px;#}
-            {#font-size: 1.2em;#}
-            {#padding: 10px 0;#}
-            {#font-weight: bold;#}
-            {#border-radius: 10px;#}
             width: 80%;
             margin-top: 15px;
             font-size: 1em;
@@ -221,14 +201,12 @@
         .friend-request {
             width: 80%;
             margin-top: 15px;
+            margin-left: 42px;
             font-size: 1em;
             padding: 10px 0;
             font-weight: bold;
             border-radius: 10px;
         }
-
-
-
 
     </style>
 </head>
@@ -240,10 +218,11 @@
  -->
 
 <body>
+
+<!-- profile Header -->
 <div class="profile-background">
     <div  class="get-back">
         <a href="javascript:history.go(-1)">
-{#            <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span>#}
             <img src="{% static 'images/header-back.png' %}" alt="back">
         </a>
     </div>
@@ -261,8 +240,8 @@
     </div>
     </div>
 </div>
-{# <a href="{% url 'home' %}"> <span class="glyphicon glyphicon-chevron-left get-back" aria-hidden="true"></span> #}
 
+<!-- profile body -->
 <div class="profile-wrapper">
 
     <div>
@@ -426,7 +405,6 @@
 
 
     </div>
-
 
 </div>
 

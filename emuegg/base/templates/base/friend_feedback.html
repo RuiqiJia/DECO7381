@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
         <style>
-            
+
             :root {
                 font-size: 20px;
             }
@@ -41,13 +41,13 @@
                 margin-left: 1.014rem;
                 margin-right: 1.014rem;
             }
-            
-            #go-back img, 
+
+            #go-back img,
             #menu img {
                 vertical-align: unset;
             }
 
-            #go-back, 
+            #go-back,
             #menu {
                 width: 1.8rem;
                 vertical-align: unset;
@@ -64,12 +64,12 @@
             #current-page {
                 background-color: #0063d4;
             }
-            
+
             #current-page li a{
                 font-weight: bold;
-                
+
             }
-            
+
             .dropdown-menu {
                 padding: 0.25rem 0rem 0.25rem 0rem;
                 background-color: #4b8ad3;
@@ -108,7 +108,7 @@
               top: 2rem;
               text-align: center;
             }
-            
+
             .delete-form-title {
               padding-bottom: 1rem;
               margin: auto;
@@ -121,15 +121,19 @@
             }
 
             .delete-form a {
-              padding: 1.5rem;
+                font-size: 1rem;
+                padding: 0.3rem 1rem;
+                border-radius: 15px;
+                background-color: #106AD2;
+                color: white;
             }
 
-            
+
             .delete-form form {
               padding: 2rem;
               font-size: 1rem;
             }
-            
+
             body {
                 padding: 0;
                 margin: 0;
@@ -139,6 +143,10 @@
             body {
                 height: 100%;
                 width: 100vw;
+            }
+
+            .correct-icon {
+                padding-bottom: 1.5rem;
             }
 
         </style>
@@ -178,7 +186,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="/map">
+                                <a href="/map_test/">
                                     <img src="{% static 'images/menu-map.png' %}" alt="function1">Cultural Map
                                 </a>
                             </li>
@@ -203,7 +211,7 @@
             </div>
         </div>
 
-        
+
         {% block content %}
 
         <div class="delete-form">
@@ -211,7 +219,10 @@
 
 
             <!-- <div class="delete-form-title">Adding request is already sent!</div> -->
-            <div class="delete-form-title">{{ res }}</div>
+            <div class="delete-form-title">{{ res }}!</div>
+            <div class="correct-icon">
+                <img src="{% static 'images/correct.png' %}" alt="correct-icon">
+            </div>
 
             {% csrf_token %} {{form.as_p}}
             <!-- <p>Please wait for accept. </p> -->

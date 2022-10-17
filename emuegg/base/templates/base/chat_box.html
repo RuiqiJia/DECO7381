@@ -38,13 +38,6 @@
       }
 
       .chat-container {
-          /* {#font-size: 1.5rem;#}
-          {#text-align: center;#}
-          {#position: relative;#}
-          {#top: 3.649rem;#}
-          {#color: white;#}
-          {#margin-left: 1.014rem;#}
-          {#margin-right: 1.014rem;#} */
           font-size: 2em;
           text-align: center;
           position: relative;
@@ -104,15 +97,12 @@
 
       .dropdown-menu li a img {
           padding-right: 0.25rem;
-          /* padding-left: 0.5rem; */
           width: 1.5rem;
-          padding-right: 0.25rem;
       }
 
       .dropdown-menu-position {
           top: 115%;
           left: -53%;
-          /* right: 17%; */
       }
 
       /* main chat body */
@@ -130,7 +120,6 @@
       }
 
       .friendchat-message {
-          {#float: left;#}
           width: 80%;
           margin-left: 10px;
       }
@@ -214,14 +203,12 @@
       .send-wrapper {
           bottom: 24px;
           position: fixed;
-          /* top: 0px; */
           left: 25px;
           width: 400px;
       }
 
       .message-input {
           padding: 0;
-          {#width: 550px;#}
       }
 
       .input-button {
@@ -327,13 +314,10 @@
 
     <script>
       window.onload = function() {
-          {#var slang = document.getElementById("slang");#}
           var slang = document.getElementById("slangicon");
           var slangMessage = document.getElementById("slang-prompt");
           var sum = 0;
           slang.onclick = function() {
-              {#console.log(slangMessage.style.display);#}
-              {#slangMessage.style.display = "block";#}
               if (sum % 2 === 0) {
                   slangMessage.style.display = "block";
                   sum++;
@@ -368,6 +352,8 @@
  -->
   <body>
     <div class="filter-wrapper">
+
+    <!-- chat header -->
       <div class="chat-header">
         <div class="chat-container">
           <div class="row">
@@ -485,6 +471,7 @@
         </div>
       </div>
 
+    <!-- friend chat-->
       <div class="friendchat-wrapper">
         {% if friend == None %}
         <div class="friend-portrait">
@@ -521,6 +508,7 @@
         </div>
       </div>
 
+    <!-- user chat-->
       <div class="userchat-wrapper">
         <div class="userchat-message">
           <div class="usermessage-detail">
@@ -541,6 +529,7 @@
 
       </div>
 
+    <!-- send message input-->
       <div class="row send-wrapper">
         <div class="col-xs-2">
           <button
@@ -570,6 +559,7 @@
       </div>
     </div>
 
+    <!-- recommended topics popup-->
     <div class="topic-wrapper">
       <div class="close-button">
         <button class="btn btn-default button">

@@ -88,15 +88,15 @@ CHANNEL_LAYERS = {
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'emuegg',
-        'USER': 'root',
-        'PASSWORD': 'herb244.crow',
-        # 'PASSWORD': 'root',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'emuegg',
+    #     'USER': 'root',
+    #     'PASSWORD': 'herb244.crow',
+    #     # 'PASSWORD': 'root',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': 3306,
+    # }
 
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
@@ -107,14 +107,14 @@ DATABASES = {
     #     'PORT': 22,
     # }
 
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'emuegg',
-    #     'USER': 'root',
-    #     'PASSWORD': 'wx68928bill',
-    #     'HOST': 'localhost',
-    #     'PORT': 3306,
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'emuegg',
+        'USER': 'root',
+        'PASSWORD': 'wx68928bill',
+        'HOST': 'localhost',
+        'PORT': 3306,
+    }
 }
 
 

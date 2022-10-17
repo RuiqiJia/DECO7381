@@ -23,13 +23,8 @@
 
         body {
             background-color: #F3F6F9;
-            font-family: Lato;
+            font-family: Lato, serif;
         }
-
-        /* {#.row {#}
-            {#padding-top: 20px;#}
-        {#    margin: 0;#}
-        {#}#} */
 
         /* header */
 
@@ -102,15 +97,12 @@
 
         .dropdown-menu li a img {
             padding-right: 0.25rem;
-            /* padding-left: 0.5rem; */
             width: 1.5rem;
-            padding-right: 0.25rem;
         }
 
         .dropdown-menu-position {
             top: 115%;
             left: -53%;
-            /* right: 17%; */
         }
 
         .channel-header {
@@ -136,8 +128,6 @@
             padding: 0 20px;
             margin: 0;
             position: relative;
-            {#left: -25px;#}
-            {#width: 350px;#}
         }
 
         /* search bar */
@@ -160,23 +150,8 @@
             padding-bottom: 0.5rem;
         }
 
-        /* .hamburger-menu {
-            border: 0;
-            background-color: transparent;
-            position: relative;
-            bottom: 3px;
-            left: 10px;
-        }
-
-
-        .hamburger-menu span {
-            font-size: 2.2em;
-        } */
-
         .sidebar {
             display: flex;
-            {#justify-content: center;#}
-            {#padding: 0 0 10px 0;#}
             font-size: 1.3em;
             font-weight: bold;
             overflow: scroll;
@@ -297,7 +272,7 @@
 
     </style>
 
-    <!-- Header -->
+    <!-- channel Header -->
     <div class="map-header">
         <div class="map-container">
             <div class="row">
@@ -468,6 +443,7 @@
 
     </div>
 
+    <!-- display channels -->
     <div class="home">
         <div class="sidebar">
             <div class="topicAll">
@@ -484,16 +460,6 @@
             {% for channel in channels %}
                 <div class="discussion-channel-outer-wrapper">
                     <div class="discussion-channel-inner-wrapper">
-{#                        <div>#}
-{#                            <a href="{% url 'profile' channel.host.id %}">@{{ channel.host.username }}</a>#}
-{#                            <span>{{ channel.name }}</span>#}
-{#                        </div>#}
-{#                        <div>#}
-{#                            <a href="{% url 'channel' channel.id %}">#}
-{#                                <img src="{% static 'images/discussion.png' %}" alt="discussion-image">#}
-{#                            </a>#}
-{#                            <span style="display: block">Join</span>#}
-{#                        </div>#}
 
                         <div class="channel-header-title">
 
@@ -556,16 +522,13 @@
 
     </div>
 
+    <!-- add channel button -->
     <div class="create-channel-button">
         <a href="{% url 'create_channel' %}">
             <img src="{% static 'images/add.png' %}">
         </a>
     </div>
 
-
-
-
-    {#    </div>#}
 
 {% endblock %}
 

@@ -110,15 +110,12 @@
 
         .dropdown-menu li a img {
             padding-right: 0.25rem;
-            /* padding-left: 0.5rem; */
             width: 1.5rem;
-            padding-right: 0.25rem;
         }
 
         .dropdown-menu-position {
             top: 115%;
             left: -53%;
-            /* right: 17%; */
         }
 
         /* channels display */
@@ -256,22 +253,8 @@
     </style>
 </head>
 <body>
-{#<div class="chat-header">#}
-{#        <div class="chat-container">#}
-{#            <div class="row">#}
-{#                <div class="col-xs-3">#}
-{#                    <a style="color: white" href="{% url 'home' %}">#}
-{#                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>#}
-{#                    </a>#}
-{#                </div>#}
-{#                <div class="col-xs-6">Channels</div>#}
-{#                <div class="col-xs-3">#}
-{#                    <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
 
+<!-- channel header -->
 <div class="map-header">
         <div class="map-container">
             <div class="row">
@@ -354,6 +337,7 @@
         </div>
     </div>
 
+<!-- display each channel  -->
 <div class="channel">
     <div>
         <div class="channel-header-wrapper">
@@ -408,6 +392,7 @@
     </div>
 </div>
 
+<!-- typein bar -->
 <div class="typein-bar">
 
         {% if request.user.is_authenticated %}
