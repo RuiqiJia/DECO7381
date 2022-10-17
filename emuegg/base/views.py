@@ -543,6 +543,10 @@ def chat_box(req):
         friend_courses = {x for x in split_string(friends.Courses)}
         friend_major = {friends.Major}
 
+        # 当好友username问none，取好友的email@之前的字符串
+        friend_ename = friends.email.split("@")[0]
+        print(friend_ename)
+
         # common_topic related variable
         common_topic = user_topic.intersection(friend_topic)
         has_c_topics = True if len(common_topic) > 0 else False
@@ -560,18 +564,19 @@ def chat_box(req):
     data['friend'] = friends
 
     # common major list  && whether has common major
-    data['common_major'] = common_major
+    data['common_major'] = ','.join(common_major)
     data['has_c_major'] = has_c_major
 
     # common topic list && whether has common topics
-    data['common_topic'] = common_topic
+    data['common_topic'] = ','.join(common_topic)
     data['has_c_topics'] = has_c_topics
     # common courses list && whether has common courses
-    data['common_courses'] = common_courses
+    data['common_courses'] = ','.join(common_courses)
     data['has_c_courses'] = has_c_courses
 
     # current user
     data['user'] = user
+    data['friend_ename'] = friend_ename
 
     return render(req, 'base/chat_box.html', data)
 

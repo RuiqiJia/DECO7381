@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Discussion Channels</title>
+    <!-- Bootstrap reference:
+    "Bootstrap", Bootstrap core team. [Online], Available: https://v3.bootcss.com/javascript/#top -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <style>
 
@@ -42,7 +44,6 @@
         /* header */
 
         .map-header {
-            background-color: #bfa;
             background-image: linear-gradient(135deg, #b930fd, #106AD2);
             width: 100%;
             height: 6rem;
@@ -53,7 +54,7 @@
         }
 
         .map-container {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             text-align: center;
             position: relative;
             top: 3rem;
@@ -225,7 +226,6 @@
 
         .typein-bar {
             text-align: center;
-            {#margin: 0 40px 0 40px;#}
             position: fixed;
             bottom: 20px;
             width: 100%;
@@ -252,6 +252,10 @@
 
     </style>
 </head>
+<!--Image reference:
+"Send icons", Unknown. [Online]. Available: https://icons8.com/icons/set/send
+"Trash icons", Unknown. [Online]. Available: https://icons8.com/icons/set/trash
+ -->
 <body>
 
 <!-- channel header -->
@@ -260,7 +264,6 @@
             <div class="row">
 
                 <div class="col-xs-3">
-                    <!-- <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> -->
                     <span class="glyphicon" aria-hidden="true">
                         <a href="{% url 'home' %}">
                             <img id="go-back" src="{% static 'images/header-back.png' %}">
@@ -271,7 +274,6 @@
                 <div class="col-xs-6">Discussion</div>
                 <div class="col-xs-3">
 
-                    <!-- <span class="glyphicon glyphicon-align-justify" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-hidden="true"></span> -->
                     <span class="glyphicon" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" aria-hidden="true">
                         <a href="#">
                             <img id="menu" src="{% static 'images/header-menu.png' %}">

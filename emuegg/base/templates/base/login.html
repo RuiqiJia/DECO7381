@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LogIn</title>
+    <!-- Bootstrap reference:
+    "Bootstrap", Bootstrap core team. [Online], Available: https://v3.bootcss.com/javascript/#top -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- Cadson Demak, Mali. [online], Available: https://fonts.google.com/specimen/Mali/about  -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,8 +91,12 @@
     </style>
 
 </head>
-<body>
 
+<!--Image reference:
+"3D rendering Golden Gate bridge San Francisco", Dome Studio. [Online]. Available: https://www.istockphoto.com/photo/3d-rendering-golden-gate-bridge-san-francisco-gm949860340-259264462
+ -->
+
+<body>
 <!-- login page -->
 {% if page == 'login' %}
     <div class="container login-wrapper">
@@ -130,15 +136,11 @@
                 <div>
                     <input type="submit" value="Login" class="btn btn-primary"/>
                 </div>
-{#                <div>#}
-{#                    <a class="btn btn-primary">Enter Without Login</a>#}
-{#                </div>#}
 
             </form>
             <div class="row login-footer">
                 <div class="col-xs-6">
                     <a href="{% url 'home' %}">Visitor Mode</a>
-{##}
                 </div>
                 <div class="col-xs-6">
                     <a href="{% url 'password_reset' %}">Forget password</a>
