@@ -283,11 +283,11 @@
                         <li>
                             {% if request.user.is_authenticated %}
                             <a href="{% url 'profile' id=user.id %}">
-                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">My Profile
+                                <img id="user-icon" src="{% static 'images/menu-profile.png' %}" alt="function1">My Profile
                             </a>
                             {% else %}
                             <a href="{% url 'login' %}">
-                                <img id="user-icon" src="{% static 'images/normal-user.jpg' %}" alt="function1">Log in / Sign up
+                                <img id="user-icon" src="{% static 'images/menu-profile.png' %}" alt="function1">Log in / Sign up
                             </a>
                             {% endif %}
                         </li>
@@ -364,7 +364,7 @@
                 <div class="message-wrapper">
 
                     <div class="message-header">
-                        <img src="{% static 'images/profile2.jpg' %}" alt="Logo image" class="img-circle">
+                        <img src="/images/{{post.user.Picture}}" alt="Logo image" class="img-circle">
                         <a  href="{% url 'profile' user.id %}">
                             @{{ post.user.username }}
                         </a>
