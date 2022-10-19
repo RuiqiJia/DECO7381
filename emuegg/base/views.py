@@ -18,6 +18,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from geopy.geocoders import Nominatim
 
 def loginView(req):
+    """
+        login view
+    """
     page = 'login'
     if req.user.is_authenticated:
         return redirect('home')
@@ -43,7 +46,9 @@ def logoutView(req):
     return redirect('home')
 
 def signup(req): 
-    # form = CustomeUserCreationForm()
+    """
+        sign up view
+    """
     if req.method == 'POST':
         form = CustomeUserCreationForm(req.POST)
         if form.is_valid():
@@ -58,6 +63,11 @@ def signup(req):
 
     
 def home(req):
+    """
+        
+    """
+
+    # query channels using name topic and description
     query = req.GET.get('query') if req.GET.get('query') else ''
     channels = Channel.objects.filter(
         Q(topic__name__icontains=query) |
